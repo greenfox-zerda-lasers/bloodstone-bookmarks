@@ -1,0 +1,19 @@
+{
+  "name": "bloodstone-bookmarks",
+  "version": "1.0.0",
+  "description": "Online bookmark manager app",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greenfox-zerda-lasers/bloodstone-bookmarks.git"
+  },
+  "author": "BloodStone development",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/greenfox-zerda-lasers/bloodstone-bookmarks/issues"
+  },
+  "homepage": "https://github.com/greenfox-zerda-lasers/bloodstone-bookmarks#readme"
+}
