@@ -4,7 +4,7 @@
   "description": "Online bookmark manager app",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "ava"
   },
   "repository": {
     "type": "git",
@@ -19,9 +19,13 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "node": "0.0.0",
     "pg": "^6.1.2"
   },
   "devDependencies": {
+    "ava": "^0.17.0",
+    "jasmine": "^2.5.3",
+    "karma": "^1.4.0",
     "nodemon": "^1.11.0"
   }
 }
