@@ -5,8 +5,7 @@
   "main": "start.js",
   "scripts": {
     "test-backend": "ava",
-    "test-frontend": "",
-    "eslint": "",
+    "test-frontend": "karma start",
     "build": "node_modules/.bin/webpack",
     "heroku-postbuild": ""
   },
