@@ -4,7 +4,8 @@
   "description": "Online bookmark manager app",
   "main": "index.js",
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "build": "./node_modules/.bin/webpack"
   },
   "repository": {
     "type": "git",

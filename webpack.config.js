@@ -1,10 +1,10 @@
 module.exports = {
     //define entry point
-    entry: './client/src/main.js',
+    entry: path.resolve(__dirname, './client/src/main.js'),
 
     //define output point
     output: {
-        path: 'dist/client',
+        path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
     },
 
