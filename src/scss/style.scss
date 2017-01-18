@@ -1,0 +1,12 @@
+$headerBgColor: slateblue;
+$bodyBgColor: thistle;
+
+
+body {
+  background: $bodyBgColor;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+   background: $headerBgColor;
+}

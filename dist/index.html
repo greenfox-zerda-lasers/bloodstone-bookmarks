@@ -2,10 +2,13 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>BloodStone bookmark manager</title>
+    <title>BloodStone Bookmark Manager</title>
+    <script src="./lib/angular.min.js"></script>
+    <script src="./lib/angular.route.min.js"></script>
+    <script src="bundle.js"></script>
   </head>
   <body>
-    <p>Hajjjajjjjjj, no bookmark yet</p>
-    <script src="bundle.js"></script>
+    <header ng-include="'./header.html'"></header>
+    <main ng-view></main>
   </body>
 </html>
