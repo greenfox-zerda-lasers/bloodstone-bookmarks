@@ -1,2 +1,2 @@
 require('./script1.js');
-require('./scss/test.scss');
+require('./scss/style.scss');
