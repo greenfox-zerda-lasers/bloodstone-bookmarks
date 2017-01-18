@@ -2,17 +2,23 @@
   "name": "bloodstone-bookmarks",
   "version": "1.0.0",
   "description": "Online bookmark manager app",
-  "main": "index.js",
+  "main": "start.js",
   "scripts": {
-    "test": "ava",
-    "build": "node_modules/.bin/webpack"
+    "test-backend": "ava",
+    "test-frontend": "",
+    "eslint":"",
+    "build": "node_modules/.bin/webpack",
+    "heroku-postbuild": ""
+  },
+  "engines": {
+    "node": "6.9.1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/greenfox-zerda-lasers/bloodstone-bookmarks.git"
   },
   "author": "BloodStone development",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/greenfox-zerda-lasers/bloodstone-bookmarks/issues"
   },
@@ -20,7 +26,6 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "node": "0.0.0",
     "pg": "^6.1.2"
   },
   "devDependencies": {
