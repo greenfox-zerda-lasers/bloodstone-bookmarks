@@ -1,6 +1,14 @@
 module.exports = {
-    "extends": "airbnb-base",
+    "extends": [
+      "airbnb-base",
+      "angular",
+      "plugin:jasmine/recommended"
+    ],
     "plugins": [
-        "import"
-    ]
+      "import",
+      "jasmine"
+    ],
+    "env": {
+      "jasmine": true
+}
 };
