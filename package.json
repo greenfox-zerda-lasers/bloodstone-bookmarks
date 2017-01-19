@@ -7,7 +7,7 @@
     "test-backend": "ava",
     "test-frontend": "karma start",
     "build": "node_modules/.bin/webpack",
-    "heroku-postbuild": "",
+    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress",
     "start": "node start.js"
   },
   "engines": {
