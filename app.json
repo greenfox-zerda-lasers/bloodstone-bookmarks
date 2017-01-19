@@ -1,0 +1,8 @@
+{
+  "name": "BloodStone bookmark manager",
+  "description": "Save and and manage your bookmarks, now!",
+  "repository": "https://github.com/greenfox-zerda-lasers/bloodstone-bookmarks.git",
+  "logo": "https://geritwo.github.io/BloodStone/assets/BloodStone.png",
+  "keywords": ["bookmark", "bloodstone", "nodejs"],
+  "image": "https://geritwo.github.io/BloodStone/assets/BloodStone.png"
+}
