@@ -7,8 +7,8 @@
     <script src="./lib/angular.route.min.js"></script>
     <script src="bundle.js"></script>
   </head>
-  <body>
-    <header ng-include="'./header.html'"></header>
-    <main ng-view></main>
+  <body ng-app="app">
+    <header ng-include="'./templates/navbar.html'"></header>
+    <main ng-include="'./views/home.html'"></main>
   </body>
 </html>
