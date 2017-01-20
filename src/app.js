@@ -19,15 +19,15 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
 
 app.controller('LoginController', ['$scope', function($scope) {
 
-  // $scope.userLogin = function userLogin() {
-  //   $scope.userLog.push(
-  //     {
-  //       email: $scope.user.email,
-  //       password: $scope.user.password
-  //     }
-  //   );
-  //   console.log($scope.userLog); // NOTE: 4debug;
-  // };
+  $scope.userLogin = function userLogin() {
+    $scope.userLog.push(
+      {
+        email: $scope.user.email,
+        password: $scope.user.password
+      }
+    );
+    console.log($scope.userLog); // NOTE: 4debug;
+  };
 
   $scope.userLog = [];
 }]);
