@@ -11,6 +11,7 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
   })
   .when('/list', {
     templateUrl: './views/list.html',
+    controller: 'RenderController'
   })
   .otherwise({
     redirectTo: '/home',
@@ -30,6 +31,21 @@ app.controller('LoginController', ['$scope', function($scope) {
   };
 
   $scope.userLog = [];
+}]);
+
+app.controller('RenderController', ['$scope', function($scope) {
+
+  $scope.dummyLinks = [
+    {
+      "title":"Index.hu",
+      "url":"http://index.hu"
+    },
+    {
+      "title":"Szanalmas.hu",
+      "url":"http://szanalmas.hu"
+    },
+  ]
+
 }]);
 
 
