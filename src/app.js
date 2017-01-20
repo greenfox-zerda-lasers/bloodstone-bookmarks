@@ -18,19 +18,17 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
   });
 }]);
 
-app.controller('LoginController', ['$scope', function($scope) {
-
+app.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
   $scope.userLogin = function userLogin() {
-    $scope.userLog.push(
-      {
+    $scope.userLog = {
         email: $scope.user.email,
         password: $scope.user.password
-      }
-    );
+    };
     console.log($scope.userLog); // NOTE: 4debug;
+    $http.post('/login', $scope.userLog).then(function (data) {
+      console.log(data)
+    });
   };
-
-  $scope.userLog = [];
 }]);
 
 app.controller('RenderController', ['$scope', function($scope) {
@@ -47,7 +45,6 @@ app.controller('RenderController', ['$scope', function($scope) {
   ]
 
 }]);
-
 
 
 module.exports = app;
