@@ -1,6 +1,11 @@
 $headerBgColor: slateblue;
 $bodyBgColor: thistle;
 
+body > * {
+  border: 1px dotted gray;
+  margin: 10px;
+  padding: 5px;
+}
 
 body {
   background: $bodyBgColor;
