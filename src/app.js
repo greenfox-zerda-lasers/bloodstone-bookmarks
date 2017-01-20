@@ -5,19 +5,19 @@ const app = angular.module('app', ['ngRoute']);
 
 app.config(['$routeProvider', function routeProvider($routeProvider) {
   $routeProvider
-    .when('/home', {
-      templateUrl: './views/login.html',
-      controller: 'LoginController',
-    })
-    .when('/list', {
-      templateUrl: './views/list.html',
-    })
-    .otherwise({
-      redirectTo: '/home',
-    });
+  .when('/home', {
+    templateUrl: './views/login.html',
+    controller: 'LoginController'
+  })
+  .when('/list', {
+    templateUrl: './views/list.html',
+  })
+  .otherwise({
+    redirectTo: '/home',
+  });
 }]);
 
-app.contoller('LoginController', ['$scope', function LoginController($scope) {
+app.controller('LoginController', ['$scope', function($scope) {
 
   // $scope.userLogin = function userLogin() {
   //   $scope.userLog.push(
@@ -30,7 +30,8 @@ app.contoller('LoginController', ['$scope', function LoginController($scope) {
   // };
 
   $scope.userLog = [];
-
 }]);
+
+
 
 module.exports = app;
