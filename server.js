@@ -24,6 +24,14 @@ app.post('/login', function (req, res) {
         "title":"Szanalmas.hu",
         "url":"http://szanalmas.hu"
       },
+      {
+        "title":"Angular",
+        "url":"https://docs.angularjs.org"
+      },
+      {
+        "title":"BloodStone",
+        "url":"http://bloodstonedevelopment.tk/"
+      }
     ]
   };
   res.json(userData);
