@@ -13,5 +13,13 @@ body {
 }
 
 header {
-   background: $headerBgColor;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  background: $headerBgColor;
+}
+
+ul {
+  display: inline-block;
 }

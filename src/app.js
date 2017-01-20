@@ -17,17 +17,17 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
     });
 }]);
 
-app.contoller('LoginController', ['$scope', function controller($scope) {
+app.contoller('LoginController', ['$scope', function LoginController($scope) {
 
-  $scope.userLogin = function userLogin() {
-    $scope.userLog.push(
-      {
-        email: $scope.user.email,
-        password: $scope.user.password
-      }
-    );
-    console.log($scope.userLog); // NOTE: 4debug;
-  };
+  // $scope.userLogin = function userLogin() {
+  //   $scope.userLog.push(
+  //     {
+  //       email: $scope.user.email,
+  //       password: $scope.user.password
+  //     }
+  //   );
+  //   console.log($scope.userLog); // NOTE: 4debug;
+  // };
 
   $scope.userLog = [];
 
