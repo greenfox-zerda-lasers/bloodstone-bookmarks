@@ -3,6 +3,18 @@ const ngRoute = require('angular-route');
 
 const app = angular.module('app', ['ngRoute']);
 
+var links = [
+  {
+    "title":"Index.hu",
+    "url":"http://index.hu"
+  },
+  {
+    "title":"Szanalmas.hu",
+    "url":"http://szanalmas.hu"
+  }
+];
+
+
 app.config(['$routeProvider', function routeProvider($routeProvider) {
   $routeProvider
   .when('/home', {
@@ -26,25 +38,14 @@ app.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
     };
     console.log($scope.userLog); // NOTE: 4debug;
     $http.post('/login', $scope.userLog).then(function (data) {
-      console.log(data)
+      console.log(data.data.links);
+      links = data.data.links;
     });
   };
 }]);
 
-app.controller('RenderController', ['$scope', function($scope) {
-
-  $scope.dummyLinks = [
-    {
-      "title":"Index.hu",
-      "url":"http://index.hu"
-    },
-    {
-      "title":"Szanalmas.hu",
-      "url":"http://szanalmas.hu"
-    },
-  ]
-
+app.controller('RenderController', ['$scope', function ($scope) {
+  $scope.dummyLinks = links;
 }]);
-
 
 module.exports = app;
