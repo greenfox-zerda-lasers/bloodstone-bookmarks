@@ -8,11 +8,8 @@ app.use(express.static('dist'));
 
 app.use(bodyParser.json());
 
-
-
-
-app.post('/login', function (req, res) {
-
+app.post('/api/login', function (req, res) {
+  console.log(req.xhr);
   const userData = {
     "email" : req.body.email || "no email",
     "links": [
@@ -35,7 +32,14 @@ app.post('/login', function (req, res) {
     ]
   };
   res.json(userData);
-})
+});
 
+app.post('/api/register', function (req, res) {
+  const userData = {
+    "email" : req.body.email || "no email",
+    "message": "cool, you have registered"
+  };
+  res.json(userData);
+});
 
-   module.exports = app;
+module.exports = app;
