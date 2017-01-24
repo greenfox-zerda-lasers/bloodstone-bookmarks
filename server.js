@@ -8,8 +8,14 @@ app.use(express.static('dist'));
 
 app.use(bodyParser.json());
 
+// ************Error handling************  // catch all errors
+app.use(function (err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
+// ************  End points ************
 app.post('/api/login', function (req, res) {
-  console.log(req.xhr);
   const userData = {
     "email" : req.body.email || "no email",
     "links": [
