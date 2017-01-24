@@ -21,6 +21,10 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
     templateUrl: './views/login.html',
     controller: 'LoginController'
   })
+  .when('/register', {
+    templateUrl: './views/register.html',
+    controller: 'RenderController'
+  })
   .when('/list', {
     templateUrl: './views/list.html',
     controller: 'RenderController'
