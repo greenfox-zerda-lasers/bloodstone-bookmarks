@@ -37,7 +37,7 @@ app.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
         password: $scope.user.password
     };
     console.log($scope.userLog); // NOTE: 4debug;
-    $http.post('/login', $scope.userLog).then(function (data) {
+    $http.post('/api/login', $scope.userLog).then(function (data) {
       console.log(data.data.links);
       links = data.data.links;
     });
