@@ -21,14 +21,12 @@ app.use(passport.initialize());
 // Login strategy
 passport.use(new LocalStrategy(
   function (username, password, done) {
-    /*
+
     if (username == password) {
       return done(null, { username: username, password: password });
     }
     return done(null, false, { message: 'ERROR: Unable to log in.'});
-    */
-    return done(null, { username: username })
-  }
+    }
 ));
 
 // Serialize & deserialize user
@@ -50,6 +48,7 @@ app.use(function (err, req, res, next) {
 // ************  End points ************
 // Login
 app.post('/api/login', passport.authenticate('local'), function (req, res) {
+  console.log('authenticating');
   res.send(req.user);
 });
 
