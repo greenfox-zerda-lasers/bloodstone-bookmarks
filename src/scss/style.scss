@@ -1,70 +1,89 @@
-$headerBgColor: slateblue;
-$bodyBgColor: lightgrey;
-
-h2{
-  font-size: 30px;
-  margin: 10px;;
+html {
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(127deg, #360033, #2d1b46 20%, #2c1d48 22%, #0b8793);
 }
-
-
-body > * {
-  // border: 1px dotted gray;
-  // margin: 10px;
-  // padding: 5px;
-}
-
 body {
-  background: $bodyBgColor;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-header {
+  height: 100%;
   display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  justify-content: space-between;
-  background: $headerBgColor;
+  align-items: center;
+  justify-content: center;
 }
-
-ul {
-  display: inline-block;
+form {
+  display: flex;
+  flex-direction: column;
+  max-width:388px;
+  margin:auto;
+  background-color: #3DC2C5;
+  box-shadow: 10px 10px #112638;
 }
-
-// form{
-//
-// }
-
-input{
-  width: 400px;
-  height: 40px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  margin: 10px;
+h1 {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 36px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: -14px;
 }
-::-webkit-input-placeholder 	{ text-align: center; font-size: 16px;}
-
-
-button{
-
-	background-color:#44c767;
-	-moz-border-radius:28px;
-	-webkit-border-radius:28px;
-	border-radius:28px;
-	border:1px solid #18ab29;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:17px;
-	padding:16px 31px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #2f6627;
+p {
+ font-family: 'Work Sans', sans-serif;
+ font-size: 18px;
+ color: #360033;
+ margin-left: 43px;
 }
-.myButton:hover {
-	background-color:#5cbf2a;
+input {
+  border:none;
+  background-color: #ffffff;
+  box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.23);
+  margin: auto;
+  margin-bottom: 3%;
+  width: 84%;
+  height: 45px;
+  text-indent: 10px;
+  font-family: 'Work Sans', sans-serif;
 }
-.myButton:active {
-	position:relative;
-	top:1px;
-
+::-webkit-input-placeholder {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 12px;
+  color: #360033;
+}
+.send {
+  box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.23);
+  border: solid 2px #ffffff;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: #360033;
+  margin: auto;
+  padding-left: 25px;
+  padding-right: 25px;
+  line-height: 2;
+}
+.send:hover {
+  background-color:#0082C5;
+}
+.register {
+  font-size: 12px;
+  margin: auto;
+  margin-bottom: 55px;
+  margin-top: 15px;
+}
+a {
+   color: #000000;
+   text-decoration: none;
+   border-bottom: 1px solid;
+   border-bottom-color: #ffffff;
+}
+a:hover {
+  border-bottom-color: blue;
+}
+.welcome {
+  margin-top: 33px;
+}
+.bloodStone {
+  margin-left: 122px;
+  margin-top: -9px;
+}
+.please {
+  margin-bottom: 33px;
 }
