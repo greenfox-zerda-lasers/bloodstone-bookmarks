@@ -17,25 +17,27 @@ app.use(passport.initialize());
 
 // ************ Configure PassportJS *************
 
+
 // Login strategy
 passport.use(new LocalStrategy(
   function (username, password, done) {
+    /*
     if (username == password) {
       return done(null, { username: username, password: password });
     }
     return done(null, false, { message: 'ERROR: Unable to log in.'});
+    */
+    return done(null, { username: username })
   }
 ));
 
 // Serialize & deserialize user
 passport.serializeUser(function (user, done) {
-    return done(null, user._id);
+  done(null, user);
 });
 
-passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, user) {
-        done(err, user);
-    });
+passport.deserializeUser(function (user, done) {
+  done(null, user);
 });
 
 // ************ Error handling ************
@@ -48,11 +50,11 @@ app.use(function (err, req, res, next) {
 // ************  End points ************
 // Login
 app.post('/api/login', passport.authenticate('local'), function (req, res) {
-  console.log(req.user);
-  res.json(req.user);
+  res.send(req.user);
 });
 
 // Register
+/*
 app.post('/api/register', function (req, res) {
   const userData = {
     "email" : req.body.email || "no email",
@@ -60,5 +62,6 @@ app.post('/api/register', function (req, res) {
   };
   res.json(userData);
 });
+*/
 
 module.exports = app;

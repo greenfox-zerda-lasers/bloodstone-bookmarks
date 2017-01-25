@@ -36,7 +36,6 @@ app.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
         email: $scope.user.email,
         password: $scope.user.password
     };
-    // console.log($scope.userLog); // NOTE: 4debug;
     $http
       .post('/api/login', $scope.userLog)
       .then(function (response) {
