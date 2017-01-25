@@ -1,10 +1,9 @@
-
-<form ng-submit="userLogin()">
-  <p class="welcome">Welcome to</p>
-  <h1 class="bloodStone">BloodStone Bookmarks.</h1>
-  <p class="please">Please log in to continue.</p>
-  <input  type="text" placeholder="email:">
-  <input  type="text"  placeholder="password:">
-  <div class="send">Log in.</div>
-  <p class="register">(I'd rather <a href="#">register</a>.)</p>
+<form>
+ <p class="welcome">Welcome to</p>
+ <h1 class="bloodStone">BloodStone Bookmarks.</h1>
+ <p class="please">Please log in to continue.</p>
+ <input type="text" placeholder="email:" ng-model="user.email">
+ <input type="text" placeholder="password:" ng-model="user.password">
+ <div ng-click="userLogin()" class="send">Log in.</div>
+ <p class="register">(I'd rather <a href="#!/register">register</a>.)</p>
 </form>
