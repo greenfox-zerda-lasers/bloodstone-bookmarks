@@ -1,37 +1,58 @@
 'use strict';
 
-const express = require('express');
-const bodyParser = require('body-parser');
+const express         = require('express');
+const bodyParser      = require('body-parser');
+const passport        = require('passport');
+const LocalStrategy   = require('passport-local').Strategy;
 
+
+// ************ Configure app *************
 const app = express();
-app.use(express.static('dist'));
 
+app.use(express.static('dist'));
 app.use(bodyParser.json());
 
-// ************ Error handling ************  // catch all errors
+app.use(passport.initialize());
+
+
+// ************ Configure PassportJS *************
+
+// Login strategy
+passport.use(new LocalStrategy(
+  function (username, password, done) {
+    if (username == password) {
+      return done(null, { username: username, password: password });
+    }
+    return done(null, false, { message: 'ERROR: Unable to log in.'});
+  }
+));
+
+// Serialize & deserialize user
+passport.serializeUser(function (user, done) {
+    return done(null, user._id);
+});
+
+passport.deserializeUser(function (id, done) {
+    User.findById(id, function (err, user) {
+        done(err, user);
+    });
+});
+
+// ************ Error handling ************
+// catch all errors
 app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500).send('Something broke!');
 });
 
 // ************  End points ************
-app.post('/api/login', function (req, res) {
-  const userData = {
-    "email" : req.body.email || "no email",
-    "links": [
-      {
-        "title":"Angular",
-        "url":"https://docs.angularjs.org"
-      },
-      {
-        "title":"BloodStone",
-        "url":"http://bloodstonedevelopment.tk/"
-      }
-    ]
-  };
-  res.json(userData);
+// Login
+app.post('/api/login', passport.authenticate('local'), function (req, res) {
+  console.log(req.user);
+  res.json(req.user);
 });
 
+// Register
 app.post('/api/register', function (req, res) {
   const userData = {
     "email" : req.body.email || "no email",
