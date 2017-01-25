@@ -3,12 +3,14 @@ html{
   height: 100vh;
   background-image: linear-gradient(127deg, #360033, #2d1b46 20%, #2c1d48 22%, #0b8793);
 }
+
 body{
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 form{
   display: flex;
   flex-direction: column;
@@ -17,19 +19,22 @@ form{
   background-color: #3DC2C5;
   box-shadow: 10px 10px #112638;
 }
+
 h1{
   font-family: 'Libre Baskerville', serif;
   font-size: 36px;
   font-weight: bold;
   color: #ffffff;
-  margin-bottom: -3%;
+  margin-bottom: -14px;
 }
+
 p{
  font-family: 'Work Sans', sans-serif;
  font-size: 18px;
  color: #360033;
- margin-left: 11%;
+ margin-left: 43px;
 }
+
 input{
   border:none;
   background-color: #ffffff;
@@ -41,13 +46,14 @@ input{
   text-indent: 10px;
   font-family: 'Work Sans', sans-serif;
 }
+
 ::-webkit-input-placeholder {
-  font-family: WorkSans;
+  font-family: 'Work Sans', sans-serif;
   font-size: 12px;
   color: #360033;
 }
+
 .send{
-  display: table;
   box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.23);
   border: solid 2px #ffffff;
   font-family: 'Libre Baskerville', serif;
@@ -56,41 +62,42 @@ input{
   text-align: center;
   color: #360033;
   margin: auto;
-  padding-top: 2%;
-  padding-bottom: 2%;
-  padding-left: 7.5%;
-  padding-right: 7.5%;
+  padding-left: 25px;
+  padding-right: 25px;
+  line-height: 2;
 }
+
 .send:hover{
   background-color:#0082C5;
 }
 
 .register{
   font-size: 12px;
-  padding-top: 4%;
-  padding-bottom: 14%;
   margin: auto;
+  margin-bottom: 55px;
+  margin-top: 15px;
 }
-span{
-  display: table-cell;
-  vertical-align: middle;
-}
+
 a{
    color: #000000;
    text-decoration: none;
    border-bottom: 1px solid;
    border-bottom-color: #ffffff;
 }
+
 a:hover {
   border-bottom-color: blue;
 }
+
 .welcome{
-  padding-top: 7%;
+  margin-top: 33px;
 }
+
 .bloodStone{
-  margin-left: 32%;
-  margin-top: -3%;
+  margin-left: 122px;
+  margin-top: -9px;
 }
+
 .please{
-  padding-bottom: 8%;
+  margin-bottom: 33px;
 }
