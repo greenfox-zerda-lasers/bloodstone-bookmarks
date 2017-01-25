@@ -17,20 +17,16 @@ var links = [
 
 app.config(['$routeProvider', function routeProvider($routeProvider) {
   $routeProvider
-  .when('/home', {
+  .when('/login', {
     templateUrl: './views/login.html',
     controller: 'LoginController'
   })
-  .when('/register', {
-    templateUrl: './views/register.html',
-    controller: 'RenderController'
-  })
-  .when('/list', {
+  .when('/home', {
     templateUrl: './views/list.html',
     controller: 'RenderController'
   })
   .otherwise({
-    redirectTo: '/home',
+    redirectTo: '/login', // NOTE: Temporarily
   });
 }]);
 
@@ -41,10 +37,11 @@ app.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
         password: $scope.user.password
     };
     console.log($scope.userLog); // NOTE: 4debug;
-    $http.post('/api/login', $scope.userLog).then(function (data) {
-      console.log(data.data.links);
-      links = data.data.links;
-    });
+    $http
+      .post('/api/login', $scope.userLog)
+      .then(function (response) {
+        console.log(response);
+      });
   };
 }]);
 

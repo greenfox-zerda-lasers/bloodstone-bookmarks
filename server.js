@@ -8,7 +8,7 @@ app.use(express.static('dist'));
 
 app.use(bodyParser.json());
 
-// ************Error handling************  // catch all errors
+// ************ Error handling ************  // catch all errors
 app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500).send('Something broke!');
@@ -19,14 +19,6 @@ app.post('/api/login', function (req, res) {
   const userData = {
     "email" : req.body.email || "no email",
     "links": [
-      {
-        "title":"Index.hu",
-        "url":"http://index.hu"
-      },
-      {
-        "title":"Szanalmas.hu",
-        "url":"http://szanalmas.hu"
-      },
       {
         "title":"Angular",
         "url":"https://docs.angularjs.org"
