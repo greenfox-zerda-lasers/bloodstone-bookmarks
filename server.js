@@ -20,10 +20,10 @@ app.use(passport.initialize());
 
 // Login strategy
 passport.use(new LocalStrategy(
+  { usernameField: "email", passwordField: "password" },
   function (username, password, done) {
-
     if (username == password) {
-      return done(null, { username: username, password: password });
+      return done(null, { message: "kiscica" });
     }
     return done(null, false, { message: 'ERROR: Unable to log in.'});
     }
@@ -36,13 +36,6 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(function (user, done) {
   done(null, user);
-});
-
-// ************ Error handling ************
-// catch all errors
-app.use(function (err, req, res, next) {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
 });
 
 // ************  End points ************

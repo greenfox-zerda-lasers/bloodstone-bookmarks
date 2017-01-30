@@ -30,7 +30,7 @@ app.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
         password: $scope.user.password
     };
     $http
-      .post('/api/login', $scope.userLog)
+      .post('/api/login', JSON.stringify($scope.userLog))
       .then(function (response) {
         console.log(response.data.links);
         links = response.data.links;
