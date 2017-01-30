@@ -38,3 +38,6 @@ jspm_packages
 
 # Bundle file
 dist/bundle.js
+
+# Environmental variables
+.env
