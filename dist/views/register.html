@@ -1,10 +1,10 @@
-<form ng-submit="userLogin()">
+<form>
   <p class="welcome">Welcome to</p>
   <h1 class="bloodStone">BloodStone Bookmarks.</h1>
   <p class="please">Register to start gathering your bookmarks</p>
-  <input type="text"  placeholder="email:">
-  <input type="text"  placeholder="password:">
-  <input type="text"  placeholder="repeat password:">
-  <div class="send">Register</div>
+  <input type="text"  placeholder="email:" ng-model="user.email">
+  <input type="text"  placeholder="password:" ng-model="user.password">
+  <input type="text"  placeholder="repeat password:" ng-model="user.passwordRepeat">
+  <div class="send" ng-click="userRegister()">Register</div>
   <p class="register">(Back to <a href="#!/login">Login</a>.)</p>
 </form>

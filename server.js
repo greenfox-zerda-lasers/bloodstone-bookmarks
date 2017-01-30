@@ -46,14 +46,12 @@ app.post('/api/login', passport.authenticate('local'), function (req, res) {
 });
 
 // Register
-/*
 app.post('/api/register', function (req, res) {
   const userData = {
     "email" : req.body.email || "no email",
-    "message": "cool, you have registered"
+    "message": "Success, user registered!"
   };
   res.json(userData);
 });
-*/
 
 module.exports = app;
