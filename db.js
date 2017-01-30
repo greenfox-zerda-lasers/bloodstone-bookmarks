@@ -45,4 +45,4 @@ const queryDb = function (queryText, callback) {
 };
 
 
-queryDb('SELECT * FROM users', console.log;
+queryDb('SELECT * FROM users', console.log);
