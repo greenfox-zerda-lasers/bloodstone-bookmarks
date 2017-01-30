@@ -3,7 +3,32 @@ const ngRoute = require('angular-route');
 
 const app = angular.module('app', ['ngRoute']);
 
-var links = [];
+var links = [
+  {
+    "title":"Index.hu",
+    "url":"http://index.hu"
+  },
+  {
+    "title":"Szanalmasaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbb.hu",
+    "url":"http://szanalmas.hu"
+  },
+  {
+    "title":"Index.hu",
+    "url":"http://index.hu"
+  },
+  {
+    "title":"Szanalmas.hu",
+    "url":"http://szanalmas.hu"
+  },
+  {
+    "title":"Index.hu",
+    "url":"http://index.hu"
+  },
+  {
+    "title":"Szanalmas.hu",
+    "url":"http://szanalmas.hu"
+  }
+];
 
 app.config(['$routeProvider', function routeProvider($routeProvider) {
   $routeProvider
@@ -17,6 +42,10 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
   })
   .when('/home', {
     templateUrl: './views/list.html',
+    controller: 'RenderController'
+  })
+  .when('/register', {
+    templateUrl: './views/register.html',
     controller: 'RenderController'
   })
   .otherwise({
