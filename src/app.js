@@ -30,12 +30,14 @@ var links = [
   }
 ];
 
-
 app.config(['$routeProvider', function routeProvider($routeProvider) {
   $routeProvider
   .when('/login', {
     templateUrl: './views/login.html',
     controller: 'LoginController'
+  })
+  .when('/register', {
+    templateUrl: './views/register.html',
   })
   .when('/home', {
     templateUrl: './views/list.html',
@@ -56,11 +58,11 @@ app.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
         email: $scope.user.email,
         password: $scope.user.password
     };
-    console.log($scope.userLog); // NOTE: 4debug;
     $http
       .post('/api/login', $scope.userLog)
       .then(function (response) {
-        console.log(response);
+        console.log(response.data.links);
+        links = response.data.links;
       });
   };
 }]);
