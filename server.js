@@ -5,6 +5,8 @@ const bodyParser      = require('body-parser');
 const passport        = require('passport');
 const LocalStrategy   = require('passport-local').Strategy;
 
+const users           = require('./users.js');
+
 
 // ************ Configure app *************
 const app = express();
@@ -17,12 +19,12 @@ app.use(passport.initialize());
 
 // ************ Configure PassportJS *************
 
-
 // Login strategy
 passport.use(new LocalStrategy(
   { usernameField: "email", passwordField: "password" },
   function (username, password, done) {
-    if (username == password) {
+
+    if (users.lookUpUser(username, password)) {
       return done(null, { message: "kiscica" });
     }
     return done(null, false, { message: 'ERROR: Unable to log in.'});
