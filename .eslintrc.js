@@ -10,5 +10,8 @@ module.exports = {
     ],
     "env": {
       "jasmine": true
-}
+    },
+    "globals": {
+        "console": true
+    }
 };
