@@ -22,12 +22,23 @@ app.use(passport.initialize());
 // Login strategy
 passport.use(new LocalStrategy(
   { usernameField: "email", passwordField: "password" },
+
   function (username, password, done) {
 
+    users.lookUpUser(username), function(user) {
+      // if (err) { return done(err); }
+      if (!user) { return done(null, false); } // user is false: no user
+      if (!users.verifyPassword(user, password)) { return done(null, false); } // pw not ok; same return as above
+      return done(null, user); // all ok
+    }
+
+    /*
+    // Not segmented enough:
     if (users.lookUpUser(username, password)) {
-      return done(null, { message: "kiscica" });
+      return done(null, { message: "User found, logging in." });
     }
     return done(null, false, { message: 'ERROR: Unable to log in.'});
+    */
     }
 ));
 

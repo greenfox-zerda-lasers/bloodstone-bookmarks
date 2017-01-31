@@ -1,22 +1,28 @@
 const usersMock = [
-  { email: "geritwo@gmail.com", password: "kutyadneve" },
-  { email: "jozsi@freemail.hu", password: "idemitirjak" },
+  { email: "geritwo@gmail.com", password: "123" },
+  { email: "a@a.hu", password: "a" },
 ]
 
 const users = (function () {
 
-  function lookUpUser(email, password) {
+  function lookUpUser(email) {
     var userID = usersMock.map(function(obj){ return obj.email; }).indexOf(email);
-    if (userID != -1) {
-      return usersMock[userID].password == password;
-    } else {
-      return false;
-    }
-
+    return userID == -1;
+    // NOTE: No error case, no DB connection.
   }
+
+  function verifyPassword(user, password) {
+    var userID = usersMock.map(function(obj){ return obj.email; }).indexOf(email);
+    // NOTE: I know user exists. Need to check pw.
+    return (usersMock[userID].password == password)
+  }
+    // NOTE: No error case, no DB connection.
+
+
 
   return {
     lookUpUser: lookUpUser,
+    verifyPassword: verifyPassword,
   }
 })();
 
