@@ -11,7 +11,7 @@ const users = (function () {
     // NOTE: No error case, no DB connection.
   }
 
-  function verifyPassword(user, password) {
+  function verifyPassword(email, password) {
     var userID = usersMock.map(function(obj){ return obj.email; }).indexOf(email);
     // NOTE: I know user exists. Need to check pw.
     return (usersMock[userID].password == password)

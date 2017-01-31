@@ -23,14 +23,12 @@ app.use(passport.initialize());
 passport.use(new LocalStrategy(
   { usernameField: "email", passwordField: "password" },
 
-  function (username, password, done) {
+  function (email, password, done) {
 
-    users.lookUpUser(username), function(user) {
-      // if (err) { return done(err); }
-      if (!user) { return done(null, false); } // user is false: no user
-      if (!users.verifyPassword(user, password)) { return done(null, false); } // pw not ok; same return as above
-      return done(null, user); // all ok
-    }
+    // if (err) { return done(err); } NOTE: No DB error handling
+    if (!users.lookUpUser(email)) { return done(null, false); } // user not exists
+    if (!users.verifyPassword(email, password)) { return done(null, false); } // pw not ok; same return as above
+    return done(null, email); // all ok
 
     /*
     // Not segmented enough:
