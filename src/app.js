@@ -45,7 +45,7 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
   })
   .when('/register', {
     templateUrl: './views/register.html',
-    controller: 'RenderController'
+    controller: 'RegisterController'
   })
   .otherwise({
     redirectTo: '/login', // NOTE: Temporarily
@@ -63,6 +63,20 @@ app.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
       .then(function (response) {
         console.log(response.data.links);
         links = response.data.links;
+      });
+  };
+}]);
+
+app.controller('RegisterController', ['$scope', '$http', function ($scope, $http) {
+  $scope.userRegister = function userRegister() {
+    $scope.userLog = {
+        email: $scope.user.email,
+        password: $scope.user.password
+    };
+    $http
+      .post('/api/register', $scope.userLog)
+      .then(function (response) {
+        console.log(response.data.message);
       });
   };
 }]);
