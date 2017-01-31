@@ -38,13 +38,10 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
   })
   .when('/register', {
     templateUrl: './views/register.html',
+    controller: 'RegistrationController'
   })
   .when('/home', {
     templateUrl: './views/list.html',
-    controller: 'RenderController'
-  })
-  .when('/register', {
-    templateUrl: './views/register.html',
     controller: 'RenderController'
   })
   .otherwise({
@@ -59,11 +56,29 @@ app.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
         password: $scope.user.password
     };
     $http
-      .post('/api/login', $scope.userLog)
+      .post('/api/login', JSON.stringify($scope.userLog))
       .then(function (response) {
-        console.log(response.data.links);
-        links = response.data.links;
+        console.log("Login response: ", response);
       });
+  };
+}]);
+
+app.controller('RegistrationController', ['$scope', '$http', function ($scope, $http) {
+  $scope.userRegister = function userRegister() {
+    if ($scope.user.password != $scope.user.passwordRepeat) {
+      console.log("Error! Passwords don't match!")
+    }
+    else {
+      $scope.userRegData = {
+        email: $scope.user.email,
+        password: $scope.user.password
+      };
+      $http
+      .post('/api/register', JSON.stringify($scope.userRegData))
+      .then(function (response) {
+        console.log("Reg. response: ", response);
+      });
+    }
   };
 }]);
 

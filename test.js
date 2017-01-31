@@ -15,29 +15,38 @@ test('bar', async t => {
   t.is(await bar, 'bar');
 });
 
-test('after login it returns the email and a list of links', async t => {
-  t.plan(3);
+test('after succesfull login it returns 200 status and an object', async t => {
+  t.plan(2);
 
   const res = await request(app)
       .post('/api/login')
-      .send({ email: 'ava@rocks.com', password: '123123' });
+      .send({ email: 'a@a.hu', password: 'a' });
 
   t.is(res.status, 200);
-  t.is(res.body.email, 'ava@rocks.com');
-  t.true(typeof res.body.links === 'object');
+  t.true(typeof res.body === 'object');
 });
 
-test('after login it returns the email and a list of links', async t => {
-  t.plan(3);
+test('after unsuccesfull login it returns 401', async t => {
+  t.plan(1);
+
+  const res = await request(app)
+      .post('/api/login')
+      .send({ email: 'a@a.hu', password: 'aaa' });
+
+  t.is(res.status, 401);
+});
+
+test('after register it returns 200 status and an object', async t => {
+  t.plan(2);
 
   const res = await request(app)
       .post('/api/register')
-      .send({ email: 'ava@rocks.com', password: '123123' });
+      .send({ email: 'a@a.hu', password: 'aaa' });
 
   t.is(res.status, 200);
-  t.is(res.body.email, 'ava@rocks.com');
-  t.true(typeof res.body.message === 'string');
+  t.true(typeof res.body === 'object');
 });
+
 
 test('wrong endpoint returns 404', async t => {
   t.plan(1);

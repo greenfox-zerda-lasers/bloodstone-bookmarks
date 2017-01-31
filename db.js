@@ -2,12 +2,6 @@
 
 const pg = require('pg');
 
-// create a config to configure both pooling behavior
-// and client options
-// note: all config is optional and the environment variables
-// will be read if the config is not present
-
-
 const config = process.env.DATABASE_URL || "pg://postgres:alma@localhost:5432/bloodstone";
 
 // instantiate a new client
@@ -31,10 +25,28 @@ const queryDb = function (queryText, callback) {
         if (err) throw err;
       });
       // callback
-      callback(result.rows[0]);
+      callback(null, result.rows[0]);
     });
   });
 };
 
+// checkUsers
+const users = (function () {
+  const lookUpUser = function (email, success) {
+    queryDb(`SELECT * FROM users WHERE EMAIL = '${email}'`, success);
+  };
 
-queryDb('SELECT * FROM users', console.log);
+  const verifyPassword = function (user, password) {
+    // NOTE: I know user exists. Need to check pw.
+    return (user.password === password)
+  };
+  //   // NOTE: No error case, no DB connection.
+
+  return {
+    lookUpUser: lookUpUser,
+    verifyPassword: verifyPassword,
+  }
+})();
+
+module.exports = users;
+// getBookmarks...
