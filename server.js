@@ -4,6 +4,7 @@ const express         = require('express');
 const bodyParser      = require('body-parser');
 const passport        = require('passport');
 const LocalStrategy   = require('passport-local').Strategy;
+const flash           = require('connect-flash');
 
 const users           = require('./users.js');
 
@@ -15,6 +16,7 @@ app.use(express.static('dist'));
 app.use(bodyParser.json());
 
 app.use(passport.initialize());
+app.use(flash());
 
 
 // ************ Configure PassportJS *************
@@ -22,12 +24,11 @@ app.use(passport.initialize());
 // Login strategy
 passport.use(new LocalStrategy(
   { usernameField: "email", passwordField: "password" },
-
   function (email, password, done) {
 
     // if (err) { return done(err); } NOTE: No DB error handling
-    if (!users.lookUpUser(email)) { return done(null, false); } // user not exists
-    if (!users.verifyPassword(email, password)) { return done(null, false); } // pw not ok; same return as above
+    if (users.lookUpUser(email)) { return done(null, false, { message: "Error: User doesn't exist."}); } // user not exists
+    if (!users.verifyPassword(email, password)) { return done(null, false, { message: "Error: Wrong password."}); } // pw not ok; same return as above
     return done(null, email); // all ok
 
     /*
@@ -51,8 +52,8 @@ passport.deserializeUser(function (user, done) {
 
 // ************  End points ************
 // Login
-app.post('/api/login', passport.authenticate('local'), function (req, res) {
-  console.log('Express: Authenticating done.');
+app.post('/api/login', passport.authenticate('local', { failureFlash: true }), function (req, res) {
+  console.log("Auth. info: ", req.authInfo);
   res.send(req.user);
 });
 

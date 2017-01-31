@@ -29,6 +29,7 @@
     "angular": "^1.6.1",
     "angular-route": "^1.6.1",
     "body-parser": "^1.15.2",
+    "connect-flash": "^0.1.1",
     "express": "^4.14.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
