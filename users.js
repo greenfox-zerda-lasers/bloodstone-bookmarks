@@ -6,13 +6,9 @@ const usersMock = [
 const users = (function () {
 
   function lookUpUser(email, password) {
-    var userID = usersMock.indexOf(email);
+    var userID = usersMock.map(function(obj){ return obj.email; }).indexOf(email);
     if (userID != -1) {
-      if (usersMock[userID].password == password) {
-        return true;
-      } else {
-        return false;
-      }
+      return usersMock[userID].password == password;
     } else {
       return false;
     }

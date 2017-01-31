@@ -43,7 +43,7 @@ passport.deserializeUser(function (user, done) {
 // ************  End points ************
 // Login
 app.post('/api/login', passport.authenticate('local'), function (req, res) {
-  console.log('authenticating');
+  console.log('Express: Authenticating done.');
   res.send(req.user);
 });
 
