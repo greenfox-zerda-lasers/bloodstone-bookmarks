@@ -44,6 +44,10 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
     templateUrl: './views/list.html',
     controller: 'RenderController'
   })
+  .when('/register', {
+    templateUrl: './views/register.html',
+    controller: 'RenderController'
+  })
   .otherwise({
     redirectTo: '/login', // NOTE: Temporarily
   });

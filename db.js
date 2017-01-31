@@ -1,7 +1,5 @@
 'use strict';
 
-// dotenv
-
 const pg = require('pg');
 
 // create a config to configure both pooling behavior
