@@ -26,11 +26,11 @@ passport.use(new LocalStrategy(
   { usernameField: "email", passwordField: "password" },
   function (email, password, done) {
     // NOTE: userID should be called user
-    users.lookUpUser(email, function (err, userID) {
+    users.lookUpUser(email, function (err, user) {
       if (err) { return done(err); }
-      if (userID == -1) { return done(null, false); } // user not found
-      if (!users.verifyPassword(userID, password)) { return done(null, false); } // wrong password
-      return done(null, userID);
+      if (!user) { return done(null, false); } // user not found
+      if (!users.verifyPassword(user, password)) { return done(null, false); } // wrong password
+      return done(null, user);
     });
   }
 ));
@@ -47,8 +47,8 @@ passport.deserializeUser(function (user, done) {
 // ************  End points ************
 // Login
 app.post('/api/login', passport.authenticate('local', { failureFlash: true }), function (req, res) {
-  console.log("Auth. info: ", req.authInfo);
-  res.send(req.userID);
+  // Passport puts authenticated user in req.user.
+  res.send(req.user.email);
 });
 
 // Register
