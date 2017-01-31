@@ -2,18 +2,16 @@
 
 const pg = require('pg');
 
-console.log(process.env.PGUSER, process.env.PGDATABASE);
-
 // create a config to configure both pooling behavior
 // and client options
 // note: all config is optional and the environment variables
 // will be read if the config is not present
 const config = {
-  user: 'postgres', //env var: PGUSER
+  user: process.env.PGUSER || 'postgres', //env var: PGUSER
   database: 'bloodstone', //env var: PGDATABASE
-  password: 'alma', //env var: PGPASSWORD
-  host: 'localhost', // Server hosting the postgres database
-  port: 5432, //env var: PGPORT
+  password: process.env.PGPASSWORD || 'alma', //env var: PGPASSWORD
+  host: process.env.PGUSER || 'localhost', // Server hosting the postgres database
+  port: process.env.PGPORT || 5432, //env var: PGPORT
   max: 10, // max number of clients in the pool
   idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
 };
@@ -44,5 +42,8 @@ const queryDb = function (queryText, callback) {
   });
 };
 
+// checkUsers
+//
+// getBookmarks
 
 queryDb('SELECT * FROM users', console.log);
