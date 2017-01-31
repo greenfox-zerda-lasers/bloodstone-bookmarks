@@ -4,7 +4,7 @@ const express         = require('express');
 const bodyParser      = require('body-parser');
 const passport        = require('passport');
 const LocalStrategy   = require('passport-local').Strategy;
-const flash           = require('connect-flash');
+// const flash           = require('connect-flash');
 
 const users           = require('./users.js');
 
@@ -16,7 +16,7 @@ app.use(express.static('dist'));
 app.use(bodyParser.json());
 
 app.use(passport.initialize());
-app.use(flash());
+// app.use(flash());
 
 
 // ************ Configure PassportJS *************
@@ -25,20 +25,14 @@ app.use(flash());
 passport.use(new LocalStrategy(
   { usernameField: "email", passwordField: "password" },
   function (email, password, done) {
-
-    // if (err) { return done(err); } NOTE: No DB error handling
-    if (users.lookUpUser(email)) { return done(null, false, { message: "Error: User doesn't exist."}); } // user not exists
-    if (!users.verifyPassword(email, password)) { return done(null, false, { message: "Error: Wrong password."}); } // pw not ok; same return as above
-    return done(null, email); // all ok
-
-    /*
-    // Not segmented enough:
-    if (users.lookUpUser(username, password)) {
-      return done(null, { message: "User found, logging in." });
-    }
-    return done(null, false, { message: 'ERROR: Unable to log in.'});
-    */
-    }
+    // NOTE: userID should be called user
+    users.lookUpUser(email, function (err, userID) {
+      if (err) { return done(err); }
+      if (userID == -1) { return done(null, false); } // user not found
+      if (!users.verifyPassword(userID, password)) { return done(null, false); } // wrong password
+      return done(null, userID);
+    });
+  }
 ));
 
 // Serialize & deserialize user
@@ -54,7 +48,7 @@ passport.deserializeUser(function (user, done) {
 // Login
 app.post('/api/login', passport.authenticate('local', { failureFlash: true }), function (req, res) {
   console.log("Auth. info: ", req.authInfo);
-  res.send(req.user);
+  res.send(req.userID);
 });
 
 // Register
