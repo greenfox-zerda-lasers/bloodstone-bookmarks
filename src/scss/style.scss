@@ -10,11 +10,6 @@ $shadow: 10px;
 $importantTextColor: #ffffff;
 $niceBackground: linear-gradient(127deg, #360033, #2d1b46 20%, #2c1d48 22%, #0b8793);
 
-html {
-  width: $max;
-  height: 100vh;
-  background-image: $niceBackground;
-}
 body {
   height: $max;
   display: flex;
@@ -100,51 +95,145 @@ a:hover {
 .please {
   margin-bottom: 33px;
 }
-
 header{
     background-image: $niceBackground;
-    max-width: 1024px;
+    width: $max;
+    height: 106px;
+    margin-bottom: -16px;
 }
-
 #links{
-  width: 320px;
+  width: 32%;
   background-color: $importantTextColor;
   font-family: $basicFontFamily;
   font-size: 18px;
-  // text-align: left;
   color: #360033;
   opacity: 0.9;
   background-color: #50e3c2;
-  // background-color: var(--aqua-marine);
   box-shadow: 5px 6px 0 0 rgba(0, 0, 0, 0.5);
   margin-left: 10px;
   margin-bottom: 10px;
   margin-top: 10px;
   list-style-type: none;
-  overflow: auto;
+  word-wrap: break-word;
 }
-
 .plusURL{
   width: 94.8px;
   height: 92px;
   background-color: #50e3c2;
   box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.5);
   border-radius: 50%;
-  display: flex;
+  position: fixed;
+  bottom: 30px;
+  right:3%;
+  color:#ffffff;
+  font-size: 100px;
+  font-weight: bold;
 }
-
 .linksContainer{
   display: flex;
   flex-wrap: wrap;
-  max-width: 1024px;
-
+  align-items: flex-start;
+  padding-left: 0px;
+  padding-right:0px;
+  margin-left: 17px;
 }
-
 .mainList{
   background-color: #ffffff;
+  width: $max;
 }
 
 .popupBtn{
-  color:#ffffff;
-  font-size: 100px;
+  position: relative;
+  top: -10px;
+  left: 18px;
+}
+footer{
+  display: flex;
+  flex-direction: column;
+}
+.circle{
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 25px;
+}
+.team{
+  font-family: $basicFontFamily;
+  font-size: 12px;
+  color: #360033;
+  position: fixed;
+  left: 20px;
+  bottom: 15px;
+}
+.listSite{
+  height: 100vh;
+}
+.listSitelogin{
+  display: flex;
+  height: 100vh;
+  width:100vw;
+  background-image: $niceBackground;
+}
+.addUrl{
+  position: relative;
+  top: -205px;
+  left: -220px;
+  width: 320px;
+  height: 60px;
+  background-color: $background;
+  box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.5);
+}
+.addUrlInput{
+  width: 280px;
+  height: 20px;
+  padding: 8px;
+  display: flex;
+  position: relative;
+  top: 12px;
+  border:none;
+  color: #360033;
+  opacity: 0.9;
+  font-size: 18px;
+  color:#360033
+}
+input.addUrlInput::-webkit-input-placeholder {         opacity: 0.5;
+  font-family: $basicFontFamily;
+  font-size: 18px;
+}
+.triangle-down {
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 18px solid $background;
+  display: flex;
+  position: relative;
+  top: -205px;
+  left: 33px;
+}
+#triangle-shadow{
+  position: relative;
+  top: -218px;
+  left: 38px;
+  border-top: 18px solid rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+.bigLogo{
+  width: 0;
+	height: 0;
+	border-left: 33px solid transparent;
+	border-right: 33px solid transparent;
+	border-bottom: 66px solid $background;
+  position: relative;
+  top: 20px;
+  left: 20px;
+}
+.small-Logo{
+  width: 0;
+	height: 0;
+	border-left: 16.5px solid transparent;
+	border-right: 16.5px solid transparent;
+	border-top: 33px solid #870048;
+  position: relative;
+  top: 33px;
+  left: -16.5px;
 }
