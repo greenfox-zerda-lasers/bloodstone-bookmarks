@@ -1,8 +1,10 @@
 'use strict';
 
 import test from 'ava';
-const app = require('./server.js');
+const server = require('./server.js');
 const request = require('supertest');
+
+const myServer = server('');
 
 
 test('foo', t => {
@@ -18,7 +20,7 @@ test('bar', async t => {
 test.skip('after succesfull login it returns 200 status and an object', async t => {
   t.plan(2);
 
-  const res = await request(app)
+  const res = await request(myServer)
       .post('/api/login')
       .send({ email: 'a@a.hu', password: 'a' });
 
@@ -29,7 +31,7 @@ test.skip('after succesfull login it returns 200 status and an object', async t 
 test.skip('after unsuccesfull login it returns 401', async t => {
   t.plan(1);
 
-  const res = await request(app)
+  const res = await request(myServer)
       .post('/api/login')
       .send({ email: 'a@a.hu', password: 'aaa' });
 
@@ -39,7 +41,7 @@ test.skip('after unsuccesfull login it returns 401', async t => {
 test('after register it returns 200 status and an object', async t => {
   t.plan(2);
 
-  const res = await request(app)
+  const res = await request(myServer)
       .post('/api/register')
       .send({ email: 'a@a.hu', password: 'aaa' });
 
@@ -51,7 +53,7 @@ test('after register it returns 200 status and an object', async t => {
 test('wrong endpoint returns 404', async t => {
   t.plan(1);
 
-  const res = await request(app)
+  const res = await request(myServer)
     .get('/signupdfsd');
 
   t.is(res.status, 404);
