@@ -101,7 +101,7 @@ header{
     height: 106px;
     margin-bottom: -16px;
 }
-#links{
+.links{
   width: 32%;
   background-color: $importantTextColor;
   font-family: $basicFontFamily;
@@ -173,7 +173,7 @@ footer{
   width:100vw;
   background-image: $niceBackground;
 }
-.addUrl{
+.addURL{
   position: relative;
   top: -205px;
   left: -220px;
@@ -182,7 +182,7 @@ footer{
   background-color: $background;
   box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.5);
 }
-.addUrlInput{
+.addURLInput{
   width: 280px;
   height: 20px;
   padding: 8px;
@@ -191,26 +191,28 @@ footer{
   top: 12px;
   border:none;
   color: #360033;
-  opacity: 0.9;
   font-size: 18px;
-  color:#360033
 }
-input.addUrlInput::-webkit-input-placeholder {         opacity: 0.5;
+input.addUrlInput::-webkit-input-placeholder {
+  opacity: 0.5;
   font-family: $basicFontFamily;
   font-size: 18px;
+  color: rgba(54, 0, 51, 0.9);
 }
-.triangle-down {
+.triangle{
   width: 0;
   height: 0;
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
   border-top: 18px solid $background;
   display: flex;
+}
+.trianglePosition{
   position: relative;
   top: -205px;
   left: 33px;
 }
-#triangle-shadow{
+.triangle-shadow{
   position: relative;
   top: -218px;
   left: 38px;
