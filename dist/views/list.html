@@ -1,13 +1,25 @@
-<header>
-   cica
-</header>
-<main class= "mainList">
-  <ul class = "linksContainer">
-    <li id="links" ng-repeat="link in dummyLinks"><p>Title:  {{link.title}}, Url: {{link.url}}</p></li>
-  </ul>
-
-  <h6>Team Zerda Lasers BloodStone, Green Fox Academy, 2017</h6>
-  <div class="plusURL">
-    <span class="popupBtn">+</span>
-  </div>
-</main>
+<section class= "listSite">
+  <header>
+    <div class="bigLogo">
+      <div class="small-Logo"></div>
+    </div>
+  </header>
+  <main class= "mainList">
+    <ul class = "linksContainer">
+      <li id="links" ng-repeat="link in dummyLinks"><p>Title:{{link.title}}, Url: {{link.url}}</p></li>
+    </ul>
+    <footer>
+      <div class="circle">
+        <div class="plusURL">
+          <span class="popupBtn">+</span>
+          <div class="addUrl">
+            <input class="addUrlInput" type="text" placeholder="add url:" value="">
+          </div>
+          <div class="triangle-down"></div>
+          <div class="triangle-down" id="triangle-shadow"></div>
+        </div>
+      </div>
+      <p class="team">Team Zerda Lasers BloodStone, Green Fox Academy, 2017</p>
+    </footer>
+  </main>
+</section>
