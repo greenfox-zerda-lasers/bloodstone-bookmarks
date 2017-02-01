@@ -1,20 +1,46 @@
 'use strict';
 
+// ************   Setup tests *************
 import test from 'ava';
-const server = require('./server.js');
+
 const request = require('supertest');
+const sinon = require('sinon');
 
-const myServer = server('');
+const queryDb = require('../db.js');
+const pg = require('pg');
+const client = new pg.Client();
+
+const server = require('../server.js');
+
+let myServer = server('');
 
 
-test('foo', t => {
-  t.pass();
+// ************   Test cases   *************
+
+test('the db callback function called once', async t => {
+
+  const clientMock = sinon.mock(client.connect);
+  clientMock.returns(callback(null, { email: 'a@a.hu', password: 'a' }));
+
+  const myServer = server(queryDb);
+  const res = await request(myServer)
+  .post('/api/login')
+  .send({ email: 'a@a.hu', password: 'a' });
+
+  clientMock.restore();
+  clientMock.verify();
+
+
+  sinon.assert.calledOnce(callback);
 });
 
-test('bar', async t => {
-  const bar = Promise.resolve('bar');
+test('wrong endpoint returns 404', async t => {
+  t.plan(1);
 
-  t.is(await bar, 'bar');
+  const res = await request(myServer)
+    .get('/signupdfsd');
+
+  t.is(res.status, 404);
 });
 
 test.skip('after succesfull login it returns 200 status and an object', async t => {
@@ -47,14 +73,4 @@ test('after register it returns 200 status and an object', async t => {
 
   t.is(res.status, 200);
   t.true(typeof res.body === 'object');
-});
-
-
-test('wrong endpoint returns 404', async t => {
-  t.plan(1);
-
-  const res = await request(myServer)
-    .get('/signupdfsd');
-
-  t.is(res.status, 404);
 });

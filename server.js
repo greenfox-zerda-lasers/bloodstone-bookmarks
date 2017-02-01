@@ -12,7 +12,6 @@ const server = function (db) {
 
   app.use(express.static('dist'));
   app.use(bodyParser.json());
-
   app.use(passport.initialize());
   // app.use(flash());
 
