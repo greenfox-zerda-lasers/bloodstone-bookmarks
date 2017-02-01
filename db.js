@@ -1,10 +1,6 @@
-'use strict';
-
-const pg = require('pg');
-
-const config = process.env.DATABASE_URL || "pg://postgres:alma@localhost:5432/bloodstone";
-
 const queryDb = function (queryText, callback) {
+  const pg = require('pg');
+  const config = process.env.DATABASE_URL || "pg://postgres:alma@localhost:5432/bloodstone";
   const client = new pg.Client(config);
 
   // connect to our database
