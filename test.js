@@ -15,7 +15,7 @@ test('bar', async t => {
   t.is(await bar, 'bar');
 });
 
-test('after succesfull login it returns 200 status and an object', async t => {
+test.skip('after succesfull login it returns 200 status and an object', async t => {
   t.plan(2);
 
   const res = await request(app)
@@ -26,7 +26,7 @@ test('after succesfull login it returns 200 status and an object', async t => {
   t.true(typeof res.body === 'object');
 });
 
-test('after unsuccesfull login it returns 401', async t => {
+test.skip('after unsuccesfull login it returns 401', async t => {
   t.plan(1);
 
   const res = await request(app)

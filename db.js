@@ -19,7 +19,6 @@ const queryDb = function (queryText, callback) {
     client.query(queryText, function (err, result) {
       if (err) throw err;
 
-
       // disconnect the client
       client.end(function (err) {
         if (err) throw err;
