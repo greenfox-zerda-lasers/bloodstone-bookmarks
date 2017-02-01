@@ -1,8 +1,12 @@
 'use strict';
 
-var server = require('./server.js');
-var port = process.env.PORT || 3000;
+const db = require('./db');
+const server = require('./server.js');
 
-server.listen(port, function () {
+const myServer = server(db);
+
+const port = process.env.PORT || 3000;
+
+myServer.listen(port, function () {
   console.log('Server running on port %d', port);
 });
