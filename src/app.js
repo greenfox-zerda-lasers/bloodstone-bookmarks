@@ -1,6 +1,5 @@
 const angular = require('angular');
 const ngRoute = require('angular-route');
-
 const app = angular.module('app', ['ngRoute']);
 
 var links = [
@@ -85,5 +84,7 @@ app.controller('RegistrationController', ['$scope', '$http', function ($scope, $
 app.controller('RenderController', ['$scope', function ($scope) {
   $scope.dummyLinks = links;
 }]);
+
+
 
 module.exports = app;
