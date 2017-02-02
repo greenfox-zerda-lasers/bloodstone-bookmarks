@@ -85,6 +85,4 @@ app.controller('RenderController', ['$scope', function ($scope) {
   $scope.dummyLinks = links;
 }]);
 
-
-
 module.exports = app;
