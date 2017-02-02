@@ -8,15 +8,16 @@
     <ul class ="linksContainer">
       <li class="links" ng-repeat="link in dummyLinks"><p>Title:{{link.title}}</p><p> Url: {{link.url}}</p></li>
     </ul>
+
     <footer>
-      <div class="circle">
-        <div class="plusURL">
+      <div class="circle" ng-click="showme=true">
+        <div class="plusURL" >
           <span class="popupBtn">+</span>
-          <div class="addURL">
+          <div class="addURL" ng-show="showme">
             <input class="addURLInput" type="text" placeholder="add url:" value="">
           </div>
-          <div class="triangle trianglePosition"></div>
-          <div class="triangle triangle-shadow"></div>
+          <div class="triangle trianglePosition" ng-show="showme"></div>
+          <div class="triangle triangle-shadow" ng-show="showme"></div>
         </div>
       </div>
       <p class="team">Team Zerda Lasers BloodStone, Green Fox Academy, 2017</p>
