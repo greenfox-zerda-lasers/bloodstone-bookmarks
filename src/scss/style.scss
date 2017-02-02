@@ -193,11 +193,10 @@ footer{
   color: #360033;
   font-size: 18px;
 }
-input.addUrlInput::-webkit-input-placeholder {
-  opacity: 0.5;
+input.addURLInput::-webkit-input-placeholder {
   font-family: $basicFontFamily;
   font-size: 18px;
-  color: rgba(54, 0, 51, 0.9);
+  color: rgba(54, 0, 51, 0.5);
 }
 .triangle{
   width: 0;
