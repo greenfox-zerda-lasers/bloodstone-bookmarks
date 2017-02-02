@@ -1,11 +1,13 @@
-const server = function (db) {
+const express = require('express');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const users = require('./users.js');
+const flash = require('connect-flash');
+
+const server = function server(db) {
   // ************ Configure app *************
-  // const flash           = require('connect-flash');
-  const express = require('express');
-  const bodyParser = require('body-parser');
-  const passport = require('passport');
-  const LocalStrategy = require('passport-local').Strategy;
-  const users = require('./users.js');
 
   const app = express();
   const myUsers = users(db);
@@ -14,19 +16,18 @@ const server = function (db) {
   app.use(bodyParser.json());
 
   app.use(passport.initialize());
-  // app.use(flash());
+  app.use(flash());
 
   // ************ Configure PassportJS *************
   // Login strategy
   passport.use(new LocalStrategy({
-      usernameField: "email",
-      passwordField: "password"
-    },
-    function (email, password, done) {
+    usernameField: 'email',
+    passwordField: 'password',
+  },
+    function loginStrategy(email, password, done) {
       // NOTE: userID should be called user
-      myUsers.lookUpUser(email, function (err, user) {
+      myUsers.lookUpUser(email, function returnUser(err, user) {
         if (err) {
-          console.log('verify', err, user);
           return done(err);
         }
         if (!user) {
@@ -37,37 +38,37 @@ const server = function (db) {
         } // wrong password
         return done(null, user);
       });
-    }
+    },
   ));
 
   // Serialize & deserialize user
-  passport.serializeUser(function (user, done) {
+  passport.serializeUser(function serializeUser(user, done) {
     done(null, user);
   });
 
-  passport.deserializeUser(function (user, done) {
+  passport.deserializeUser(function deserializeUser(user, done) {
     done(null, user);
   });
 
   // ************  End points ************
   // Login
   app.post('/api/login', passport.authenticate('local', {
-    failureFlash: true
-  }), function (req, res) {
+    failureFlash: true,
+  }), function executeLogin(req, res) {
     // Passport puts authenticated user in req.user.
     res.send(req.user.email);
   });
 
   // Register
-  app.post('/api/register', function (req, res) {
+  app.post('/api/register', function executeRegister(req, res) {
     const userData = {
-      "email": req.body.email || "no email",
-      "message": "Success, user registered!"
+      email: req.body.email || 'no email',
+      message: 'Success, user registered!',
     };
     res.json(userData);
   });
 
   return app;
-}
+};
 
 module.exports = server;
