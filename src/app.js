@@ -48,8 +48,20 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
   });
 }]);
 
-app.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
+app.factory('LoginService', ['$scope', '$location', 'serverResponse', function ($scope, $location, serverResponse) {
+  return {
+    redirect: function (serverResponse) {
+      if (serverResponse.data.user) {
+        $scope.isLogedIn = true; //NOTE has no function yet
+        $location.path('/home');
+      }
+    }
+  }
+}]);
+
+app.controller('LoginController', ['$scope', '$http', 'LoginService', function ($scope, $http, LoginService) {
   $scope.userLogin = function userLogin() {
+    $scope.isLogedIn = false; //NOTE has no function yet
     $scope.userLog = {
         email: $scope.user.email,
         password: $scope.user.password
@@ -57,7 +69,11 @@ app.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
     $http
       .post('/api/login', JSON.stringify($scope.userLog))
       .then(function (response) {
-        console.log("Login response: ", response);
+        console.log('Login response: ', response);
+        LoginService.redirect(response)
+      })
+      .catch(function (err) {
+        console.log('Login error: ', err);
       });
   };
 }]);
