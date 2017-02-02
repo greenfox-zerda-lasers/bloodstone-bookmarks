@@ -5,7 +5,6 @@ const users = function (queryFunction) {
 
   const verifyPassword = function (user, password) {
     // NOTE: I know user exists. Need to check pw.
-    console.log(user.password, password);
     return (user.password === password)
   };
   //   // NOTE: No error case, no DB connection.

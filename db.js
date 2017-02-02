@@ -7,7 +7,7 @@ const queryDb = function (queryText, callback) {
   client.connect(function (err) {
     if (err) {
       callback(err)
-    };
+    }
 
     // execute a query on our database
     client.query(queryText, function (err, result) {
@@ -16,16 +16,13 @@ const queryDb = function (queryText, callback) {
       }
 
       // disconnect the client
-      client.end(function () {
-        if (err) throw err;
+      client.end(function (err) {
+        callback(err);
       });
       // callback
       callback(null, result.rows[0]);
     });
   });
 };
-
-// queryDb(`SELECT * FROM users WHERE EMAIL = 'a@a.hu'`, console.log);
-
 
 module.exports = queryDb;
