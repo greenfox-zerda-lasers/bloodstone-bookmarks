@@ -45,7 +45,7 @@ test.serial('wrong endpoint returns 404', async t => {
   queryDbStub.reset();
 });
 
-test.serial('after register it returns 200 status and an object', async t => {
+test.serial('after register it returns 200 status and a string', async t => {
   t.plan(2);
 
   const queryDbStub = sinon.stub();
@@ -57,8 +57,8 @@ test.serial('after register it returns 200 status and an object', async t => {
       .post('/api/register')
       .send({ email: 'a@a.hu', password: 'aaa' });
 
-  t.is(res.status, 200);
   t.true(typeof res === 'object');
+  t.is(res.status, 200);
 
   queryDbStub.reset();
 });
@@ -93,7 +93,7 @@ test.serial('after succesfull login it returns 200 status and an object', async 
       .send({ email: 'a@a.hu', password: 'a' });
 
   t.is(res.status, 200);
-  t.true(typeof res.body === 'object');
+  t.true(typeof res.body === 'string');
 
   queryDbStub.reset();
 });

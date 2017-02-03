@@ -75,6 +75,7 @@ const server = function server(db) {
   });
 
   // ************  End points ************
+
   // Login
   app.post('/api/login', passport.authenticate('local-login', {
     failureFlash: true,
@@ -94,16 +95,20 @@ const server = function server(db) {
     res.send(req.isAuthenticated() ? req.user : '0');
   });
 
-  // Register
-  app.post('/api/register', (req, res) => {
-    // TODO: Register user method
-    res.json(req.user.email);
-  });
-
   // Get link list
   app.get('/api/links', auth, (req, res) => {
     // TODO: Get links from database
     res.json(req.user.email);
+  });
+
+  // Register
+  app.post('/api/register', (req, res) => {
+    // TODO: Register user method
+    const userData = {
+      "email": req.body.email || "no email",
+      "message": "Success, user registered!"
+    };
+    res.json(userData);
   });
 
   // Return app
