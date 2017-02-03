@@ -54,7 +54,7 @@ app.factory('sessionFactory', ['$location', '$http', function ($location, $http)
       .then(function (response) {
         console.log('Login response: ', response);
         if (loginData.email === response.data) {
-          $location.path('/home');
+          $location.url('/home');
         }
       })
       .catch(function (err) {
@@ -67,7 +67,7 @@ app.factory('sessionFactory', ['$location', '$http', function ($location, $http)
     .then(function (response) {
       console.log("Reg. response: ", response);
       if (response.data.message) {
-        $location.path('/home');
+        $location.url('/home');
       }
     })
     .catch(function (err) {
