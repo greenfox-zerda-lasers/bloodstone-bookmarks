@@ -4,28 +4,28 @@ const app = angular.module('app', ['ngRoute']);
 
 var links = [
   {
-    "title":"Index.hu",
-    "url":"http://index.hu"
+    "title":"Bloodstone",
+    "url":"http://bloodstonedevelopment.tk/"
   },
   {
-    "title":"Szanalmasaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbb.hu",
-    "url":"http://szanalmas.hu"
-  },
-  {
-    "title":"Index.hu",
-    "url":"http://index.hu"
-  },
-  {
-    "title":"Szanalmas.hu",
-    "url":"http://szanalmas.hu"
+    "title":"Github",
+    "url":"https://github.com/"
   },
   {
     "title":"Index.hu",
     "url":"http://index.hu"
   },
   {
-    "title":"Szanalmas.hu",
-    "url":"http://szanalmas.hu"
+    "title":"Angular JS",
+    "url":"https://angularjs.org/"
+  },
+  {
+    "title":"Origo",
+    "url":"http://origo.hu"
+  },
+  {
+    "title":"JS Garden",
+    "url":"http://bonsaiden.github.io/JavaScript-Garden/"
   }
 ];
 
@@ -48,33 +48,31 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
   });
 }]);
 
-app.factory('LoginService', ['$scope', '$location', 'serverResponse', function ($scope, $location, serverResponse) {
-  return {
-    redirect: function (serverResponse) {
-      if (serverResponse.data.user) {
-        $scope.isLogedIn = true; //NOTE has no function yet
-        $location.path('/home');
-      }
-    }
-  }
-}]);
-
-app.controller('LoginController', ['$scope', '$http', 'LoginService', function ($scope, $http, LoginService) {
-  $scope.userLogin = function userLogin() {
-    $scope.isLogedIn = false; //NOTE has no function yet
-    $scope.userLog = {
-        email: $scope.user.email,
-        password: $scope.user.password
-    };
-    $http
-      .post('/api/login', JSON.stringify($scope.userLog))
+app.factory('sessionFactory', ['$location', '$http', function ($location, $http) {
+  var login = function (loginData) {
+    return $http.post('/api/login', JSON.stringify(loginData))
       .then(function (response) {
         console.log('Login response: ', response);
-        LoginService.redirect(response)
+        if (loginData.email === response.data) {
+          $location.path('/home');
+        }
       })
       .catch(function (err) {
         console.log('Login error: ', err);
       });
+  };
+  return {
+    login: login
+  }
+}]);
+
+app.controller('LoginController', ['$scope', 'sessionFactory', function ($scope, sessionFactory) {
+  $scope.userLogin = function userLogin() {
+    var userLog = {
+      email: $scope.user.email,
+      password: $scope.user.password
+    };
+    sessionFactory.login(userLog);
   };
 }]);
 
