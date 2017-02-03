@@ -1,6 +1,6 @@
-const angular = require('angular');
+// const angular = require('angular');
 const ngRoute = require('angular-route');
-const app = angular.module('app', ['ngRoute']);
+const app = angular.module('app', ['ngRoute', 'loginModule']);
 
 var links = [
   {
@@ -33,7 +33,8 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
   $routeProvider
   .when('/login', {
     templateUrl: './views/login.html',
-    controller: 'LoginController'
+    controller: 'LoginController',
+    controllerAs: 'loginCtrl',
   })
   .when('/register', {
     templateUrl: './views/register.html',
@@ -48,14 +49,18 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
   });
 }]);
 
-app.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
-  $scope.userLogin = function userLogin() {
-    $scope.userLog = {
-        email: $scope.user.email,
-        password: $scope.user.password
+var loginModule = angular.module('loginModule', ['ngRoute']);
+loginModule.controller('LoginController', [ '$http', function ($http) {
+  let vm = this
+  vm.message = 'pince'
+  console.log(vm.message);
+  vm.userLogin = function userLogin() {
+    vm.userLog = {
+        email: vm.user.email,
+        password: vm.user.password
     };
     $http
-      .post('/api/login', JSON.stringify($scope.userLog))
+      .post('/api/login', JSON.stringify(vm.userLog))
       .then(function (response) {
         console.log("Login response: ", response);
       });
@@ -86,3 +91,4 @@ app.controller('RenderController', ['$scope', function ($scope) {
 }]);
 
 module.exports = app;
+module.exports = loginModule
