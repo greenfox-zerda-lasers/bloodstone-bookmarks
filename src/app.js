@@ -4,28 +4,28 @@ const app = angular.module('app', ['ngRoute']);
 
 var links = [
   {
-    "title":"Index.hu",
-    "url":"http://index.hu"
+    "title":"Bloodstone",
+    "url":"http://bloodstonedevelopment.tk/"
   },
   {
-    "title":"Szanalmasaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbb.hu",
-    "url":"http://szanalmas.hu"
-  },
-  {
-    "title":"Index.hu",
-    "url":"http://index.hu"
-  },
-  {
-    "title":"Szanalmas.hu",
-    "url":"http://szanalmas.hu"
+    "title":"Github",
+    "url":"https://github.com/"
   },
   {
     "title":"Index.hu",
     "url":"http://index.hu"
   },
   {
-    "title":"Szanalmas.hu",
-    "url":"http://szanalmas.hu"
+    "title":"Angular JS",
+    "url":"https://angularjs.org/"
+  },
+  {
+    "title":"Origo",
+    "url":"http://origo.hu"
+  },
+  {
+    "title":"JS Garden",
+    "url":"http://bonsaiden.github.io/JavaScript-Garden/"
   }
 ];
 
@@ -48,35 +48,59 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
   });
 }]);
 
-app.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
-  $scope.userLogin = function userLogin() {
-    $scope.userLog = {
-        email: $scope.user.email,
-        password: $scope.user.password
-    };
-    $http
-      .post('/api/login', JSON.stringify($scope.userLog))
+app.factory('sessionFactory', ['$location', '$http', function ($location, $http) {
+  var login = function (loginData) {
+    return $http.post('/api/login', JSON.stringify(loginData))
       .then(function (response) {
-        console.log("Login response: ", response);
+        console.log('Login response: ', response);
+        if (loginData.email === response.data) {
+          $location.path('/home');
+        }
+      })
+      .catch(function (err) {
+        console.log('Login error: ', err);
       });
+  };
+
+  var register = function (userRegData) {
+    return $http.post('/api/register', JSON.stringify(userRegData))
+    .then(function (response) {
+      console.log("Reg. response: ", response);
+      if (response.data.message) {
+        $location.path('/home');
+      }
+    })
+    .catch(function (err) {
+      console.log('Registration error: ', err);
+    });
+  }
+  return {
+    login: login,
+    register: register
+  }
+}]);
+
+app.controller('LoginController', ['$scope', 'sessionFactory', function ($scope, sessionFactory) {
+  $scope.userLogin = function userLogin() {
+    var userLog = {
+      email: $scope.user.email,
+      password: $scope.user.password
+    };
+    sessionFactory.login(userLog);
   };
 }]);
 
-app.controller('RegistrationController', ['$scope', '$http', function ($scope, $http) {
+app.controller('RegistrationController', ['$scope', 'sessionFactory', function ($scope, sessionFactory) {
   $scope.userRegister = function userRegister() {
     if ($scope.user.password != $scope.user.passwordRepeat) {
       console.log("Error! Passwords don't match!")
     }
     else {
-      $scope.userRegData = {
+      var userRegData = {
         email: $scope.user.email,
         password: $scope.user.password
       };
-      $http
-      .post('/api/register', JSON.stringify($scope.userRegData))
-      .then(function (response) {
-        console.log("Reg. response: ", response);
-      });
+      sessionFactory.register(userRegData);
     }
   };
 }]);
