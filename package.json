@@ -63,8 +63,14 @@
     "node-sass": "^4.3.0",
     "nodemon": "^1.11.0",
     "sass-loader": "^4.1.1",
+    "sinon": "^1.17.7",
     "style-loader": "^0.13.1",
     "supertest": "^2.0.1",
     "webpack": "^1.14.0"
+  },
+  "ava": {
+    "files": [
+      "./test-backend/*.js"
+    ]
   }
 }

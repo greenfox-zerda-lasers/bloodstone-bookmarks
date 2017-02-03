@@ -4,12 +4,12 @@ const app = angular.module('app', ['ngRoute']);
 
 var links = [
   {
-    "title":"Index.hu",
-    "url":"http://index.hu"
+    "title":"Bloodstone",
+    "url":"http://bloodstonedevelopment.tk/"
   },
   {
-    "title":"Origo.hu",
-    "url":"http://origo.hu"
+    "title":"Github",
+    "url":"https://github.com/"
   },
   {
     "title":"hvg.hu",
@@ -20,12 +20,20 @@ var links = [
     "url":"http://greenfoxacademy.com"
   },
   {
-    "title":"Index.hu",
-    "url":"http://index.hu"
+    "title":"Angular JS",
+    "url":"https://angularjs.org/"
+  },
+  {
+    "title":"Origo",
+    "url":"http://origo.hu"
   },
   {
     "title":"b.hu",
     "url":"http://b.hu"
+  },
+  {
+    "title":"JS Garden",
+    "url":"http://bonsaiden.github.io/JavaScript-Garden/"
   }
 ];
 
@@ -73,37 +81,63 @@ const checkLoggedin = function checkLoggedin($q, $timeout, $http, $location, $ro
   return deferred.promise;
 };
 
-// *********** CONTROLLERS ************
-app.controller('LoginController', ['$location', '$scope', '$http', '$rootScope', function ($location, $scope, $http, $rootScope) {
-  $scope.userLogin = function userLogin() {
-    $scope.userLog = {
-        email: $scope.user.email,
-        password: $scope.user.password
-    };
-    $http
-      .post('/api/login', JSON.stringify($scope.userLog))
+app.factory('sessionFactory', ['$location', '$http', '$rootScope', function ($location, $http, $rootScope) {
+  var login = function (loginData) {
+    return $http.post('/api/login', JSON.stringify(loginData))
       .then(function (response) {
-        $rootScope.currentUser = response;
-        $location.url('/home');
+        console.log('Login response: ', response);
+        if (loginData.email === response.data) {
+          $rootScope.currentUser = response;
+          $location.path('/home');
+        }
+      })
+      .catch(function (err) {
+        console.log('Login error: ', err);
       });
+  };
+
+  var register = function (userRegData) {
+    return $http.post('/api/register', JSON.stringify(userRegData))
+    .then(function (response) {
+      console.log("Reg. response: ", response);
+      if (response.data.message) {
+        $location.path('/home');
+      }
+    })
+    .catch(function (err) {
+      console.log('Registration error: ', err);
+    });
+  };
+
+  return {
+    login: login,
+    register: register
+  }
+}]);
+
+// *********** CONTROLLERS ************
+app.controller('LoginController', ['$scope', 'sessionFactory', '$rootScope', function ($scope, sessionFactory, $rootScope) {
+  $scope.userLogin = function userLogin() {
+    var userLog = {
+      email: $scope.user.email,
+      password: $scope.user.password
+    };
+    sessionFactory.login(userLog);
   };
 }]);
 
-app.controller('RegistrationController', ['$scope', '$http', function ($scope, $http) {
+app.controller('RegistrationController', ['$scope', 'sessionFactory', '$rootScope', function ($scope, sessionFactory, $rootScope) {
   $scope.userRegister = function userRegister() {
-    if ($scope.user.password != $scope.user.passwordRepeat) {
+    if ($scope.user.password !== $scope.user.passwordRepeat) {
       console.log("Error! Passwords don't match!")
     }
     else {
-      $scope.userRegData = {
+      var userRegData = {
         email: $scope.user.email,
         password: $scope.user.password
       };
-      $http
-      .post('/api/register', JSON.stringify($scope.userRegData))
-      .then(function (response) {
-        console.log("Reg. response: ", response);
-      });
+      console.log(userRegData);
+      sessionFactory.register(userRegData);
     }
   };
 }]);

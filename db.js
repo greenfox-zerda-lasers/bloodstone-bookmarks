@@ -5,15 +5,19 @@ const queryDb = function (queryText, callback) {
 
   // connect to our database
   client.connect(function (err) {
-    if (err) throw err;
+    if (err) {
+      callback(err)
+    }
 
     // execute a query on our database
     client.query(queryText, function (err, result) {
-      if (err) throw err;
+      if (err) {
+        callback(err)
+      }
 
       // disconnect the client
       client.end(function (err) {
-        if (err) throw err;
+        callback(err);
       });
       // callback
       callback(null, result.rows[0]);

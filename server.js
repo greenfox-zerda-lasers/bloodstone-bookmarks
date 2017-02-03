@@ -18,6 +18,7 @@ const server = function server(db) {
   app.use(express.static('dist'));
   app.use(flash());
   app.use(bodyParser.json());
+
   app.use(bodyParser.urlencoded({
     extended: true,
   }));
@@ -27,6 +28,7 @@ const server = function server(db) {
     secret: 'this is the secret',
   }));
   app.use(cookieParser());
+
   app.use(passport.initialize());
   app.use(passport.session());
 
