@@ -8,26 +8,28 @@ var links = [
     "url":"http://index.hu"
   },
   {
-    "title":"Szanalmasaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbb.hu",
-    "url":"http://szanalmas.hu"
+    "title":"Origo.hu",
+    "url":"http://origo.hu"
+  },
+  {
+    "title":"hvg.hu",
+    "url":"http://hvg.hu"
+  },
+  {
+    "title":"Green Fox Academy",
+    "url":"http://greenfoxacademy.com"
   },
   {
     "title":"Index.hu",
     "url":"http://index.hu"
   },
   {
-    "title":"Szanalmas.hu",
-    "url":"http://szanalmas.hu"
-  },
-  {
-    "title":"Index.hu",
-    "url":"http://index.hu"
-  },
-  {
-    "title":"Szanalmas.hu",
-    "url":"http://szanalmas.hu"
+    "title":"b.hu",
+    "url":"http://b.hu"
   }
 ];
+
+// *************** ROUTING ***************
 
 app.config(['$routeProvider', function routeProvider($routeProvider) {
   $routeProvider
@@ -41,14 +43,37 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
   })
   .when('/home', {
     templateUrl: './views/list.html',
-    controller: 'RenderController'
+    controller: 'RenderController',
+    resolve: {
+      logincheck: checkLoggedin,
+    }
   })
   .otherwise({
     redirectTo: '/login', // NOTE: Temporarily
   });
 }]);
 
-app.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
+const checkLoggedin = function checkLoggedin($q, $timeout, $http, $location, $rootScope) {
+  const deferred = $q.defer();
+
+  $http.get('/loggedin')
+    .then(function(user) {
+      $rootScope.errorMessage = null;
+      // User is Authenticated
+      if (user !== '0') {
+        $rootScope.currentUser = user;
+        deferred.resolve();
+      } else { // User not Auth.
+        $rootScope.errorMessage = 'Error! You need to log in.';
+        deferred.reject();
+        $location.url('/login');
+      }
+    });
+  return deferred.promise;
+};
+
+// *********** CONTROLLERS ************
+app.controller('LoginController', ['$location', '$scope', '$http', '$rootScope', function ($location, $scope, $http, $rootScope) {
   $scope.userLogin = function userLogin() {
     $scope.userLog = {
         email: $scope.user.email,
@@ -57,7 +82,8 @@ app.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
     $http
       .post('/api/login', JSON.stringify($scope.userLog))
       .then(function (response) {
-        console.log("Login response: ", response);
+        $rootScope.currentUser = response;
+        $location.url('/home');
       });
   };
 }]);
@@ -81,8 +107,15 @@ app.controller('RegistrationController', ['$scope', '$http', function ($scope, $
   };
 }]);
 
-app.controller('RenderController', ['$scope', function ($scope) {
+app.controller('RenderController', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
   $scope.dummyLinks = links;
+  $scope.logout = function() {
+    $http.post('/api/logout')
+      .then(function() {
+        $rootScope.currentUser = null;
+        $location.url('/home');
+      });
+  }
 }]);
 
 module.exports = app;
