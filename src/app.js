@@ -87,8 +87,10 @@ app.factory('sessionFactory', ['$location', '$http', '$rootScope', function ($lo
       .then(function (response) {
         console.log('Login response: ', response);
         if (loginData.email === response.data) {
+          console.log($location.path);
           $rootScope.currentUser = response;
-          $location.url('/home');
+          $location.path('/home');
+          console.log($location.path);
         }
       })
       .catch(function (err) {
