@@ -75,7 +75,8 @@ app.factory('sessionFactory', ['$location', '$http', function ($location, $http)
     });
   }
   return {
-    login: login
+    login: login,
+    register: register
   }
 }]);
 
