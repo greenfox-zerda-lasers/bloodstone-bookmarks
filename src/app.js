@@ -58,9 +58,10 @@ const checkLoggedin = function checkLoggedin($q, $timeout, $http, $location, $ro
 
   $http.get('/api/loggedin')
     .then(function(user) {
+      console.log(user);
       $rootScope.errorMessage = null;
       // User is Authenticated
-      if (user !== '0') {
+      if (user.data !== '0') {
         $rootScope.currentUser = user;
         deferred.resolve();
       } else { // User not Auth.
