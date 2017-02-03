@@ -1,15 +1,15 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const cookieParser = require('cookie-parser');
+const users = require('./users.js');
+const flash = require('connect-flash');
+// const bcrypt = require('bcrypt-nodejs');
 
 const server = function server(db) {
   // ************ Configure app *************
-  const express = require('express');
-  const bodyParser = require('body-parser');
-  const session = require('express-session');
-  const passport = require('passport');
-  const LocalStrategy = require('passport-local').Strategy;
-  const cookieParser = require('cookie-parser');
-  const users = require('./users.js');
-  const flash = require('connect-flash');
-  // const bcrypt = require('bcrypt-nodejs');
 
   // Express
   const app = express();
@@ -41,7 +41,7 @@ const server = function server(db) {
 
   // ************ Configure PassportJS *************
   // Login strategy
-  passport.use(new LocalStrategy({
+  passport.use('local-login', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
   },
@@ -60,7 +60,7 @@ const server = function server(db) {
         }
         return done(null, user);
       });
-    },
+    }
   ));
 
   // Serialize & deserialize user
@@ -74,7 +74,7 @@ const server = function server(db) {
 
   // ************  End points ************
   // Login
-  app.post('/api/login', passport.authenticate('local', {
+  app.post('/api/login', passport.authenticate('local-login', {
     failureFlash: true,
   }), (req, res) => {
     // Passport puts authenticated user in req.user.
@@ -104,7 +104,7 @@ const server = function server(db) {
     res.json(req.user.email);
   });
 
-
+  // Return app
   return app;
 };
 
