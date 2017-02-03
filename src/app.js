@@ -61,6 +61,19 @@ app.factory('sessionFactory', ['$location', '$http', function ($location, $http)
         console.log('Login error: ', err);
       });
   };
+
+  var register = function (userRegData) {
+    return $http.post('/api/register', JSON.stringify(userRegData))
+    .then(function (response) {
+      console.log("Reg. response: ", response);
+      if (response.data.message) {
+        $location.path('/home');
+      }
+    })
+    .catch(function (err) {
+      console.log('Registration error: ', err);
+    });
+  }
   return {
     login: login
   }
@@ -76,21 +89,17 @@ app.controller('LoginController', ['$scope', 'sessionFactory', function ($scope,
   };
 }]);
 
-app.controller('RegistrationController', ['$scope', '$http', function ($scope, $http) {
+app.controller('RegistrationController', ['$scope', 'sessionFactory', function ($scope, sessionFactory) {
   $scope.userRegister = function userRegister() {
     if ($scope.user.password != $scope.user.passwordRepeat) {
       console.log("Error! Passwords don't match!")
     }
     else {
-      $scope.userRegData = {
+      var userRegData = {
         email: $scope.user.email,
         password: $scope.user.password
       };
-      $http
-      .post('/api/register', JSON.stringify($scope.userRegData))
-      .then(function (response) {
-        console.log("Reg. response: ", response);
-      });
+      sessionFactory.register(userRegData);
     }
   };
 }]);
