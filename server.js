@@ -12,7 +12,6 @@ const server = function (db) {
 
   app.use(express.static('dist'));
   app.use(bodyParser.json());
-
   app.use(passport.initialize());
   // app.use(flash());
 
@@ -26,7 +25,6 @@ const server = function (db) {
       // NOTE: userID should be called user
       myUsers.lookUpUser(email, function (err, user) {
         if (err) {
-          console.log('verify', err, user);
           return done(err);
         }
         if (!user) {
