@@ -11,7 +11,7 @@ describe('Login controller', function() {
 
   beforeEach(function () {
     // angular.mock.module('app'));
-    module('app');
+    angular.mock.module('app');
 
     inject(function ($controller, $httpBackend) {
       httpBackend = $httpBackend;
