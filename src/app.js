@@ -53,7 +53,9 @@ app.config(['$routeProvider', 'checkLoggedin', function routeProvider($routeProv
     templateUrl: './views/list.html',
     controller: 'RenderController',
     resolve: {
-      logincheck: checkLoggedin.check,
+      logincheck: function(checkLoggedin) {
+        return checkLoggedin.check();
+      },
     }
   })
   .otherwise({
@@ -62,10 +64,10 @@ app.config(['$routeProvider', 'checkLoggedin', function routeProvider($routeProv
 }]);
 
 // Check loggedin service
-app.factory('checkLoggedin',
+app.service('checkLoggedin',
   ['$q', '$timeout', '$http', '$location', '$rootScope',
   function ($q, $timeout, $http, $location, $rootScope) {
-    const check = function () {
+    this.check = function () {
       const deferred = $q.defer();
       $http.get('/api/loggedin')
         .then(function(user) {
@@ -82,10 +84,6 @@ app.factory('checkLoggedin',
           }
         });
       return deferred.promise;
-    };
-
-    return {
-      check: check,
     };
   }
 ]);
