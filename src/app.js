@@ -39,7 +39,7 @@ var links = [
 
 // *************** ROUTING ***************
 
-app.config(['$routeProvider', function routeProvider($routeProvider) {
+app.config(['$routeProvider', 'checkLoggedin', function routeProvider($routeProvider, checkLoggedin) {
   $routeProvider
   .when('/login', {
     templateUrl: './views/login.html',
@@ -53,7 +53,7 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
     templateUrl: './views/list.html',
     controller: 'RenderController',
     resolve: {
-      logincheck: checkLoggedin,
+      logincheck: checkLoggedin.check,
     }
   })
   .otherwise({
@@ -61,28 +61,37 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
   });
 }]);
 
-const checkLoggedin = function checkLoggedin($q, $timeout, $http, $location, $rootScope) {
-  const deferred = $q.defer();
+// Check loggedin service
+app.factory('checkLoggedin',
+  ['$q', '$timeout', '$http', '$location', '$rootScope',
+  function ($q, $timeout, $http, $location, $rootScope) {
+    const check = function () {
+      const deferred = $q.defer();
+      $http.get('/api/loggedin')
+        .then(function(user) {
+          console.log(user);
+          $rootScope.errorMessage = null;
+          // User is Authenticated
+          if (user.data !== '0') {
+            $rootScope.currentUser = user;
+            deferred.resolve();
+          } else { // User not Auth.
+            $rootScope.errorMessage = 'Error! You need to log in.';
+            deferred.reject();
+            $location.url('/login');
+          }
+        });
+      return deferred.promise;
+    };
 
-  $http.get('/api/loggedin')
-    .then(function(user) {
-      console.log(user);
-      $rootScope.errorMessage = null;
-      // User is Authenticated
-      if (user.data !== '0') {
-        $rootScope.currentUser = user;
-        deferred.resolve();
-      } else { // User not Auth.
-        $rootScope.errorMessage = 'Error! You need to log in.';
-        deferred.reject();
-        $location.url('/login');
-      }
-    });
-  return deferred.promise;
-};
+    return {
+      check: check,
+    };
+  }
+]);
 
-app.factory('sessionFactory', ['$location', '$http', '$rootScope', function ($location, $http, $rootScope) {
-  var login = function (loginData) {
+app.factory('userSession', ['$location', '$http', '$rootScope', function ($location, $http, $rootScope) {
+  const login = function (loginData) {
     return $http.post('/api/login', JSON.stringify(loginData))
       .then(function (response) {
         console.log('Login response: ', response);
@@ -98,7 +107,7 @@ app.factory('sessionFactory', ['$location', '$http', '$rootScope', function ($lo
       });
   };
 
-  var register = function (userRegData) {
+  const register = function (userRegData) {
     return $http.post('/api/register', JSON.stringify(userRegData))
     .then(function (response) {
       console.log("Reg. response: ", response);
