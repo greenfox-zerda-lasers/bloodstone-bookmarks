@@ -6,7 +6,7 @@ import test from 'ava';
 const request = require('supertest');
 const sinon = require('sinon');
 
-const server = require('../server/server.js');
+const server = require('../server.js');
 
 // ************   Test cases   *************
 
