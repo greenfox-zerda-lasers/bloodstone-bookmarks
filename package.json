@@ -71,6 +71,11 @@
   "ava": {
     "files": [
       "./test-backend/*.js"
+    ],
+    "source": [
+      "**/*.{js}",
+      "server/*.{js}",
+      "!dist/**/*"
     ]
   }
 }
