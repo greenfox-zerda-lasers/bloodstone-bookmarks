@@ -18,10 +18,8 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
     templateUrl: './views/list.html',
     controller: 'RenderController',
     resolve: {
-      logincheck: function() {
-        // return checkLoggedin.check();
-      },
-    }
+      logincheck: checkLoggedin,
+    },
   })
   .otherwise({
     redirectTo: '/login', // NOTE: Temporarily
@@ -29,28 +27,24 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
 }]);
 
 // Check loggedin service
-app.service('checkLoggedin',
-  ['$q', '$timeout', '$http', '$location', '$rootScope',
-  function ($q, $timeout, $http, $location, $rootScope) {
-    this.check = function () {
-      const deferred = $q.defer();
-      $http.get('/api/loggedin')
-        .then(function(user) {
-          console.log(user);
-          $rootScope.errorMessage = null;
-          // User is Authenticated
-          if (user.data !== '0') {
-            $rootScope.currentUser = user;
-            deferred.resolve();
-          } else { // User not Auth.
-            $rootScope.errorMessage = 'Error! You need to log in.';
-            deferred.reject();
-            $location.url('/login');
-          }
-        });
-      return deferred.promise;
-    };
-  }
-]);
+const checkLoggedin = function ($q, $timeout, $http, $location, $rootScope) {
+  const deferred = $q.defer();
+  $http.get('/api/loggedin')
+    .then(function(user) {
+      console.log(user);
+      $rootScope.errorMessage = null;
+      // User is Authenticated
+      if (user.data !== '0') {
+        $rootScope.currentUser = user;
+        deferred.resolve();
+      } else { // User not Auth.
+        $rootScope.errorMessage = 'Error! You need to log in.';
+        deferred.reject();
+        $location.url('/login');
+      }
+    });
+  return deferred.promise;
+};
+
 
 module.exports = app;

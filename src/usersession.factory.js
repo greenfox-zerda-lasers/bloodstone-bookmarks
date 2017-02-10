@@ -6,11 +6,10 @@ app.factory('userSession', ['$location', '$http', '$rootScope', function ($locat
       .then(function (response) {
         console.log('Login response: ', response);
         if (loginData.email === response.data) {
-          console.log($location.path);
           $rootScope.currentUser = response;
           $location.path('/home');
-          console.log($location.path);
         }
+        // NOTE: What if email does not match?
       })
       .catch(function (err) {
         console.log('Login error: ', err);
