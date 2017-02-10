@@ -1,1 +1,1 @@
-Project related experiments come here.
+Project related experiments and prototypes: methods, modules, etc.

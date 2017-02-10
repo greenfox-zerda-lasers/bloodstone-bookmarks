@@ -4,7 +4,7 @@ const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
-const users = require('./users.js');
+const users = require('./conf/users.js');
 const flash = require('connect-flash');
 // const bcrypt = require('bcrypt-nodejs');
 
