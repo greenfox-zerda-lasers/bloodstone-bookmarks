@@ -24,12 +24,13 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
 }]);
 
 app.run(function check($rootScope, $location, userSession) {
-  $rootScope.$on('$routeChangeStart', async function (event, next, current) {
-    if (await userSession.checkLogeddin() === false) {
+  const sessionCheck = function (event, next, current) {
+    if (userSession.checkLogeddin() === false) {
       // no logged in user, redirect to login
       $location.url('/login');
     }
-  });
+  };
+  $rootScope.$on('$routeChangeStart', sessionCheck);
 });
 
 
