@@ -17,16 +17,24 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
   .when('/home', {
     templateUrl: './views/list.html',
     controller: 'RenderController',
-    resolve: {
-      logincheck: checkLoggedin,
-    },
   })
   .otherwise({
     redirectTo: '/login', // NOTE: Temporarily
   });
 }]);
 
-// Check loggedin service
+app.run(function check($rootScope, $location, userSession) {
+  $rootScope.$on('$routeChangeStart', async function (event, next, current) {
+    if (await userSession.checkLogeddin() === false) {
+      // no logged in user, redirect to login
+      $location.url('/login');
+    }
+  });
+});
+
+
+// Check loggedin resolve (promises) version
+/*
 const checkLoggedin = function ($q, $timeout, $http, $location, $rootScope) {
   const deferred = $q.defer();
   $http.get('/api/loggedin')
@@ -45,6 +53,7 @@ const checkLoggedin = function ($q, $timeout, $http, $location, $rootScope) {
     });
   return deferred.promise;
 };
+*/
 
 
 module.exports = app;

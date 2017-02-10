@@ -16,6 +16,16 @@ app.factory('userSession', ['$location', '$http', '$rootScope', function ($locat
       });
   };
 
+  const checkLoggedin = function () {
+    return $http.get('/api/loggedin')
+      .then(function (response) {
+        console.log('Logged in response: ', response);
+        if (response === '0') {
+          return false;
+        } else { return true; }
+      });
+  };
+
   const register = function (userRegData) {
     return $http.post('/api/register', JSON.stringify(userRegData))
     .then(function (response) {
@@ -31,6 +41,7 @@ app.factory('userSession', ['$location', '$http', '$rootScope', function ($locat
 
   return {
     login: login,
-    register: register
+    register: register,
+    checkLogeddin: checkLoggedin
   }
 }]);
