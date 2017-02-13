@@ -36,14 +36,17 @@
 
   const app = angular.module('app');
 
-  app.controller('RenderController', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
+  app.controller('RenderController', ['$scope', '$rootScope', '$http', '$location', '$log', function ($scope, $rootScope, $http, $location, $log) {
     $scope.dummyLinks = links;
     $scope.logout = function () {
       $http.post('/api/logout')
         .then(function () {
           $rootScope.currentUser = null;
-          $location.url('/home');
+          $location.url('/login');
         });
+    };
+    $scope.saveLink = function () {
+      $log.log($scope.newURL);
     };
   }]);
 }());

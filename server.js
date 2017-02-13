@@ -76,6 +76,7 @@ const server = function server(db) {
 
   // ************  End points ************
 
+  // USER & SESSION
   // Login
   app.post('/api/login', passport.authenticate('local-login', {
     failureFlash: true,
@@ -95,12 +96,6 @@ const server = function server(db) {
     res.send(req.isAuthenticated() ? req.user : '0');
   });
 
-  // Get link list
-  app.get('/api/links', auth, (req, res) => {
-    // TODO: Get links from database
-    res.json(req.user.email);
-  });
-
   // Register
   app.post('/api/register', (req, res) => {
     // TODO: Register user method
@@ -110,6 +105,19 @@ const server = function server(db) {
     };
     res.json(userData);
   });
+
+  // LINKS
+  // Get link list
+  app.get('/api/bookmarks', auth, (req, res) => {
+    // TODO: Get links from database
+    res.json(req.user.email);
+  });
+
+  app.post('/api/bookmarks', (req, res) => {
+    // TODO: Get links from database
+    res.json(req);
+  });
+
 
   // Return app
   return app;
