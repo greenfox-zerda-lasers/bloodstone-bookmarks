@@ -105,8 +105,8 @@ const server = function server(db) {
   app.post('/api/register', (req, res) => {
     // TODO: Register user method
     const userData = {
-      "email": req.body.email || "no email",
-      "message": "Success, user registered!"
+      email: req.body.email || 'no email',
+      message: 'Success, user registered!',
     };
     res.json(userData);
   });
