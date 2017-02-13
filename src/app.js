@@ -23,11 +23,10 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
   });
 }]);
 
-app.run(function check($rootScope, $location, $http, $log) {
+app.run(['$rootScope', '$location', '$http', '$log', 'userSession', function check($rootScope, $location, $http, $log, userSession) {  // TODO await async to prevent load the protected view
   $rootScope.$on('$routeChangeStart', (event, next, current) => {
-    console.log(next);
     if (next.$$route.originalPath === '/home') {
-      $http.get('/api/loggedin')
+      userSession.checkLoggedin()
       .then((response) => {
         $log.log('Logged in response: ', response.data);
         if (response.data === '0') {
@@ -40,7 +39,7 @@ app.run(function check($rootScope, $location, $http, $log) {
       })
     }
   })
-});
+}]);
 
 // Check loggedin resolve (promises) version
 /*
