@@ -16,21 +16,14 @@ app.factory('userSession', ['$location', '$http', '$rootScope', function ($locat
       });
   };
 
-  const checkLoggedin = function () {
-    return !!$rootScope.currentUser;
-  };
+  // const checkLoggedin = function () {
+  //   return !!$rootScope.currentUser;
+  // };
 
-  /* Async, super-safe version // NOTE: async-await fails on Webpack
+  // Async, super-safe version // NOTE: async-await fails on Webpack
   const checkLoggedin = function () {
-    return $http.get('/api/loggedin')
-      .then(function (response) {
-        console.log('Logged in response: ', response);
-        if (response === '0') {
-          return false;
-        } else { return true; }
-      });
+    return $http.get('/api/loggedin');
   };
-  */
 
   const register = function (userRegData) {
     return $http.post('/api/register', JSON.stringify(userRegData))
@@ -48,6 +41,6 @@ app.factory('userSession', ['$location', '$http', '$rootScope', function ($locat
   return {
     login: login,
     register: register,
-    checkLogeddin: checkLoggedin
+    checkLoggedin: checkLoggedin
   }
 }]);
