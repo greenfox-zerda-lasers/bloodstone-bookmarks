@@ -23,16 +23,23 @@ app.config(['$routeProvider', function routeProvider($routeProvider) {
   });
 }]);
 
-app.run(function check($rootScope, $location, userSession) {
-  const sessionCheck = function (event, next, current) {
-    if (userSession.checkLogeddin() === false) {
-      // no logged in user, redirect to login
-      $location.url('/login');
+app.run(['$rootScope', '$location', '$http', '$log', 'userSession', function check($rootScope, $location, $http, $log, userSession) {  // TODO await async to prevent load the protected view
+  $rootScope.$on('$routeChangeStart', (event, next, current) => {
+    if (next.$$route.originalPath === '/home') {
+      userSession.checkLoggedin()
+      .then((response) => {
+        $log.log('Logged in response: ', response.data);
+        if (response.data === '0') {
+          $location.path('/login');
+        }
+      })
+      .catch((error) => {
+        $log.log(error);
+        $location.path('/login');
+      })
     }
-  };
-  $rootScope.$on('$routeChangeStart', sessionCheck);
-});
-
+  })
+}]);
 
 // Check loggedin resolve (promises) version
 /*
