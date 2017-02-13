@@ -41,27 +41,4 @@ app.run(['$rootScope', '$location', '$http', '$log', 'userSession', function che
   })
 }]);
 
-// Check loggedin resolve (promises) version
-/*
-const checkLoggedin = function ($q, $timeout, $http, $location, $rootScope) {
-  const deferred = $q.defer();
-  $http.get('/api/loggedin')
-    .then(function(user) {
-      console.log(user);
-      $rootScope.errorMessage = null;
-      // User is Authenticated
-      if (user.data !== '0') {
-        $rootScope.currentUser = user;
-        deferred.resolve();
-      } else { // User not Auth.
-        $rootScope.errorMessage = 'Error! You need to log in.';
-        deferred.reject();
-        $location.url('/login');
-      }
-    });
-  return deferred.promise;
-};
-*/
-
-
 module.exports = app;
