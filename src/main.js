@@ -4,4 +4,4 @@ require('./app.js');
 require('./usersession.factory.js');
 require('./login.controller.js');
 require('./registration.controller.js');
-require('./render.controller.js');
+require('./bookmarks.controller.js');
