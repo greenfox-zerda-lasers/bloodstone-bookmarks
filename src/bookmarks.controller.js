@@ -50,8 +50,10 @@
       $scope.showInputBox = true;
     };
     $scope.saveBookmark = function () {
-      $log.log('URL entered: ' + $scope.newURL);
-      bookmarkFactory.add($scope.newURL);
+      const string = $scope.newURL;
+      $log.log('URL entered: ' + string);
+      // TODO: 1. Parse URL; 2. Fetch title (+img, +desc); 3. Save title 4. Cache img, desc(?)
+      bookmarkFactory.add(JSON.stringify(string));
     };
   }]);
 }());

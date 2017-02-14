@@ -107,15 +107,13 @@ const server = function server(db) {
   });
 
   // LINKS
-  // Get link list
-  app.get('/api/bookmarks', auth, (req, res) => {
-    // TODO: Get links from database
-    res.json(req.user.email);
-  });
 
+
+  // Post new bookmark
   app.post('/api/bookmarks', (req, res) => {
-    // TODO: Get links from database
-    res.json(req);
+    // TODO: Save link in DB
+    // Success: Reply with saved link
+    res.json(req.data);
   });
 
 
