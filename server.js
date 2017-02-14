@@ -109,7 +109,7 @@ const server = function server(db) {
   app.post('/api/bookmarks', (req, res) => {
     // TODO: Save link in DB
     // Success: Reply with saved link
-    res.json(req);
+    res.json(req.body.url);
   });
 
 

@@ -50,13 +50,13 @@
       $scope.showInputBox = true;
     };
     $scope.saveBookmark = function () {
-      const bookmarkJSON = {
+      const stringJSON = {
         url: $scope.newURL,
         title: 'My Bookmark',
       };
-      $log.log('URL entered: ' + bookmarkJSON);
+      $log.log('URL entered: ' + stringJSON);
       // TODO: 1. Parse URL; 2. Fetch title (+img, +desc); 3. Save title 4. Cache img, desc(?)
-      bookmarkFactory.add(JSON.stringify(bookmarkJSON));
+      bookmarkFactory.add(stringJSON);
     };
   }]);
 }());
