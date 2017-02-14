@@ -19,10 +19,6 @@ const server = function server(db) {
   app.use(flash());
   app.use(bodyParser.json());
 
-  app.use(bodyParser.urlencoded({
-    extended: true,
-  }));
-
   // Passport, cookie and session
   app.use(session({
     secret: 'this is the secret',
@@ -113,7 +109,7 @@ const server = function server(db) {
   app.post('/api/bookmarks', (req, res) => {
     // TODO: Save link in DB
     // Success: Reply with saved link
-    res.json(req.data);
+    res.json(req);
   });
 
 
