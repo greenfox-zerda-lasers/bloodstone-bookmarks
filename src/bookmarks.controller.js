@@ -36,7 +36,7 @@
 
   const app = angular.module('app');
 
-  app.controller('BookmarksController', ['$scope', '$rootScope', '$http', '$location', '$log', function ($scope, $rootScope, $http, $location, $log) {
+  app.controller('BookmarksController', ['$scope', '$rootScope', '$http', '$location', '$log', 'bookmarkFactory', function ($scope, $rootScope, $http, $location, $log, bookmarkFactory) {
     $scope.dummyLinks = links;
     $scope.showInputBox = false;
     $scope.logout = function () {
@@ -49,8 +49,9 @@
     $scope.onAddClick = function () {
       $scope.showInputBox = true;
     };
-    $scope.saveLink = function () {
-      $log.log($scope.newURL);
+    $scope.saveBookmark = function () {
+      $log.log('URL entered: ' + $scope.newURL);
+      bookmarkFactory.add($scope.newURL);
     };
   }]);
 }());
