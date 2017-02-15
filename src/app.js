@@ -14,7 +14,7 @@ angular.module('app').config(['$routeProvider', function routeProvider($routePro
     })
     .when('/register', {
       templateUrl: './views/register.html',
-      controller: 'RegistrationController',
+      controller: 'RegistrationController as vm',
     })
     .when('/home', {
       templateUrl: './views/list.html',

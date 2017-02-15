@@ -108,6 +108,12 @@ const server = function server(db) {
       email: req.body.email || 'no email',
       message: 'Success, user registered!',
     };
+    // user  found
+    console.log("works here");
+    // console.log(myUsers);
+    if(!!req.body.email){
+      console.log('exist');
+    }
     res.json(userData);
   });
 
