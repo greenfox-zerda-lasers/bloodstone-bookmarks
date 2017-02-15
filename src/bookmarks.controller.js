@@ -56,6 +56,10 @@
       };
       // TODO: 1. Parse URL; 2. Fetch title (+img, +desc); 3. Save title 4. Cache img, desc(?)
       bookmarkFactory.add(stringJSON);
+      // Clear input field and close popup
+      // TODO: If everything went well
+      $scope.newURL = null;
+      $scope.showInputBox = false;
     };
   }]);
 }());
