@@ -1,13 +1,12 @@
-(function () {
-  const app = angular.module('app');
-
-  app.controller('LoginController', ['$scope', 'userSession', '$rootScope', function ($scope, userSession, $rootScope) {
-    $scope.userLogin = function userLogin() {
-      var userLog = {
-        email: $scope.user.email,
-        password: $scope.user.password,
+(() => {
+  angular.module('app')
+    .controller('LoginController', ['$scope', 'userSession', function ($scope, userSession) {
+      $scope.userLogin = function userLogin() {  // TODO set it to vm = this, vm.userLogin...
+        const userLog = {
+          email: $scope.user.email,
+          password: $scope.user.password,
+        };
+        userSession.login(userLog);
       };
-      userSession.login(userLog);
-    };
-  }]);
-}());
+    }]);
+})();

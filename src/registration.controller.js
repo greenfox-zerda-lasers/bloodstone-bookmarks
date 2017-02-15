@@ -1,4 +1,4 @@
-(function () {
+(() => {
   angular.module('app')
   .controller('RegistrationController', ['$scope', 'userSession', '$rootScope', '$log', function ($scope, userSession, $rootScope, $log) {
     const vm = this;
@@ -15,4 +15,4 @@
       }
     };
   }]);
-}());
+})();
