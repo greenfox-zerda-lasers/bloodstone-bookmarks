@@ -102,14 +102,14 @@ const server = function server(db) {
     res.json(userData);
   });
 
-  // LINKS
-
-
+  // BOOKMARKS
   // Post new bookmark
   app.post('/api/bookmarks', (req, res) => {
-    // TODO: Save link in DB
-    // Success: Reply with saved link
-    res.json(req.body.url);
+    const bookmarkToSave = {
+      url: req.body.url,
+      title: req.body.title
+    }
+    res.json(bookmarkToSave);
   });
 
 

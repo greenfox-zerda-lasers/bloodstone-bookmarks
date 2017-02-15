@@ -28,7 +28,6 @@ app.run(['$rootScope', '$location', '$http', '$log', 'userSession', function che
     if (next.$$route.originalPath === '/home') {
       userSession.checkLoggedin()
       .then((response) => {
-        $log.log('Logged in response: ', response.data);
         if (response.data === '0') {
           $location.path('/login');
         }

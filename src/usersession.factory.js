@@ -4,7 +4,6 @@ app.factory('userSession', ['$location', '$http', '$rootScope', function ($locat
   const login = function (loginData) {
     return $http.post('/api/login', JSON.stringify(loginData))
       .then(function (response) {
-        console.log('Login response: ', response);
         if (loginData.email === response.data) {
           $rootScope.currentUser = response; // NOTE: Plox don't store this in the rootScope.
           $location.path('/home');
@@ -16,11 +15,7 @@ app.factory('userSession', ['$location', '$http', '$rootScope', function ($locat
       });
   };
 
-  // const checkLoggedin = function () {
-  //   return !!$rootScope.currentUser;
-  // };
-
-  // Async, super-safe version // NOTE: async-await fails on Webpack
+  // Check is user is logged in
   const checkLoggedin = function () {
     return $http.get('/api/loggedin');
   };
