@@ -105,27 +105,28 @@ const server = function server(db) {
   app.post('/api/register', (req, res) => {
     // TODO: Register user method
     const callback = function (err, user) {
-      console.log(err, user);
-      // if (err) {
-      //   console.log('err: ', err, user);
-      //   res.send(err);
-      // } else if (!user) {
-      //   console.log('!user: ', err, user);
-      //   // res.send(null);
-      // }
+      if (err) {
+        console.log('err: ', err, user);
+        res.send(err);
+      } else if (!user) {
+        console.log('!user: ', err, user);
+        res.send(null);
+      }
     };
-    myUsers.lookUpUser(req.body.email, callback);
-    // const userData = {
-    //   email: req.body.email || 'no email',
-    //   message: 'Success, user registered!',
-    // };
-    // // user  found
-    // console.log("works here");
-    // // console.log(myUsers);
-    // if(!!req.body.email){
-    //   console.log('exist');
-    // }
-    // res.json(userData);
+    myUsers.lookUpUser(req.body.email, (err, user) => {
+      if (err) {                  // db connection error
+        console.log('err: ', err);
+        res.send(err);
+      } else if (user) {          // user not found
+        console.log('the user had registered already: ', user);
+        res.send(null);
+      } else {                     // send back the registered users email
+        myUsers.registerUser(req.body.email, req.body.password, (err, user) => {
+          console.log('registered user: ', user);
+          res.json(user);
+        });
+      }
+    });
   });
 
   // Return app
