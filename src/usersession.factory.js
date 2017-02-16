@@ -7,7 +7,7 @@ angular.module('app').factory('userSession', ['$location', '$http', '$rootScope'
         $rootScope.currentUser = response; // NOTE: Plox don't store this in the rootScope.
         $location.path('/home');
       }
-      // NOTE: What if email does not match?
+      // NOTE: What if email does not match? -> tamasc: redirektal a login oldalra
     })
     .catch((err) => {
       $log.log('Login error: ', err);
@@ -21,8 +21,8 @@ angular.module('app').factory('userSession', ['$location', '$http', '$rootScope'
     .then((response) => {
       $log.log('Reg. response: ', response);
       if (response.data.email) {
-        $location.url('/home');
-      }
+        $location.url('/login');    // NOTE: must login because registration not sets usersession cookie
+      }                             // TODO: proper message on redirecting to login page
     })
     .catch((err) => {
       $log.log('Registration error: ', err);
