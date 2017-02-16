@@ -1,5 +1,5 @@
 const users = function users(queryFunction) {
-  const lookUpUser = function lookUpUser(email, success) {
+  const lookUpUser = function (email, success) {
     queryFunction(`SELECT * FROM users WHERE EMAIL = '${email}'`, success);
   };
 
