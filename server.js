@@ -60,7 +60,7 @@ const server = function server(db) {
         if (!myUsers.verifyPassword(user, password)) {
           return done(null, false);
         }
-        return done(null, user);
+        return done(null, { email: user.email });
       });
     }
   ));

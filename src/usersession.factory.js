@@ -20,7 +20,7 @@ angular.module('app').factory('userSession', ['$location', '$http', '$rootScope'
     .post('/api/register', JSON.stringify(userRegData))
     .then((response) => {
       $log.log('Reg. response: ', response);
-      if (response.data.message) {
+      if (response.data.email) {
         $location.url('/home');
       }
     })
