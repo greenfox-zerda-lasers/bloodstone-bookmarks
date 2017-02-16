@@ -41,3 +41,6 @@ dist/bundle.js
 
 # Environmental variables
 .env
+
+# Views in the dist folder
+dist/views

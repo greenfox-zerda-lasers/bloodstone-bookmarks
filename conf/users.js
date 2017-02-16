@@ -1,5 +1,5 @@
 const users = function users(queryFunction) {
-  const lookUpUser = function lookUpUser(email, success) {
+  const lookUpUser = function (email, success) {
     queryFunction(`SELECT * FROM users WHERE EMAIL = '${email}'`, success);
   };
 
@@ -9,9 +9,14 @@ const users = function users(queryFunction) {
   };
     // NOTE: No error case, no DB connection.
 
+  const registerUser = (email, password, success) => {
+    queryFunction(`INSERT INTO users (EMAIL, PASSWORD) VALUES ('${email}', '${password}')  RETURNING (EMAIL)`, success);
+  };
+
   return {
     lookUpUser: lookUpUser,
     verifyPassword: verifyPassword,
+    registerUser: registerUser
   };
 };
 
