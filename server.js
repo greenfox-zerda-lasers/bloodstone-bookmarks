@@ -103,21 +103,11 @@ const server = function server(db) {
 
   // Register
   app.post('/api/register', (req, res) => {
-    // TODO: Register user method
-    const callback = function (err, user) {
-      if (err) {
-        console.log('err: ', err, user);
-        res.send(err);
-      } else if (!user) {
-        console.log('!user: ', err, user);
-        res.send(null);
-      }
-    };
     myUsers.lookUpUser(req.body.email, (err, user) => {
       if (err) {                  // db connection error
         console.log('err: ', err);
         res.send(err);
-      } else if (user) {          // user not found
+      } else if (user) {          // user found
         console.log('the user had registered already: ', user);
         res.send(null);
       } else {                     // send back the registered users email
