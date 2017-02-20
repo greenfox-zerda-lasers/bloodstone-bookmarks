@@ -6,6 +6,9 @@ const LocalStrategy = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
 const users = require('./users.js');
 const flash = require('connect-flash');
+const getTitleAtUrl = require('get-title-at-url');
+
+
 // const bcrypt = require('bcrypt-nodejs');
 
 const server = function server(db) {
@@ -119,11 +122,16 @@ const server = function server(db) {
   // BOOKMARKS
   // Post new bookmark
   app.post('/api/bookmarks', (req, res) => {
+
+    var url = req.body.url;
+    getTitleAtUrl(url, function(title){
+
     const bookmarkToSave = {
-      url: req.body.url,
-      title: req.body.title
+      url: url,
+      title: title,
     }
     res.json(bookmarkToSave);
+    });
   });
 
 
