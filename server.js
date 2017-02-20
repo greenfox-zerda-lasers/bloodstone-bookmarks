@@ -109,7 +109,7 @@ const server = function server(db) {
         res.send(err);
       } else if (user) {          // user found
         console.log('the user had registered already: ', user);
-        res.send(null);
+        res.send(403);
       } else {                     // send back the registered users email
         myUsers.registerUser(req.body.email, req.body.password, (err, user) => {
           console.log('registered user: ', user);

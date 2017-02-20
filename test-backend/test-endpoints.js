@@ -93,14 +93,14 @@ test.serial('after register it returns 200 status and an object with the sent em
       .post('/api/register')
       .send({ email: 'a@a.hu', password: 'a' });
 
-  t.true(typeof res === 'object');
-  t.true(res.body.email === 'a@a.hu');
+  t.is(typeof res, 'object');
+  t.is(res.body.email, 'a@a.hu');
   t.is(res.status, 200);
 
   queryDbStub.reset();
 });
 
-test.serial('after unsuccesfull register (user exists) it returns 200 status and an object with null', async t => {
+test.serial('after unsuccesfull register (user exists) it returns 403 status', async t => {
   t.plan(3);
 
   const queryDbStub = sinon.stub();
@@ -113,8 +113,8 @@ test.serial('after unsuccesfull register (user exists) it returns 200 status and
       .send({ email: 'a@a.hu', password: 'a' });
 
   t.true(typeof res === 'object');
-  t.true(!res.body.email);
-  t.is(res.status, 200);
+  t.falsy(res.body.email);
+  t.is(res.status, 403);
 
   queryDbStub.reset();
 });

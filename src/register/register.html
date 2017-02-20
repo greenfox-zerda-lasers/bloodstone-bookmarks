@@ -1,12 +1,12 @@
-<section class= "listSitelogin">
-  <form ng-submit="vm.userRegister()">
+<section class="listSitelogin">
+  <form ng-submit="registration.userRegister()">
     <p class="welcome">Welcome to</p>
     <h1 class="bloodStone">BloodStone Bookmarks.</h1>
     <p class="please">Register to start gathering your bookmarks</p>
-    <input type="text"  placeholder="email:" ng-model="vm.user.email">
-    <input type="password"  placeholder="password:" ng-model="vm.user.password">
-    <input type="password"  placeholder="repeat password:" ng-model="vm.user.passwordRepeat">
+    <input type="text"  placeholder="email:" ng-model="registration.user.email">
+    <input type="password"  placeholder="password:" ng-model="registration.user.password">
+    <input type="password"  placeholder="repeat password:" ng-model="registration.user.passwordRepeat">
     <button class="send" type="submit">Register</button>
-    <p class="register">(Back to <a href="#!/login">Login</a>.)</p>s
+    <p class="register">(Back to <a href="#!/login">Login</a>.)</p>
   </form>
 </section>
