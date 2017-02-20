@@ -56,7 +56,7 @@ const server = function server(db) {
         if (!myUsers.verifyPassword(user, password)) {
           return done(null, false);
         }
-        return done(null, user);
+        return done(null, { email: user.email });
       });
     }
   ));
@@ -94,12 +94,26 @@ const server = function server(db) {
 
   // Register
   app.post('/api/register', (req, res) => {
-    // TODO: Register user method
-    const userData = {
-      email: req.body.email || 'no email',
-      message: 'Success, user registered!',
-    };
-    res.json(userData);
+    myUsers.lookUpUser(req.body.email, (err, user) => {
+      if (err) {                  // db connection error
+        console.log('err: ', err);
+        res.send(err);
+      } else if (user) {          // user found
+        console.log('the user had registered already: ', user);
+        res.send(403);
+      } else {                     // send back the registered users email
+        myUsers.registerUser(req.body.email, req.body.password, (err, user) => {
+          console.log('registered user: ', user);
+          req.login(user, (err) => {
+            if (err) {
+              res.send(err);
+            } else {
+              res.json(user);
+            }
+          });
+        });
+      }
+    });
   });
 
   // BOOKMARKS

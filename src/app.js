@@ -30,6 +30,7 @@ angular.module('app').run(['$rootScope', '$location', '$http', '$log', 'userSess
     if (next.$$route.originalPath === '/home') {
       userSession.checkLoggedin()
       .then((response) => {
+        $log.log('Logged in response: ', response);
         if (response.data === '0') {
           $location.path('/login');
         }
