@@ -14,7 +14,7 @@ angular.module('app').config(['$routeProvider', function routeProvider($routePro
   })
   .when('/register', {
     templateUrl: './views/register.html',
-    controller: 'RegistrationController as registration'
+    controller: 'RegistrationController'
   })
   .when('/home', {
     templateUrl: './views/bookmarks.html',
