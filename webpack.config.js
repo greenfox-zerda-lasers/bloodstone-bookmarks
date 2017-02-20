@@ -14,17 +14,8 @@ module.exports = {
     plugins: [
     new CopyWebpackPlugin([
       {
-        context: './src/login',
-        from: '*.html',
-        to: './views',
-      },
-      {
-        context: './src/home',
-        from: '*.html',
-        to: './views',
-      },
-      {
-        context: './src/register',
+        context: './src/*',
+        flatten: true,
         from: '*.html',
         to: './views',
       },
