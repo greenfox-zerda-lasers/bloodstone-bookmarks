@@ -8,21 +8,21 @@ angular.module('app', ['ngRoute']);
 
 angular.module('app').config(['$routeProvider', function routeProvider($routeProvider) {
   $routeProvider
-    .when('/login', {
-      templateUrl: './views/login.html',
-      controller: 'LoginController',
-    })
-    .when('/register', {
-      templateUrl: './views/register.html',
-      controller: 'RegistrationController as registration',
-    })
-    .when('/home', {
-      templateUrl: './views/list.html',
-      controller: 'RenderController',
-    })
-    .otherwise({
-      redirectTo: '/login', // NOTE: Temporarily
-    });
+  .when('/login', {
+    templateUrl: './views/login.html',
+    controller: 'LoginController'
+  })
+  .when('/register', {
+    templateUrl: './views/register.html',
+    controller: 'RegistrationController'
+  })
+  .when('/home', {
+    templateUrl: './views/bookmarks.html',
+    controller: 'BookmarksController',
+  })
+  .otherwise({
+    redirectTo: '/login', // TODO: Alert user of not being logged in
+  });
 }]);
 
 angular.module('app').run(['$rootScope', '$location', '$http', '$log', 'userSession', function check($rootScope, $location, $http, $log, userSession) {  // TODO await async to prevent load the protected view

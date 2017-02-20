@@ -1,3 +1,5 @@
+
+
 angular.module('app').factory('userSession', ['$location', '$http', '$rootScope', '$log', function ($location, $http, $rootScope, $log) {
   const login = loginData => $http
     .post('/api/login', JSON.stringify(loginData))

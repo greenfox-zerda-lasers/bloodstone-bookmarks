@@ -19,10 +19,6 @@ const server = function server(db) {
   app.use(flash());
   app.use(bodyParser.json());
 
-  app.use(bodyParser.urlencoded({
-    extended: true,
-  }));
-
   // Passport, cookie and session
   app.use(session({
     secret: 'this is the secret',
@@ -76,6 +72,7 @@ const server = function server(db) {
 
   // ************  End points ************
 
+  // USER & SESSION
   // Login
   app.post('/api/login', passport.authenticate('local-login', {
     failureFlash: true,
@@ -93,12 +90,6 @@ const server = function server(db) {
   // Loggedin
   app.get('/api/loggedin', (req, res) => {
     res.send(req.isAuthenticated() ? req.user : '0');
-  });
-
-  // Get link list
-  app.get('/api/links', auth, (req, res) => {
-    // TODO: Get links from database
-    res.json(req.user.email);
   });
 
   // Register
@@ -124,6 +115,17 @@ const server = function server(db) {
       }
     });
   });
+
+  // BOOKMARKS
+  // Post new bookmark
+  app.post('/api/bookmarks', (req, res) => {
+    const bookmarkToSave = {
+      url: req.body.url,
+      title: req.body.title
+    }
+    res.json(bookmarkToSave);
+  });
+
 
   // Return app
   return app;

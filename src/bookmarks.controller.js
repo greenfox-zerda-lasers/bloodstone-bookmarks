@@ -34,14 +34,30 @@
     },
   ];
 
-  angular.module('app').controller('RenderController', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
+  angular.module('app').controller('BookmarksController', ['$scope', '$rootScope', '$http', '$location', '$log', 'bookmarkFactory', function ($scope, $rootScope, $http, $location, $log, bookmarkFactory) {
     $scope.dummyLinks = links;
+    $scope.showInputBox = false;
     $scope.logout = () => {
       $http.post('/api/logout')
         .then(() => {
           $rootScope.currentUser = null;
-          $location.url('/home');
+          $location.url('/login');
         });
+    };
+    $scope.onAddClick = function () {
+      $scope.showInputBox = true;
+    };
+    $scope.saveBookmark = function () {
+      const stringJSON = {
+        url: $scope.newURL,
+        title: 'My Bookmark',
+      };
+      // TODO: 1. Parse URL; 2. Fetch title (+img, +desc); 3. Save title 4. Cache img, desc(?)
+      bookmarkFactory.add(stringJSON);
+      // Clear input field and close popup
+      // TODO: If everything went well
+      $scope.newURL = null;
+      $scope.showInputBox = false;
     };
   }]);
 }());
