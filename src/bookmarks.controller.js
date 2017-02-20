@@ -34,18 +34,10 @@
     },
   ];
 
-<<<<<<< HEAD:src/bookmarks.controller.js
-  const app = angular.module('app');
-
-  app.controller('BookmarksController', ['$scope', '$rootScope', '$http', '$location', '$log', 'bookmarkFactory', function ($scope, $rootScope, $http, $location, $log, bookmarkFactory) {
+  angular.module('app').controller('BookmarksController', ['$scope', '$rootScope', '$http', '$location', '$log', 'bookmarkFactory', function ($scope, $rootScope, $http, $location, $log, bookmarkFactory) {
     $scope.dummyLinks = links;
     $scope.showInputBox = false;
-    $scope.logout = function () {
-=======
-  angular.module('app').controller('RenderController', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
-    $scope.dummyLinks = links;
     $scope.logout = () => {
->>>>>>> master:src/render.controller.js
       $http.post('/api/logout')
         .then(() => {
           $rootScope.currentUser = null;
