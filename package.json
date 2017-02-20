@@ -35,6 +35,7 @@
     "express": "^4.14.0",
     "express-session": "^1.15.0",
     "express-sessions": "^1.0.6",
+    "get-title-at-url": "^1.0.27",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "pg": "^6.1.2",
