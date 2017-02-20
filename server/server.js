@@ -4,7 +4,7 @@ const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
-const users = require('./conf/users.js');
+const users = require('./users.js');
 const flash = require('connect-flash');
 // const bcrypt = require('bcrypt-nodejs');
 
@@ -96,8 +96,8 @@ const server = function server(db) {
   app.post('/api/register', (req, res) => {
     // TODO: Register user method
     const userData = {
-      "email": req.body.email || "no email",
-      "message": "Success, user registered!"
+      email: req.body.email || 'no email',
+      message: 'Success, user registered!',
     };
     res.json(userData);
   });
