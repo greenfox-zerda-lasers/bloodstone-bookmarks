@@ -21,7 +21,7 @@ angular.module('app').factory('userSession', ['$location', '$http', '$rootScope'
     .then((response) => {
       $log.log('Reg. response: ', response);
       if (response.data.email) {
-        $location.url('/login');    // NOTE: must login because registration not sets usersession cookie
+        $location.url('/home');    // NOTE: must login because registration not sets usersession cookie
       }                             // TODO: proper message on redirecting to login page
     })
     .catch((err) => {

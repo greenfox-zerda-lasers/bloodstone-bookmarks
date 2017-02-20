@@ -113,7 +113,13 @@ const server = function server(db) {
       } else {                     // send back the registered users email
         myUsers.registerUser(req.body.email, req.body.password, (err, user) => {
           console.log('registered user: ', user);
-          res.json(user);
+          req.login(user, (err) => {
+            if (err) {
+              res.send(err);
+            } else {
+              res.json(user);
+            }
+          });
         });
       }
     });
