@@ -5,6 +5,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
 const users = require('./users.js');
+const bookmarks = require('./bookmarks.js');
 const flash = require('connect-flash');
 const getTitleAtUrl = require('get-title-at-url');
 
@@ -17,6 +18,7 @@ const server = function server(db) {
   // Express
   const app = express();
   const myUsers = users(db);
+  const myBookmarks = bookmarks(db);
 
   app.use(express.static('dist'));
   app.use(flash());
@@ -76,18 +78,22 @@ const server = function server(db) {
   // ************  End points ************
 
   // USER & SESSION
+
+  let userEmail = "";
   // Login
   app.post('/api/login', passport.authenticate('local-login', {
     failureFlash: true,
   }), (req, res) => {
     // Passport puts authenticated user in req.user.
+    userEmail = req.user.email;
     res.json(req.user.email);
   });
 
   // Logout
   app.post('/api/logout', (req, res) => {
+    userEmail = "";
     req.logOut();
-    res.send(200);
+    res.sendStatus(200);
   });
 
   // Loggedin
@@ -122,18 +128,31 @@ const server = function server(db) {
   // BOOKMARKS
   // Post new bookmark
   app.post('/api/bookmarks', (req, res) => {
-
     var url = req.body.url;
-    getTitleAtUrl(url, function(title){
-
-    const bookmarkToSave = {
-      url: url,
-      title: title,
-    }
-    res.json(bookmarkToSave);
+    let bookmarkToSave = {};
+    getTitleAtUrl(url, function(title) {
+      bookmarkToSave = {
+        url: url,
+        title: title,
+      };
+      // Async call to get user ID based on current email
+      myUsers.getUserID(userEmail, (err, userID) => {
+        if (err) {
+          console.log('err: ', err);
+          res.send(err);
+        } else {
+          myBookmarks.saveBookmark(userID.user_id, bookmarkToSave.url, bookmarkToSave.title, (err, url) => {
+            if (err) {
+              console.log('err: ', err);
+              res.send(err);
+            } else {
+              res.sendStatus(200);
+            }
+          });
+        }
+      });
     });
   });
-
 
   // Return app
   return app;
