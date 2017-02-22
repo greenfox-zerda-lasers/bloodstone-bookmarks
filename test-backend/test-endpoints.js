@@ -49,7 +49,7 @@ test.serial('after unsuccesfull login it returns 401', async t => {
   t.plan(1);
 
   const queryDbStub = sinon.stub();
-  queryDbStub.callsArgWithAsync(1, null, { user_id: 1, email: 'a@a.hu', password: 'a' });
+  queryDbStub.callsArgWithAsync(1, null, [{ user_id: 1, email: 'a@a.hu', password: 'a' }]);
 
   const myServer = server(queryDbStub);
 
@@ -66,7 +66,7 @@ test.serial('after succesfull login it returns 200 status and an object', async 
   t.plan(2);
 
   const queryDbStub = sinon.stub();
-  queryDbStub.callsArgWithAsync(1, null, { user_id: 1, email: 'a@a.hu', password: 'a' });
+  queryDbStub.callsArgWithAsync(1, null, [{ user_id: 1, email: 'a@a.hu', password: 'a' }]);
 
   const myServer = server(queryDbStub);
 
@@ -84,8 +84,8 @@ test.serial('after register it returns 200 status and an object with the sent em
   t.plan(3);
 
   const queryDbStub = sinon.stub();
-  queryDbStub.onCall(0).callsArgWithAsync(1, null, null);
-  queryDbStub.onCall(1).callsArgWithAsync(1, null, { email: 'a@a.hu' });
+  queryDbStub.onCall(0).callsArgWithAsync(1, null, []);
+  queryDbStub.onCall(1).callsArgWithAsync(1, null, [{ email: 'a@a.hu' }]);
 
   const myServer = server(queryDbStub);
 
@@ -104,7 +104,7 @@ test.serial('after unsuccesfull register (user exists) it returns 403 status', a
   t.plan(3);
 
   const queryDbStub = sinon.stub();
-  queryDbStub.callsArgWithAsync(1, null, { user_id: 1, email: 'a@a.hu', password: 'a' });
+  queryDbStub.callsArgWithAsync(1, null, [{ user_id: 1, email: 'a@a.hu', password: 'a' }]);
 
   const myServer = server(queryDbStub);
 
