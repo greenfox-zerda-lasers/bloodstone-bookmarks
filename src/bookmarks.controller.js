@@ -1,45 +1,10 @@
 (function () {
-  const links = [  // temporily mock received data from server
-    {
-      title: 'Bloodstone',
-      url: 'http://bloodstonedevelopment.tk/',
-    },
-    {
-      title: 'Github',
-      url: 'https://github.com/',
-    },
-    {
-      title: 'hvg.hu',
-      url: 'http://hvg.hu',
-    },
-    {
-      title: 'Green Fox Academy',
-      url: 'http://greenfoxacademy.com',
-    },
-    {
-      title: 'Angular JS',
-      url: 'https://angularjs.org/',
-    },
-    {
-      title: 'Origo',
-      url: 'http://origo.hu',
-    },
-    {
-      title: 'b.hu',
-      url: 'http://b.hu',
-    },
-    {
-      title: 'JS Garden',
-      url: 'http://bonsaiden.github.io/JavaScript-Garden/',
-    },
-  ];
-
   angular.module('app').controller('BookmarksController', ['$scope', '$rootScope', '$http', '$location', '$log', 'bookmarkFactory', function ($scope, $rootScope, $http, $location, $log, bookmarkFactory) {
-    let links = [];
+
     bookmarkFactory.get()
     .then((response) => {
       $log.log(response);
-      links = response;
+      $scope.links = response;
     });
 
     $scope.showInputBox = false;

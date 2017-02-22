@@ -24,8 +24,8 @@ const users = function users(queryFunction) {
     lookUpUser: lookUpUser,
     verifyPassword: verifyPassword,
     registerUser: registerUser,
-    getList: getList
-    getUserID: getUserID,
+    getList: getList,
+    getUserID: getUserID
   };
 };
 
