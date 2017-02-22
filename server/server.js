@@ -8,7 +8,7 @@ const users = require('./users.js');
 const bookmarks = require('./bookmarks.js');
 const flash = require('connect-flash');
 const getTitleAtUrl = require('get-title-at-url');
-
+const validUrl = require('valid-url');
 
 // const bcrypt = require('bcrypt-nodejs');
 
@@ -130,6 +130,8 @@ const server = function server(db) {
   app.post('/api/bookmarks', (req, res) => {
     var url = req.body.url;
     let bookmarkToSave = {};
+    if (validUrl.isUri(url)){
+        console.log('Looks like an URI')
     getTitleAtUrl(url, function(title) {
       bookmarkToSave = {
         url: url,
@@ -152,6 +154,10 @@ const server = function server(db) {
         }
       });
     });
+  } else {
+    console.log('Not a URI');
+  }
+
   });
 
   // Return app
