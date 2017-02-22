@@ -50,7 +50,6 @@
     $scope.saveBookmark = function () {
       const stringJSON = {
         url: $scope.newURL,
-        title: 'My Bookmark',
       };
       // TODO: 1. Parse URL; 2. Fetch title (+img, +desc); 3. Save title 4. Cache img, desc(?)
       bookmarkFactory.add(stringJSON);
