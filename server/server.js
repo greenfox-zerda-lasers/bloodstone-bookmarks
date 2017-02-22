@@ -78,16 +78,20 @@ const server = function server(db) {
   // ************  End points ************
 
   // USER & SESSION
+
+  let userEmail = "";
   // Login
   app.post('/api/login', passport.authenticate('local-login', {
     failureFlash: true,
   }), (req, res) => {
     // Passport puts authenticated user in req.user.
+    userEmail = req.user.email;
     res.json(req.user.email);
   });
 
   // Logout
   app.post('/api/logout', (req, res) => {
+    userEmail = "";
     req.logOut();
     res.sendStatus(200);
   });
@@ -130,14 +134,21 @@ const server = function server(db) {
       bookmarkToSave = {
         url: url,
         title: title,
-      }
-      const userID = 1; // NOTE: Temp!
-      myBookmarks.saveBookmark(userID, bookmarkToSave.url, bookmarkToSave.title, (err, url) => {
+      };
+      // Async call to get user ID based on current email
+      myUsers.getUserID(userEmail, (err, userID) => {
         if (err) {
           console.log('err: ', err);
           res.send(err);
         } else {
-          res.sendStatus(200);
+          myBookmarks.saveBookmark(userID.user_id, bookmarkToSave.url, bookmarkToSave.title, (err, url) => {
+            if (err) {
+              console.log('err: ', err);
+              res.send(err);
+            } else {
+              res.sendStatus(200);
+            }
+          });
         }
       });
     });
