@@ -6,8 +6,13 @@ const bookmarks = function bookmarks(queryFunction) {
     queryFunction(`INSERT INTO bookmarks (user_id, url, title) VALUES ('${userID}', '${url}', '${title}') RETURNING (url)`, success);
   };
 
+  const getList = (user, success) => {
+    queryFunction(`SELECT url, title FROM  users, bookmarks WHERE EMAIL = '${user}'`, success)
+  }
+
   return {
     saveBookmark: saveBookmark,
+    getList: getList,
   };
 };
 

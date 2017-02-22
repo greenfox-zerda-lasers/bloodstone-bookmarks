@@ -141,7 +141,8 @@ const server = function server(db) {
           console.log('err: ', err);
           res.send(err);
         } else {
-          myBookmarks.saveBookmark(userID.user_id, bookmarkToSave.url, bookmarkToSave.title, (err, url) => {
+          myBookmarks.saveBookmark(
+            userID.user_id, bookmarkToSave.url, bookmarkToSave.title, (err, url) => {
             if (err) {
               console.log('err: ', err);
               res.send(err);
@@ -159,7 +160,7 @@ const server = function server(db) {
       res.send(401);
       return;
     }
-    myUsers.getList(req.user.email, (err, data) => {
+    myBookmarks.getList(req.user.email, (err, data) => {
       res.json(data);
     });
   });
