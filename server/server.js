@@ -54,7 +54,7 @@ const server = function server(db) {
           return done(err);
         }
         // user not found
-        if (!user[0].email) {
+        if (!user[0]) {
           return done(null, false);
         }
         // wrong password
@@ -107,17 +107,17 @@ const server = function server(db) {
       if (err) {                  // db connection error
         console.log('err: ', err);
         res.status(500).json({ error: err });
-      } else if (user) {          // user found
-        console.log('the user had registered already: ', user);
+      } else if (user[0]) {          // user found
+        console.log('the user had registered already: ', user[0]);
         res.sendStatus(403);
       } else {                     // send back the registered users email
         myUsers.registerUser(req.body.email, req.body.password, (err, user) => {
-          console.log('registered user: ', user);
-          req.login(user, (err) => {
+          console.log('registered user: ', user[0]);
+          req.login(user[0], (err) => {
             if (err) {
               res.status(500).json({ error: err });
             } else {
-              res.json(user);
+              res.json(user[0]);
             }
           });
         });
@@ -149,7 +149,7 @@ const server = function server(db) {
               } else {
                 res.sendStatus(200);
               }
-          });
+            });
         }
       });
     });
@@ -160,8 +160,16 @@ const server = function server(db) {
       res.sendStatus(401);
       return;
     }
-    myBookmarks.getList(req.user.email, (err, data) => {
-      res.json(data);
+    myUsers.getUserID(userEmail, (err, userID) => {
+      if (err) {
+        console.log('err: ', err);
+        res.status(500).json({ error: err });
+      } else {
+        myBookmarks.getList(userID[0].user_id, (err, data) => {
+          console.log(data);
+          res.json(data);
+        });
+      }
     });
   });
 

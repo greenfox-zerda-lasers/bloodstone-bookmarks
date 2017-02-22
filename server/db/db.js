@@ -13,12 +13,13 @@ const queryDb = function (queryText, callback) {
       if (err) {
         callback(err);
       } else {
+        console.log(result.rows);
         callback(null, result.rows);
       }
       // disconnect the client
       client.end(function (err) {
         if (err) {
-          callback(err);
+          console.log(err);
         }
       });
     });
