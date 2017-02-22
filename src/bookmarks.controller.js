@@ -35,7 +35,12 @@
   ];
 
   angular.module('app').controller('BookmarksController', ['$scope', '$rootScope', '$http', '$location', '$log', 'bookmarkFactory', function ($scope, $rootScope, $http, $location, $log, bookmarkFactory) {
-    $scope.dummyLinks = links;
+    let links = bookmarkFactory.get()
+    .then((response) => {
+      $log.log(response);
+      return response;
+    });
+    
     $scope.showInputBox = false;
     $scope.logout = () => {
       $http.post('/api/logout')

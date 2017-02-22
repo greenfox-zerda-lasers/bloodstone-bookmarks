@@ -20,6 +20,7 @@ const queryDb = function (queryText, callback) {
       });
       // callback
       callback(null, result.rows[0]);
+      console.log(result.rows);
     });
   });
 };

@@ -126,6 +126,16 @@ const server = function server(db) {
     res.json(bookmarkToSave);
   });
 
+  app.get('/api/bookmarks', (req, res) => {
+    if (!req.isAuthenticated()) {
+      res.send(401);
+      return;
+    }
+    myUsers.getList(req.user.email, (err, data) => {
+      res.json(data);
+    });
+  });
+
 
   // Return app
   return app;

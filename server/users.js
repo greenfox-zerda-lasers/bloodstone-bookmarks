@@ -13,10 +13,15 @@ const users = function users(queryFunction) {
     queryFunction(`INSERT INTO users (EMAIL, PASSWORD) VALUES ('${email}', '${password}')  RETURNING (EMAIL)`, success);
   };
 
+  const getList = (user, success) => {
+    queryFunction(`SELECT url, title FROM  users, bookmarks WHERE EMAIL = '${user}'`, success)
+  }
+
   return {
     lookUpUser: lookUpUser,
     verifyPassword: verifyPassword,
-    registerUser: registerUser
+    registerUser: registerUser,
+    getList: getList
   };
 };
 

@@ -18,7 +18,7 @@ angular.module('app').config(['$routeProvider', function routeProvider($routePro
   })
   .when('/home', {
     templateUrl: './views/bookmarks.html',
-    controller: 'BookmarksController',
+    controller: 'BookmarksController as bookmark',
   })
   .otherwise({
     redirectTo: '/login', // TODO: Alert user of not being logged in
