@@ -36,7 +36,7 @@ const server = function server(db) {
   // Auth function
   const auth = function auth(req, res, next) {
     if (!req.isAuthenticated()) {
-      res.send(401);
+      res.sendStatus(401);
     } else {
       next();
     }
@@ -106,16 +106,16 @@ const server = function server(db) {
     myUsers.lookUpUser(req.body.email, (err, user) => {
       if (err) {                  // db connection error
         console.log('err: ', err);
-        res.send(err);
+        res.status(500).json({ error: err });
       } else if (user) {          // user found
         console.log('the user had registered already: ', user);
-        res.send(403);
+        res.sendStatus(403);
       } else {                     // send back the registered users email
         myUsers.registerUser(req.body.email, req.body.password, (err, user) => {
           console.log('registered user: ', user);
           req.login(user, (err) => {
             if (err) {
-              res.send(err);
+              res.status(500).json({ error: err });
             } else {
               res.json(user);
             }
@@ -130,7 +130,7 @@ const server = function server(db) {
   app.post('/api/bookmarks', (req, res) => {
     var url = req.body.url;
     let bookmarkToSave = {};
-    getTitleAtUrl(url, function(title) {
+    getTitleAtUrl(url, function (title) {   // TODO: no good!!!!!!!!!!!!!
       bookmarkToSave = {
         url: url,
         title: title,
@@ -139,16 +139,16 @@ const server = function server(db) {
       myUsers.getUserID(userEmail, (err, userID) => {
         if (err) {
           console.log('err: ', err);
-          res.JSON(err);
+          res.status(500).json({ error: err });
         } else {
           myBookmarks.saveBookmark(
             userID[0].user_id, bookmarkToSave.url, bookmarkToSave.title, (err, url) => {
-            if (err) {
-              console.log('err: ', err);
-              res.JSON(err);
-            } else {
-              res.sendStatus(200);
-            }
+              if (err) {
+                console.log('err: ', err);
+                res.status(500).json({ error: err });
+              } else {
+                res.sendStatus(200);
+              }
           });
         }
       });
@@ -157,7 +157,7 @@ const server = function server(db) {
 
   app.get('/api/bookmarks', (req, res) => {
     if (!req.isAuthenticated()) {
-      res.send(401);
+      res.sendStatus(401);
       return;
     }
     myBookmarks.getList(req.user.email, (err, data) => {
