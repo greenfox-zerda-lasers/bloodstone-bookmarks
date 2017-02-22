@@ -6,6 +6,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
 const users = require('./users.js');
 const flash = require('connect-flash');
+const validUrl = require('valid-url');
 const getTitleAtUrl = require('get-title-at-url');
 
 
@@ -124,6 +125,9 @@ const server = function server(db) {
   app.post('/api/bookmarks', (req, res) => {
 
     var url = req.body.url;
+    if (validUrl.isUri(req.body.url)){
+       console.log('Looks like an URI');
+
     getTitleAtUrl(url, function(title){
 
     const bookmarkToSave = {
@@ -131,7 +135,11 @@ const server = function server(db) {
       title: title,
     }
     res.json(bookmarkToSave);
-    });
+  });
+    }else {
+       console.log('Not a URI');
+   }
+
   });
 
 
