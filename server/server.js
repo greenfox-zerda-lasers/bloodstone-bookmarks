@@ -89,7 +89,7 @@ const server = function server(db) {
   // Logout
   app.post('/api/logout', (req, res) => {
     req.logOut();
-    res.send(200);
+    res.sendStatus(200);
   });
 
   // Loggedin
@@ -137,7 +137,7 @@ const server = function server(db) {
           console.log('err: ', err);
           res.send(err);
         } else {
-          res.json(bookmarkToSave);
+          res.sendStatus(200);
         }
       });
     });
