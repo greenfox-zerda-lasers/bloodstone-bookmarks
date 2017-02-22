@@ -39,7 +39,8 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "pg": "^6.1.2",
-    "pg-pool": "^1.6.0"
+    "pg-pool": "^1.6.0",
+    "valid-url": "^1.0.9"
   },
   "devDependencies": {
     "angular-mocks": "^1.6.1",
