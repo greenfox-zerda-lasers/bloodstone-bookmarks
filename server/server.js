@@ -131,18 +131,17 @@ const server = function server(db) {
         url: url,
         title: title,
       }
-    });
-    const userID = 1; // NOTE: Temp!
-    myBookmarks.saveBookmark(userID, bookmarkToSave.title, bookmarkToSave.url, (err, url) => {
-      if (err) {
-        console.log('err: ', err);
-        res.send(err);
-      } else {
-        res.json(bookmarkToSave);
-      }
+      const userID = 1; // NOTE: Temp!
+      myBookmarks.saveBookmark(userID, bookmarkToSave.url, bookmarkToSave.title, (err, url) => {
+        if (err) {
+          console.log('err: ', err);
+          res.send(err);
+        } else {
+          res.json(bookmarkToSave);
+        }
+      });
     });
   });
-
 
   // Return app
   return app;
