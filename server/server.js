@@ -54,19 +54,19 @@ const server = function server(db) {
           return done(err);
         }
         // user not found
-        if (!user) {
+        if (!user[0].email) {
           return done(null, false);
         }
         // wrong password
-        if (!myUsers.verifyPassword(user, password)) {
+        if (!myUsers.verifyPassword(user[0], password)) {
           return done(null, false);
         }
-        return done(null, { email: user.email });
+        return done(null, { email: user[0].email });
       });
     }
   ));
 
-  // Serialize & deserialize user
+  // Serialize & deserialize user NOTE: still dont know what it does
   passport.serializeUser((user, done) => {
     done(null, user);
   });
@@ -79,7 +79,7 @@ const server = function server(db) {
 
   // USER & SESSION
 
-  let userEmail = "";
+  let userEmail = '';
   // Login
   app.post('/api/login', passport.authenticate('local-login', {
     failureFlash: true,
@@ -91,7 +91,7 @@ const server = function server(db) {
 
   // Logout
   app.post('/api/logout', (req, res) => {
-    userEmail = "";
+    userEmail = '';
     req.logOut();
     res.sendStatus(200);
   });
@@ -142,7 +142,7 @@ const server = function server(db) {
           res.send(err);
         } else {
           myBookmarks.saveBookmark(
-            userID.user_id, bookmarkToSave.url, bookmarkToSave.title, (err, url) => {
+            userID[0].user_id, bookmarkToSave.url, bookmarkToSave.title, (err, url) => {
             if (err) {
               console.log('err: ', err);
               res.send(err);

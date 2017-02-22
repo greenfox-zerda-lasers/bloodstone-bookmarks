@@ -19,7 +19,8 @@ const queryDb = function (queryText, callback) {
         }
       });
       // callback
-      callback(null, result.rows[0]);
+      callback(null, result.rows);
+      console.log('*********************\n'); // TODO: remove this
       console.log(result.rows);
     });
   });

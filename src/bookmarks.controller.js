@@ -4,7 +4,7 @@
     bookmarkFactory.get()
     .then((response) => {
       $log.log(response);
-      $scope.links = response;
+      $scope.links = response.data;
     });
 
     $scope.showInputBox = false;
