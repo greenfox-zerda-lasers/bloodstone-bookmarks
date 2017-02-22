@@ -5,7 +5,7 @@ const users = function users(queryFunction) {
 
   const verifyPassword = function verifyPassword(user, password) {
     // NOTE: I know user exists. Need to check pw.
-    return (user.password === password)
+    return (user.password === password);
   };
     // NOTE: No error case, no DB connection.
 
@@ -16,7 +16,7 @@ const users = function users(queryFunction) {
   return {
     lookUpUser: lookUpUser,
     verifyPassword: verifyPassword,
-    registerUser: registerUser
+    registerUser: registerUser,
   };
 };
 

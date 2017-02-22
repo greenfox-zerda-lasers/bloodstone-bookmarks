@@ -18,7 +18,7 @@ const server = function server(db) {
   // Express
   const app = express();
   const myUsers = users(db);
-  const myBookmarks = users(db);
+  const myBookmarks = bookmarks(db);
 
   app.use(express.static('dist'));
   app.use(flash());
@@ -124,15 +124,22 @@ const server = function server(db) {
   // BOOKMARKS
   // Post new bookmark
   app.post('/api/bookmarks', (req, res) => {
-
     var url = req.body.url;
-    getTitleAtUrl(url, function(title){
-
-    const bookmarkToSave = {
-      url: url,
-      title: title,
-    }
-    res.json(bookmarkToSave);
+    let bookmarkToSave = {};
+    getTitleAtUrl(url, function(title) {
+      bookmarkToSave = {
+        url: url,
+        title: title,
+      }
+    });
+    const userID = 1; // NOTE: Temp!
+    myBookmarks.saveBookmark(userID, bookmarkToSave.title, bookmarkToSave.url, (err, url) => {
+      if (err) {
+        console.log('err: ', err);
+        res.send(err);
+      } else {
+        res.json(bookmarkToSave);
+      }
     });
   });
 
