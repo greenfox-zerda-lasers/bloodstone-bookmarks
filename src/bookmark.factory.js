@@ -4,7 +4,7 @@ app.factory('bookmarkFactory', ['$location', '$http', '$rootScope', '$log', func
   const addBookmark = function (bookmarkURL) {
     return $http.post('/api/bookmarks', JSON.stringify(bookmarkURL))
       .then(function (response) {
-        $log.log('DEBUG: Bookmark saved, details: ', response.body);
+        $log.log('DEBUG: Bookmark saved, details: ', response);
       })
       .catch(function (err) {
         $log.log('Operation error: ', err);
