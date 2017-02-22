@@ -9,8 +9,11 @@ const queryDb = function (queryText, callback) {
     }
     // execute a query on our database
     client.query(queryText, function (err, result) {
+      // handling error or invoke callback
       if (err) {
         callback(err);
+      } else {
+        callback(null, result.rows);
       }
       // disconnect the client
       client.end(function (err) {
@@ -18,10 +21,6 @@ const queryDb = function (queryText, callback) {
           callback(err);
         }
       });
-      // callback
-      callback(null, result.rows);
-      console.log('*********************\n'); // TODO: remove this
-      console.log(result.rows);
     });
   });
 };

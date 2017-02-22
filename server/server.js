@@ -139,13 +139,13 @@ const server = function server(db) {
       myUsers.getUserID(userEmail, (err, userID) => {
         if (err) {
           console.log('err: ', err);
-          res.send(err);
+          res.JSON(err);
         } else {
           myBookmarks.saveBookmark(
             userID[0].user_id, bookmarkToSave.url, bookmarkToSave.title, (err, url) => {
             if (err) {
               console.log('err: ', err);
-              res.send(err);
+              res.JSON(err);
             } else {
               res.sendStatus(200);
             }
