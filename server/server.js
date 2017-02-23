@@ -130,13 +130,6 @@ const server = function server(db) {
     var url = req.body.url;
     let bookmarkToSave = {};
     if (validUrl.isUri(url)) {
-
-//       title(url, function(err, title) {
-//     if(!err) {
-//         console.log("tomi",title); // rikukissa/url-to-title
-//     }
-// });
-
       title(url, function(err, title) {
         if(!err){
           if(title.length > 120){
@@ -148,7 +141,7 @@ const server = function server(db) {
         };
         }
       // Async call to get user ID based on current email
-        myUsers.getUserID(userEmail, (err, userID) => {
+        myUsers.getUserID(req.user.email, (err, userID) => {
           if (err) {
             console.log('err: ', err);
             res.status(500).json({ error: err });
@@ -175,7 +168,7 @@ const server = function server(db) {
     if (!req.isAuthenticated()) {
       res.sendStatus(401);
     } else {
-      myUsers.getUserID(userEmail, (err, userID) => {
+      myUsers.getUserID(req.user.email, (err, userID) => {
         if (err) {
           console.log('err: ', err);
           res.status(500).json({ error: err });
