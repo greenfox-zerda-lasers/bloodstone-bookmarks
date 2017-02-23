@@ -163,18 +163,18 @@ const server = function server(db) {
   app.get('/api/bookmarks', (req, res) => {
     if (!req.isAuthenticated()) {
       res.sendStatus(401);
-      return;
+    } else {
+      myUsers.getUserID(userEmail, (err, userID) => {
+        if (err) {
+          console.log('err: ', err);
+          res.status(500).json({ error: err });
+        } else {
+          myBookmarks.getList(userID[0].user_id, (err, data) => {
+            res.json(data);
+          });
+        }
+      });
     }
-    myUsers.getUserID(userEmail, (err, userID) => {
-      if (err) {
-        console.log('err: ', err);
-        res.status(500).json({ error: err });
-      } else {
-        myBookmarks.getList(userID[0].user_id, (err, data) => {
-          res.json(data);
-        });
-      }
-    });
   });
 
   // Return app
