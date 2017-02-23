@@ -40,6 +40,7 @@
     "passport-local": "^1.0.0",
     "pg": "^6.1.2",
     "pg-pool": "^1.6.0",
+    "url-to-title": "^1.0.6",
     "valid-url": "^1.0.9"
   },
   "devDependencies": {
