@@ -131,7 +131,6 @@ const server = function server(db) {
     var url = req.body.url;
     let bookmarkToSave = {};
     if (validUrl.isUri(url)) {
-      console.log('Looks like an URI');
       getTitleAtUrl(url, function(title) {
         bookmarkToSave = {
           url: url,
