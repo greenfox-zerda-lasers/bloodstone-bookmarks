@@ -3,13 +3,8 @@ const users = function users(queryFunction) {
     queryFunction(`SELECT * FROM users WHERE EMAIL = '${email}'`, success);
   };
 
-  const verifyPassword = function verifyPassword(user, password) {
-    // NOTE: I know user exists. Need to check pw.
-    return (user.password === password);
-  };
-
-  const registerUser = (email, password, success) => {
-    queryFunction(`INSERT INTO users (EMAIL, PASSWORD) VALUES ('${email}', '${password}')  RETURNING (EMAIL)`, success);
+  const registerUser = (email, hash, success) => {
+    queryFunction(`INSERT INTO users (EMAIL, PASSWORD) VALUES ('${email}', '${hash}')  RETURNING (EMAIL)`, success);
   };
 
   const getUserID = (email, success) => {
@@ -18,7 +13,6 @@ const users = function users(queryFunction) {
 
   return {
     lookUpUser: lookUpUser,
-    verifyPassword: verifyPassword,
     registerUser: registerUser,
     getUserID: getUserID
   };

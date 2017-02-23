@@ -9,8 +9,7 @@ const bookmarks = require('./bookmarks.js');
 const flash = require('connect-flash');
 const title = require('url-to-title');
 const validUrl = require('valid-url');
-
-// const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt-nodejs');
 
 const server = function server(db) {
   // ************ Configure app *************
@@ -58,7 +57,7 @@ const server = function server(db) {
           return done(null, false);
         }
         // wrong password
-        if (!myUsers.verifyPassword(user[0], password)) {
+        if (!bcrypt.compareSync(password, user[0].password)) {
           return done(null, false);
         }
         return done(null, { email: user[0].email });
@@ -111,12 +110,12 @@ const server = function server(db) {
         console.log('the user had registered already: ', user[0]);
         res.sendStatus(403);
       } else {                     // send back the registered users email
-        myUsers.registerUser(req.body.email, req.body.password, (err, user) => {
-          console.log('registered user: ', user[0]);
+        myUsers.registerUser(req.body.email, bcrypt.hashSync(req.body.password), (err, user) => {
           req.login(user[0], (err) => {
             if (err) {
               res.status(500).json({ error: err });
             } else {
+              console.log('registered user: ', user[0]);
               res.json(user[0]);
             }
           });
@@ -181,6 +180,7 @@ const server = function server(db) {
           console.log('err: ', err);
           res.status(500).json({ error: err });
         } else {
+          console.log(userID);
           myBookmarks.getList(userID[0].user_id, (err, data) => {
             res.json(data);
           });
