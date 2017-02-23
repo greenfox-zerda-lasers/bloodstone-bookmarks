@@ -8,7 +8,7 @@ const users = require('./users.js');
 const bookmarks = require('./bookmarks.js');
 const flash = require('connect-flash');
 const getTitleAtUrl = require('get-title-at-url');
-
+const validUrl = require('valid-url');
 
 // const bcrypt = require('bcrypt-nodejs');
 
@@ -130,29 +130,35 @@ const server = function server(db) {
   app.post('/api/bookmarks', (req, res) => {
     var url = req.body.url;
     let bookmarkToSave = {};
-    getTitleAtUrl(url, function (title) {   // TODO: no good!!!!!!!!!!!!!
-      bookmarkToSave = {
-        url: url,
-        title: title,
-      };
+    if (validUrl.isUri(url)) {
+      console.log('Looks like an URI');
+      getTitleAtUrl(url, function(title) {
+        bookmarkToSave = {
+          url: url,
+          title: title,
+        };
       // Async call to get user ID based on current email
-      myUsers.getUserID(userEmail, (err, userID) => {
-        if (err) {
-          console.log('err: ', err);
-          res.status(500).json({ error: err });
-        } else {
-          myBookmarks.saveBookmark(
-            userID[0].user_id, bookmarkToSave.url, bookmarkToSave.title, (err, url) => {
-              if (err) {
-                console.log('err: ', err);
-                res.status(500).json({ error: err });
-              } else {
-                res.sendStatus(200);
-              }
-            });
-        }
+        myUsers.getUserID(userEmail, (err, userID) => {
+          if (err) {
+            console.log('err: ', err);
+            res.status(500).json({ error: err });
+          } else {
+            myBookmarks.saveBookmark(
+              userID[0].user_id, bookmarkToSave.url, bookmarkToSave.title, (err, url) => {
+                if (err) {
+                  console.log('err: ', err);
+                  res.status(500).json({ error: err });
+                } else {
+                  res.sendStatus(200);
+                }
+              });
+          }
+        });
       });
-    });
+    } else {
+      const err = new Error('not a valid url')
+      res.status(500).json({ error: err });
+    }
   });
 
   app.get('/api/bookmarks', (req, res) => {
@@ -166,7 +172,6 @@ const server = function server(db) {
         res.status(500).json({ error: err });
       } else {
         myBookmarks.getList(userID[0].user_id, (err, data) => {
-          console.log(data);
           res.json(data);
         });
       }
