@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const users = require('./users.js');
 const bookmarks = require('./bookmarks.js');
 const flash = require('connect-flash');
-const getTitleAtUrl = require('get-title-at-url');
+const title = require('url-to-title');
 const validUrl = require('valid-url');
 
 // const bcrypt = require('bcrypt-nodejs');
@@ -131,11 +131,23 @@ const server = function server(db) {
     var url = req.body.url;
     let bookmarkToSave = {};
     if (validUrl.isUri(url)) {
-      getTitleAtUrl(url, function(title) {
+
+//       title(url, function(err, title) {
+//     if(!err) {
+//         console.log("tomi",title); // rikukissa/url-to-title
+//     }
+// });
+
+      title(url, function(err, title) {
+        if(!err){
+          if(title.length > 120){
+            title = title.substring(0, 120);
+          }
         bookmarkToSave = {
           url: url,
           title: title,
         };
+        }
       // Async call to get user ID based on current email
         myUsers.getUserID(userEmail, (err, userID) => {
           if (err) {
