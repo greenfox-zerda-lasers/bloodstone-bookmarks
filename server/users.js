@@ -20,7 +20,7 @@ const users = function users(queryFunction) {
     lookUpUser: lookUpUser,
     verifyPassword: verifyPassword,
     registerUser: registerUser,
-    getUserID: getUserID,
+    getUserID: getUserID
   };
 };
 

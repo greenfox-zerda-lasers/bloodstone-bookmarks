@@ -36,7 +36,7 @@ const server = function server(db) {
   // Auth function
   const auth = function auth(req, res, next) {
     if (!req.isAuthenticated()) {
-      res.send(401);
+      res.sendStatus(401);
     } else {
       next();
     }
@@ -54,19 +54,19 @@ const server = function server(db) {
           return done(err);
         }
         // user not found
-        if (!user) {
+        if (!user[0]) {
           return done(null, false);
         }
         // wrong password
-        if (!myUsers.verifyPassword(user, password)) {
+        if (!myUsers.verifyPassword(user[0], password)) {
           return done(null, false);
         }
-        return done(null, { email: user.email });
+        return done(null, { email: user[0].email });
       });
     }
   ));
 
-  // Serialize & deserialize user
+  // Serialize & deserialize user NOTE: still dont know what it does
   passport.serializeUser((user, done) => {
     done(null, user);
   });
@@ -79,7 +79,7 @@ const server = function server(db) {
 
   // USER & SESSION
 
-  let userEmail = "";
+  let userEmail = '';
   // Login
   app.post('/api/login', passport.authenticate('local-login', {
     failureFlash: true,
@@ -91,7 +91,7 @@ const server = function server(db) {
 
   // Logout
   app.post('/api/logout', (req, res) => {
-    userEmail = "";
+    userEmail = '';
     req.logOut();
     res.sendStatus(200);
   });
@@ -106,18 +106,18 @@ const server = function server(db) {
     myUsers.lookUpUser(req.body.email, (err, user) => {
       if (err) {                  // db connection error
         console.log('err: ', err);
-        res.send(err);
-      } else if (user) {          // user found
-        console.log('the user had registered already: ', user);
-        res.send(403);
+        res.status(500).json({ error: err });
+      } else if (user[0]) {          // user found
+        console.log('the user had registered already: ', user[0]);
+        res.sendStatus(403);
       } else {                     // send back the registered users email
         myUsers.registerUser(req.body.email, req.body.password, (err, user) => {
-          console.log('registered user: ', user);
-          req.login(user, (err) => {
+          console.log('registered user: ', user[0]);
+          req.login(user[0], (err) => {
             if (err) {
-              res.send(err);
+              res.status(500).json({ error: err });
             } else {
-              res.json(user);
+              res.json(user[0]);
             }
           });
         });
@@ -130,34 +130,51 @@ const server = function server(db) {
   app.post('/api/bookmarks', (req, res) => {
     var url = req.body.url;
     let bookmarkToSave = {};
-    if (validUrl.isUri(url)){
-        console.log('Looks like an URI')
-    getTitleAtUrl(url, function(title) {
-      bookmarkToSave = {
-        url: url,
-        title: title,
-      };
+    if (validUrl.isUri(url)) {
+      getTitleAtUrl(url, function(title) {
+        bookmarkToSave = {
+          url: url,
+          title: title,
+        };
       // Async call to get user ID based on current email
-      myUsers.getUserID(userEmail, (err, userID) => {
-        if (err) {
-          console.log('err: ', err);
-          res.send(err);
-        } else {
-          myBookmarks.saveBookmark(userID.user_id, bookmarkToSave.url, bookmarkToSave.title, (err, url) => {
-            if (err) {
-              console.log('err: ', err);
-              res.send(err);
-            } else {
-              res.sendStatus(200);
-            }
-          });
-        }
+        myUsers.getUserID(userEmail, (err, userID) => {
+          if (err) {
+            console.log('err: ', err);
+            res.status(500).json({ error: err });
+          } else {
+            myBookmarks.saveBookmark(
+              userID[0].user_id, bookmarkToSave.url, bookmarkToSave.title, (err, url) => {
+                if (err) {
+                  console.log('err: ', err);
+                  res.status(500).json({ error: err });
+                } else {
+                  res.sendStatus(200);
+                }
+              });
+          }
+        });
       });
-    });
-  } else {
-    console.log('Not a URI');
-  }
+    } else {
+      const err = new Error('not a valid url')
+      res.status(500).json({ error: err });
+    }
+  });
 
+  app.get('/api/bookmarks', (req, res) => {
+    if (!req.isAuthenticated()) {
+      res.sendStatus(401);
+      return;
+    }
+    myUsers.getUserID(userEmail, (err, userID) => {
+      if (err) {
+        console.log('err: ', err);
+        res.status(500).json({ error: err });
+      } else {
+        myBookmarks.getList(userID[0].user_id, (err, data) => {
+          res.json(data);
+        });
+      }
+    });
   });
 
   // Return app
