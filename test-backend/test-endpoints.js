@@ -8,6 +8,9 @@ const sinon = require('sinon');
 
 const server = require('../server/server.js');
 
+// ************Requred packages************
+const bcrypt = require('bcrypt-nodejs');
+
 // ************   Test cases   *************
 
 test.serial('If it cannot connect to db server or some error occured during the query, the status should be 500', async t => {
@@ -21,7 +24,7 @@ test.serial('If it cannot connect to db server or some error occured during the 
 
   const res = await request(myServer)
     .post('/api/login')
-    .send({ email: 'a@a.hu', password: 'error in db' });
+    .send({ email: 'a@a.hu', password: 'aaa' });
 
   t.is(res.status, 500);
 
@@ -49,13 +52,13 @@ test.serial('after unsuccesfull login it returns 401', async t => {
   t.plan(1);
 
   const queryDbStub = sinon.stub();
-  queryDbStub.callsArgWithAsync(1, null, [{ user_id: 1, email: 'a@a.hu', password: 'a' }]);
+  queryDbStub.callsArgWithAsync(1, null, [{ user_id: 1, email: 'a@a.hu', password: bcrypt.hashSync('a') }]);
 
   const myServer = server(queryDbStub);
 
   const res = await request(myServer)
       .post('/api/login')
-      .send({ email: 'a@a.hu', password: 'unsuccesfull login' });
+      .send({ email: 'a@a.hu', password: 'aa' });
 
   t.is(res.status, 401);
 
@@ -66,7 +69,7 @@ test.serial('after succesfull login it returns 200 status and an object', async 
   t.plan(2);
 
   const queryDbStub = sinon.stub();
-  queryDbStub.callsArgWithAsync(1, null, [{ user_id: 1, email: 'a@a.hu', password: 'a' }]);
+  queryDbStub.callsArgWithAsync(1, null, [{ user_id: 1, email: 'a@a.hu', password: bcrypt.hashSync('a') }]);
 
   const myServer = server(queryDbStub);
 
@@ -104,7 +107,7 @@ test.serial('after unsuccesfull register (user exists) it returns 403 status', a
   t.plan(3);
 
   const queryDbStub = sinon.stub();
-  queryDbStub.callsArgWithAsync(1, null, [{ user_id: 1, email: 'a@a.hu', password: 'a' }]);
+  queryDbStub.callsArgWithAsync(1, null, [{ user_id: 1, email: 'a@a.hu', password: bcrypt.hashSync('a') }]);
 
   const myServer = server(queryDbStub);
 
