@@ -9,17 +9,18 @@ const queryDb = function (queryText, callback) {
     }
     // execute a query on our database
     client.query(queryText, function (err, result) {
+      // handling error or invoke callback
       if (err) {
         callback(err);
+      } else {
+        callback(null, result.rows);
       }
       // disconnect the client
       client.end(function (err) {
         if (err) {
-          callback(err);
+          console.log(err);
         }
       });
-      // callback
-      callback(null, result.rows[0]);
     });
   });
 };

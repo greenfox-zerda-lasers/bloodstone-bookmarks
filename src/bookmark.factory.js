@@ -7,12 +7,21 @@ app.factory('bookmarkFactory', ['$location', '$http', '$rootScope', '$log', func
         $log.log('DEBUG: Bookmark saved, details: ', response);
       })
       .catch(function (err) {
-        console.log('Operation error: ', err);
+        $log.log('Operation error: ', err);
       });
   };
+
+  const getBookmarks = function () {
+    return $http.get('/api/bookmarks')
+    .catch(function (err) {
+      $log.log('Operation error: ', err);
+    });
+  };
+
 
   // Reveal public methods:
   return {
     add: addBookmark,
+    get: getBookmarks
   };
 }]);

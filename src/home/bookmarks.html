@@ -7,7 +7,7 @@
   </header>
   <main class="mainList">
     <ul class ="linksContainer">
-      <li class="links" ng-repeat="link in dummyLinks"><p>Title: {{link.title}}</p><p> Url:  {{link.url}}</p></li>
+      <li class="links" ng-repeat="link in links"><p>Title: {{link.title}}</p><p> Url:  <a target="_blank" href="{{link.url}}">{{link.url}}</a></p></li>
     </ul>
     <!-- Footer and link adding button -->
     <footer>
