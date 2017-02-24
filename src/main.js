@@ -1,5 +1,5 @@
 require('angular');
-require('angular-mocks');
+// require('angular-mocks');
 require('./scss/style.scss');
 require('./app.js');
 require('./login/login.controller.js');
