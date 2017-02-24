@@ -1,41 +1,43 @@
 (function () {
-  angular.module('app').controller('BookmarksController', ['$scope', '$rootScope', '$http', '$location', '$log', 'bookmarkFactory', function ($scope, $rootScope, $http, $location, $log, bookmarkFactory) {
-    $scope.getLinks = () => {
+  angular.module('app').controller('BookmarksController', ['$http', '$location', '$log', 'bookmarkFactory', 'userSession', function (
+    $http, $location, $log, bookmarkFactory, userSession) {
+    const vm = this;
+    vm.getLinks = () => {
       bookmarkFactory.get()
         .then((response) => {
           $log.log(response);
-          $scope.links = response.data;
+          vm.links = response.data;
         });
     };
 
-    $scope.showInputBox = false;
-    $scope.logout = () => {
+    vm.showInputBox = false;
+    vm.logout = () => {
       $http.post('/api/logout')
         .then(() => {
-          $rootScope.currentUser = null;
+          userSession.currentUser = null;
           $location.url('/login');
         });
     };
 
-    $scope.onAddClick = function () {
-      $scope.showInputBox = true;
+    vm.onAddClick = function () {
+      vm.showInputBox = true;
     };
 
-    $scope.saveBookmark = function () {
+    vm.saveBookmark = function () {
       const stringJSON = {
-        url: $scope.newURL,
+        url: vm.newURL,
       };
       // TODO: 1. Parse URL; 2. Fetch title (+img, +desc); 3. Save title 4. Cache img, desc(?)
       bookmarkFactory.add(stringJSON)
       .then(() => {
-        $scope.getLinks();
+        vm.getLinks();
       });
       // Clear input field and close popup
       // TODO: If everything went well
-      $scope.newURL = null;
-      $scope.showInputBox = false;
+      vm.newURL = null;
+      vm.showInputBox = false;
     };
 
-    $scope.getLinks();
+    vm.getLinks();
   }]);
 }());
