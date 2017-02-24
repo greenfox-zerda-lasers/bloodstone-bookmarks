@@ -1,8 +1,8 @@
 require('angular');
 require('./scss/style.scss');
 require('./app.js');
-require('./usersession.factory.js');
-require('./bookmark.factory.js');
-require('./login.controller.js');
-require('./registration.controller.js');
-require('./bookmarks.controller.js');
+require('./login/login.controller.js');
+require('./register/registration.controller.js');
+require('./login/usersession.factory.js');
+require('./home/bookmark.factory.js');
+require('./home/bookmarks.controller.js');
