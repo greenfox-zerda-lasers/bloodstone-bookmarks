@@ -7,18 +7,18 @@
   </header>
   <main class="mainList">
     <ul class ="linksContainer">
-      <li class="links" ng-repeat="link in links"><p>Title: {{link.title}}</p><p> Url:  <a target="_blank" href="{{link.url}}">{{link.url}}</a></p></li>
+      <li class="links" ng-repeat="link in bookmark.links"><p>Title: {{link.title}}</p><p> Url:  <a target="_blank" href="{{link.url}}">{{link.url}}</a></p></li>
     </ul>
     <!-- Footer and link adding button -->
     <footer>
-      <div class="circle" ng-click="onAddClick()">
+      <div class="circle" ng-click="bookmark.onAddClick()">
         <div class="plusURL">
           <span class="popupBtn">+</span>
-          <div class="addURL" ng-show="showInputBox">
-            <input class="addURLInput" type="text" placeholder="Add url:" ng-model="newURL" ng-keypress="($event.charCode==13)? saveBookmark() : return">
+          <div class="addURL" ng-show="bookmark.showInputBox">
+            <input class="addURLInput" type="text" placeholder="Add url:" ng-model="bookmark.newURL" ng-keypress="($event.charCode==13)? bookmark.saveBookmark() : return">
           </div>
-          <div class="triangle trianglePosition" ng-show="showInputBox"></div>
-          <div class="triangle triangle-shadow" ng-show="showInputBox"></div>
+          <div class="triangle trianglePosition" ng-show="bookmark.showInputBox"></div>
+          <div class="triangle triangle-shadow" ng-show="bookmark.showInputBox"></div>
         </div>
       </div>
       <p class="team">Team Zerda Lasers BloodStone, Green Fox Academy, 2017 | <a href="http://bloodstonedevelopment.tk">bloodstonedevelopment.tk</a></p>

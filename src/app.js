@@ -10,7 +10,7 @@ angular.module('app').config(['$routeProvider', function routeProvider($routePro
   $routeProvider
   .when('/login', {
     templateUrl: './views/login.html',
-    controller: 'LoginController'
+    controller: 'LoginController as login'
   })
   .when('/register', {
     templateUrl: './views/register.html',
@@ -27,7 +27,7 @@ angular.module('app').config(['$routeProvider', function routeProvider($routePro
 
 angular.module('app').run(['$rootScope', '$location', '$http', '$log', 'userSession', function check($rootScope, $location, $http, $log, userSession) {  // TODO await async to prevent load the protected view
   $rootScope.$on('$routeChangeStart', (event, next) => {
-    if (next.$$route.originalPath === '/home') {
+    if (next.$$route && next.$$route.originalPath === '/home') {
       userSession.checkLoggedin()
       .then((response) => {
         $log.log('Logged in response: ', response);
