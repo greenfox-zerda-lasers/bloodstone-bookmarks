@@ -15,7 +15,7 @@ angular.module('app').factory('bookmarkFactory', ['$location', '$http', '$rootSc
       $log.log('Operation error: ', err);
     });
   };
-  
+
   // Reveal public methods:
   return {
     add: addBookmark,
