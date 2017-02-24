@@ -83,7 +83,7 @@ const server = function server(db) {
     failureFlash: true,
   }), (req, res) => {
     // Passport puts authenticated user in req.user.
-    res.json(req.user.email);
+    res.status(200).json(req.user.email);
   });
 
   // Logout
@@ -94,7 +94,7 @@ const server = function server(db) {
 
   // Loggedin
   app.get('/api/loggedin', (req, res) => {
-    res.status(401).json(req.isAuthenticated() ? req.user : '0');
+    res.status(200).json(req.isAuthenticated() ? req.user : '0');
   });
 
   // Register
