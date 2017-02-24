@@ -10,6 +10,7 @@
 
     $scope.showInputBox = false;
     $scope.logout = () => {
+      console.log('logout');
       $http.post('/api/logout')
         .then(() => {
           $rootScope.currentUser = null;
