@@ -18,7 +18,6 @@ app.factory('bookmarkFactory', ['$location', '$http', '$rootScope', '$log', func
     });
   };
 
-
   // Reveal public methods:
   return {
     add: addBookmark,
