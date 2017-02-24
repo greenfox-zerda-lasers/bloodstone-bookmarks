@@ -1,5 +1,4 @@
 const bookmarks = function bookmarks(queryFunction) {
-
   const saveBookmark = (userID, url, title, success) => {
     // ID, user id, url, title
     // usr ID?

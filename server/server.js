@@ -78,26 +78,23 @@ const server = function server(db) {
 
   // USER & SESSION
 
-  let userEmail = '';
   // Login
   app.post('/api/login', passport.authenticate('local-login', {
     failureFlash: true,
   }), (req, res) => {
     // Passport puts authenticated user in req.user.
-    userEmail = req.user.email;
     res.json(req.user.email);
   });
 
   // Logout
   app.post('/api/logout', (req, res) => {
-    userEmail = '';
     req.logOut();
     res.sendStatus(200);
   });
 
   // Loggedin
   app.get('/api/loggedin', (req, res) => {
-    res.send(req.isAuthenticated() ? req.user : '0');
+    res.status(401).json(req.isAuthenticated() ? req.user : '0');
   });
 
   // Register
