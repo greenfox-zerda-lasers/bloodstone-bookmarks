@@ -15,17 +15,17 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'dist/bundle.js',
+      'src/test-main.js',
+      // 'dist/bundle.js',
       // 'node_modules/angular-mocks/*.js',
-      // 'src/*.js',
       'test-frontend/*.js',
     ],
 
 
     // list of files to exclude
-    exclude: [
-      'src/main.js'
-    ],
+    // exclude: [
+    //   'src/main.js'
+    // ],
 
 
     // preprocess matching files before serving them to the browser

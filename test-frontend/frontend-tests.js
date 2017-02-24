@@ -25,11 +25,11 @@ describe('Registration controller', function() {
   });
 
   describe('register', function () {
-    xit('should be defined', function() {
+    it('should be defined', function() {
       expect(RegistrationController).toBeDefined();
     });
 
-    xit('should have Hello World message', function() {
+    it('should have Hello World message', function() {
       expect(RegistrationController.message).toEqual('Hello world');
     });
 
