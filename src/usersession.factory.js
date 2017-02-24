@@ -1,13 +1,14 @@
-angular.module('app').factory('userSession', ['$location', '$http', '$rootScope', '$log', function ($location, $http, $rootScope, $log) {
+angular.module('app').factory('userSession', ['$location', '$http', '$log', function ($location, $http, $log) {
+  let currentUser = '';
+
   const login = loginData => $http
     .post('/api/login', JSON.stringify(loginData))
     .then((response) => {
       $log.log('Login response: ', response);
       if (loginData.email === response.data) {
-        $rootScope.currentUser = response; // NOTE: Plox don't store this in the rootScope.
+        currentUser = response;
         $location.path('/home');
       }
-      // NOTE: What if email does not match? -> tamasc: redirects to the login page
     })
     .catch((err) => {
       $log.log('Login error: ', err);
@@ -32,5 +33,6 @@ angular.module('app').factory('userSession', ['$location', '$http', '$rootScope'
     login: login,
     register: register,
     checkLoggedin: checkLoggedin,
+    currentUser: currentUser
   };
 }]);
