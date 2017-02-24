@@ -21,11 +21,13 @@ angular.module('app').config(['$routeProvider', function routeProvider($routePro
     controller: 'BookmarksController as bookmark',
   })
   .otherwise({
-    redirectTo: '/login', // TODO: Alert user of not being logged in
+    redirectTo: '/login',
   });
 }]);
 
-angular.module('app').run(['$rootScope', '$location', '$http', '$log', 'userSession', function check($rootScope, $location, $http, $log, userSession) {  // TODO await async to prevent load the protected view
+// Managing protected views
+
+angular.module('app').run(['$rootScope', '$location', '$http', '$log', 'userSession', function check($rootScope, $location, $http, $log, userSession) {
   $rootScope.$on('$routeChangeStart', (event, next) => {
     if (next.$$route && next.$$route.originalPath === '/home') {
       userSession.checkLoggedin()

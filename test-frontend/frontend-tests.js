@@ -33,7 +33,7 @@ describe('Registration controller', function() {
       expect(RegistrationController.message).toEqual('Hello world');
     });
 
-    xit('userRegister function should be defined', function() {
+    it('should have method to register new user', function() {
       expect(RegistrationController.userRegister).toBeDefined();
     });
 
@@ -55,12 +55,12 @@ describe('Login controller', function() {
     });
   });
 
-  describe('register', function () {
-    xit('should be defined', function() {
+  describe('login', function () {
+    it('should be defined', function() {
       expect(LoginController).toBeDefined();
     });
 
-    xit('should have function to log in user', function() {
+    it('should have function to log in user', function() {
       expect(LoginController.userLogin).toBeDefined();
     });
   });
@@ -81,17 +81,17 @@ describe('Bookmarks controller', function() {
     });
   });
 
-  describe('register', function () {
-    xit('should be defined', function() {
+  describe('bookmarks', function () {
+    it('should be defined', function() {
       expect(BookmarksController).toBeDefined();
     });
 
     xit('should have method to render bookmarks', function() {
-      expect(BookmarksController).toBeDefined();
+      expect(BookmarksController.getList).toBeDefined();
     });
 
-    xit('should have method to add bookmarks', function() {
-      expect(BookmarksController).toBeDefined();
+    xit('should have method to add new bookmark', function() {
+      expect(BookmarksController.saveBookmark).toBeDefined();
     });
   });
 });

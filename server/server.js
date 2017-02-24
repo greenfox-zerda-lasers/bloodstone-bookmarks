@@ -57,7 +57,7 @@ const server = function server(db) {
           return done(null, false);
         }
         // wrong password
-        if (!bcrypt.compareSync(password, user[0].password)) {
+        if (!bcrypt.compareSync(password, user[0].password)) { // NOTE: First is pw, second is HASH
           return done(null, false);
         }
         return done(null, { email: user[0].email });
@@ -65,7 +65,7 @@ const server = function server(db) {
     }
   ));
 
-  // Serialize & deserialize user NOTE: still dont know what it does
+  // Serialize & deserialize user
   passport.serializeUser((user, done) => {
     done(null, user);
   });
@@ -126,9 +126,9 @@ const server = function server(db) {
   });
 
   // BOOKMARKS
-  // Post new bookmark
+  // Save new bookmark
   app.post('/api/bookmarks', (req, res) => {
-    var url = req.body.url;
+    let url = req.body.url;
     let bookmarkToSave = {};
     if (validUrl.isUri(url)) {
       title(url, function(err, title) {
@@ -183,7 +183,6 @@ const server = function server(db) {
     }
   });
 
-  // Return app
   return app;
 };
 

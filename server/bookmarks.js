@@ -1,8 +1,6 @@
 const bookmarks = function bookmarks(queryFunction) {
   const saveBookmark = (userID, url, title, success) => {
-    return new Promise(function (resolve, reject){
       queryFunction(`INSERT INTO bookmarks (user_id, url, title) VALUES ('${userID}', '${url}', '${title}') RETURNING (url)`, success);
-    })
   };
 
   const getList = (userID, success) => {
