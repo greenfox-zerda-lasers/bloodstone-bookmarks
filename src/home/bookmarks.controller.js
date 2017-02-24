@@ -12,6 +12,7 @@
 
     vm.showInputBox = false;
     vm.logout = () => {
+      $log.log('logout');
       $http.post('/api/logout')
         .then(() => {
           userSession.currentUser = null;

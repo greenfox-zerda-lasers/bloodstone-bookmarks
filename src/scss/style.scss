@@ -246,3 +246,16 @@ input.addURLInput::-webkit-input-placeholder {
   top: 33px;
   left: -16.5px;
 }
+
+.logOut{
+  position: fixed;
+  top: 36px;
+  right: 3%;
+  color: white;
+  font-size: 24px;
+  font-family: $basicFontFamily;
+}
+
+.logOut:hover {
+  border-bottom: 1px solid white;
+}
