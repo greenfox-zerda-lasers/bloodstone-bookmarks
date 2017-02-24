@@ -122,7 +122,7 @@ test.serial('after unsuccesfull register (user exists) it returns 403 status', a
   queryDbStub.reset();
 });
 
-test.skip.serial('checking a logged in user returns 200 and the email', async t => {
+test.serial('checking a logged in user returns 200 and the email', async t => {
   t.plan(3);
 
   const queryDbStub = sinon.stub();
@@ -154,27 +154,15 @@ test.skip.serial('checking a logged in user returns 200 and the email', async t 
 test.serial('checking a not logged in user returns 401', async t => {
   t.plan(2);
 
-  const queryDbStub = sinon.stub();
-  queryDbStub.callsArgWithAsync(1, null, [{ user_id: 1, email: 'a@a.hu', password: bcrypt.hashSync('a') }]);
-
+  // setup myserver with fake db
+  const queryDbStub = () => 0;
   const myServer = server(queryDbStub);
 
-  // login to get a session cookie
-  const res1 = await request(myServer)
-      .post('/api/login')
-      .send({ email: 'a@a.hu', password: 'a' });
-
-  const cookie = res1.headers['set-cookie'][0];
-  console.log(cookie);
-
   // check the session
-  const res2 = await request(myServer)
+  const res = await request(myServer)
       .get('/api/loggedin')
-      .set('cookie', cookie)
       .send();
 
-  t.is(typeof res2, 'object');
-  t.is(res2.status, 401);
-
-  queryDbStub.reset();
+  t.is(typeof res, 'object');
+  t.is(res.status, 401);
 });

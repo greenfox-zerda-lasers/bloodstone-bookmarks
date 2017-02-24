@@ -94,7 +94,11 @@ const server = function server(db) {
 
   // Loggedin
   app.get('/api/loggedin', (req, res) => {
-    res.status(200).json(req.isAuthenticated() ? req.user : '0');
+    if (req.isAuthenticated()) {
+      res.status(200).json(req.user);
+    } else {
+      res.status(401).json('');
+    }
   });
 
   // Register
