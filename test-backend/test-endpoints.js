@@ -121,3 +121,48 @@ test.serial('after unsuccesfull register (user exists) it returns 403 status', a
 
   queryDbStub.reset();
 });
+
+test.serial('checking a logged in user returns 200 and the email', async t => {
+  t.plan(3);
+
+  const queryDbStub = sinon.stub();
+  queryDbStub.callsArgWithAsync(1, null, [{ user_id: 1, email: 'a@a.hu', password: bcrypt.hashSync('a') }]);
+
+  const myServer = server(queryDbStub);
+
+  // login to get a session cookie
+  const res1 = await request(myServer)
+      .post('/api/login')
+      .send({ email: 'a@a.hu', password: 'a' });
+
+  const cookie = res1.headers['set-cookie'][0];
+  console.log(cookie);
+
+  // check the session
+  const res2 = await request(myServer)
+      .get('/api/loggedin')
+      .set('cookie', cookie)
+      .send();
+
+  t.is(typeof res2, 'object');
+  t.is(res2.body.email, 'a@a.hu');
+  t.is(res2.status, 200);
+
+  queryDbStub.reset();
+});
+
+test.serial('checking a not logged in user returns 401', async t => {
+  t.plan(2);
+
+  // setup myserver with fake db
+  const queryDbStub = () => 0;
+  const myServer = server(queryDbStub);
+
+  // check the session
+  const res = await request(myServer)
+      .get('/api/loggedin')
+      .send();
+
+  t.is(typeof res, 'object');
+  t.is(res.status, 401);
+});
