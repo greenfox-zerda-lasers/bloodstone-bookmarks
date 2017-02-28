@@ -1,6 +1,6 @@
 # BloodStone Bookmarks
 
-An online bookmark manager webapp created by Team BloodStone of [Green Fox Academy](http://greenfoxacademy.com)'s 2016-2017 Junior Software Developer c lass, from the Lasers (Web Developer) group.
+An online bookmark manager webapp created by Team BloodStone of [Green Fox Academy](http://greenfoxacademy.com)'s 2016-2017 Junior Software Developer class, from the Lasers (Web Developer) group.
 
 ## About the project
 
