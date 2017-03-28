@@ -10,7 +10,7 @@ const bookmarks = function bookmarks(queryFunction) {
 
   const deleteBookmark = (bookmarkID, success) => {
     console.log('Deleting bookmark.'); // NOTE: Debug.
-    queryFunction(`SELECT url, title, id FROM bookmarks WHERE id = '${bookmarkID}'`, success)
+    queryFunction(`DELETE FROM bookmarks WHERE id = '${bookmarkID}'`, success)
   };
 
   return {
