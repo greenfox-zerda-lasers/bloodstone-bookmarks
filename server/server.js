@@ -128,41 +128,17 @@ const server = function server(db) {
   // BOOKMARKS
   // deleteBookmark bookmark
   app.delete('/api/bookmarks', (req, res) => {
-    let url = req.body.url;
-    let bookmarkToSave = {};
-    if (validUrl.isUri(url)) {
-      title(url, function(err, title) {
-        if(!err){
-          if(title.length > 120){
-            title = title.substring(0, 120);
-          }
-        bookmarkToDelete = {
-          url: url,
-        };
-        }
-      // Async call to get user ID based on current email
-        myUsers.getUserID(req.user.email, (err, userID) => {
-          if (err) {
-            console.log('err: ', err);
-            res.status(500).json({ error: err });
-          } else {
-            myBookmarks.saveBookmark(
-              userID[0].user_id, bookmarkToSave.url, bookmarkToSave.title, (err, url) => {
-                if (err) {
-                  console.log('err: ', err);
-                  res.status(500).json({ error: err });
-                } else {
-                  res.sendStatus(200);
-                }
-              });
-          }
-        });
-      });
-    } else {
-      const err = new Error('not a valid url')
-      res.status(500).json({ error: err });
-    }
+    const bookmarkToDelete = {
+      url: req.body.url,
+    };
+    console.log(bookmarkToDelete);
   });
+
+
+
+
+
+
 
 
   // BOOKMARKS
