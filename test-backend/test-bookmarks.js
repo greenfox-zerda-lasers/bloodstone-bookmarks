@@ -8,7 +8,7 @@ const bookmarks = require('../server/bookmarks.js');
 
 // ************   Test cases   *************
 
-test('check if bookmarks.saveBookmark is exist and fires a callback', (t) => {
+test('check if bookmarks.saveBookmark exists and fires a callback', (t) => {
   t.plan(1);
   let returnValue = '';
   // mocking the db function
@@ -28,7 +28,7 @@ test('check if bookmarks.saveBookmark is exist and fires a callback', (t) => {
   t.is(returnValue, expectedValue);
 });
 
-test('check if bookmarks.getList is exist and fires a callback', (t) => {
+test('check if bookmarks.getList exists and fires a callback', (t) => {
   t.plan(1);
   let returnValue = '';
   // mocking the db function
@@ -43,7 +43,7 @@ test('check if bookmarks.getList is exist and fires a callback', (t) => {
   const myBookmarks = bookmarks(queryDbStub);
   // fire saveBookmark method
   myBookmarks.getList('userID', simpleCallback);
-  const expectedValue = "SELECT url, title FROM users RIGHT JOIN bookmarks ON users.user_id = bookmarks.user_id WHERE users.user_id = 'userID'";
+  const expectedValue = "SELECT url, title, id FROM users RIGHT JOIN bookmarks ON users.user_id = bookmarks.user_id WHERE users.user_id = 'userID'";
 
   t.is(returnValue, expectedValue);
 });
