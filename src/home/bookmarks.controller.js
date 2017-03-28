@@ -10,7 +10,14 @@
         });
     };
 
-    vm.showInputBox = false;
+    // vm.getLinks = () => {
+    //   bookmarkFactory.get()
+    //     .then((response) => {
+    //       $log.log(response);
+    //       vm.links = response.data;
+    //     });
+    // };
+
     vm.logout = () => {
       $log.log('logout');
       $http.post('/api/logout')
@@ -19,7 +26,23 @@
           $location.url('/login');
         });
     };
+// delete
+    vm.deleteBookmark = function(obj_url) {
+      console.log("delete");
+      console.log(obj_url);
+      // change to database
+      const stringJSON = {
+        url: obj_url,
+      };
+      bookmarkFactory.delete(stringJSON)
+      .then(() => {
+        vm.getLinks();
+      });
 
+      // document.getElementById(obj_title).parentNode.remove();
+    }
+
+    vm.showInputBox = false;
     vm.onAddClick = function () {
       vm.showInputBox = true;
     };

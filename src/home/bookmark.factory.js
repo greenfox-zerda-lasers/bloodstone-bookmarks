@@ -16,9 +16,17 @@ angular.module('app').factory('bookmarkFactory', ['$location', '$http', '$rootSc
     });
   };
 
+  const deleteBookmark = function () {
+    return $http.get('/api/bookmarks')
+    .catch(function (err) {
+      $log.log('Operation error: ', err);
+    });
+  };
+
   // Reveal public methods:
   return {
     add: addBookmark,
-    get: getBookmarks
+    get: getBookmarks,
+    delete: deleteBookmark,
   };
 }]);

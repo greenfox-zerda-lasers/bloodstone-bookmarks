@@ -8,7 +8,14 @@
 
   <main class="mainList">
     <ul class ="linksContainer">
-      <li class="links" ng-repeat="link in bookmark.links"><p>Title: {{link.title}}</p><p> Url:  <a target="_blank" href="{{link.url}}">{{link.url}}</a></p></li>
+      <li class="links" ng-repeat="link in bookmark.links">
+        <div class="deleteLink" id = {{link.url}}
+        ng-click='bookmark.deleteBookmark(link.url)'>X</div>
+        <p>Title: {{link.url}}</p>
+        <p> Url:  <a target="_blank" href="{{link.url}}">{{link.url}}</a></p>
+
+      </li>
+
     </ul>
     <!-- Footer and link adding button -->
     <footer>
