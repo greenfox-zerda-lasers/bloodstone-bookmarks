@@ -127,18 +127,13 @@ const server = function server(db) {
 
   // BOOKMARKS
   // deleteBookmark bookmark
-  app.delete('/api/bookmarks', (req, res) => {
+  app.delete('/api/bookmarks/delete', (req, res) => {
+    console.log(req.body);
     const bookmarkToDelete = {
       url: req.body.url,
     };
     console.log(bookmarkToDelete);
   });
-
-
-
-
-
-
 
 
   // BOOKMARKS

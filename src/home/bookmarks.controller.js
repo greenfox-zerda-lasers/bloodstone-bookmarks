@@ -34,6 +34,7 @@
       const stringJSON = {
         url: obj_url,
       };
+      console.log(stringJSON);
       bookmarkFactory.delete(stringJSON)
       .then(() => {
         vm.getLinks();

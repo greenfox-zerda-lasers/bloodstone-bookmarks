@@ -17,7 +17,10 @@ angular.module('app').factory('bookmarkFactory', ['$location', '$http', '$rootSc
   };
 
   const deleteBookmark = function (bookmarkURL) {
-      return $http.delete('/api/bookmarks', JSON.stringify(bookmarkURL))
+    console.log("aaa");
+    console.log(bookmarkURL);
+
+    return $http.delete('/api/bookmarks/delete', JSON.stringify(bookmarkURL))
     .catch(function (err) {
       $log.log('Operation error: ', err);
     });
