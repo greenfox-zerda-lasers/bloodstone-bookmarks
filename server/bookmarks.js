@@ -10,7 +10,7 @@ const bookmarks = function bookmarks(queryFunction) {
   };
 
   const getList = (userID, success) => {
-    queryFunction(`SELECT url, title FROM users RIGHT JOIN bookmarks ON users.user_id = bookmarks.user_id WHERE users.user_id = '${userID}'`, success)
+    queryFunction(`SELECT url, title, id FROM users RIGHT JOIN bookmarks ON users.user_id = bookmarks.user_id WHERE users.user_id = '${userID}'`, success)
   };
 
 

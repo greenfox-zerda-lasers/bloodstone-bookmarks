@@ -128,16 +128,10 @@ const server = function server(db) {
 
   // BOOKMARKS
   // deleteBookmark bookmark
-  app.delete('/api/bookmarks/' + bookmark_id, (req, res) => {
-    console.log(req.body);
-    const bookmarkToDelete = {
-      url: req.body.url,
-    };
-    console.log(bookmarkToDelete);
+  app.delete('/api/bookmarks/:id', (req, res) => {
+    console.log("Bookmark ID to delete: " + req.params.id);
   });
 
-
-  // BOOKMARKS
   // Save new bookmark
   app.post('/api/bookmarks', (req, res) => {
     let url = req.body.url;
@@ -186,7 +180,6 @@ const server = function server(db) {
           console.log('err: ', err);
           res.status(500).json({ error: err });
         } else {
-          console.log(userID);
           myBookmarks.getList(userID[0].user_id, (err, data) => {
             res.json(data);
           });

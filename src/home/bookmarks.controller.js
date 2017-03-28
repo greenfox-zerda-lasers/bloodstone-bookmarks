@@ -10,14 +10,6 @@
         });
     };
 
-    // vm.getLinks = () => {
-    //   bookmarkFactory.get()
-    //     .then((response) => {
-    //       $log.log(response);
-    //       vm.links = response.data;
-    //     });
-    // };
-
     vm.logout = () => {
       $log.log('logout');
       $http.post('/api/logout')
