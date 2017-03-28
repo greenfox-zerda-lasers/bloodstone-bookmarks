@@ -259,3 +259,8 @@ input.addURLInput::-webkit-input-placeholder {
 .logOut:hover {
   border-bottom: 1px solid white;
 }
+
+.deleteLink {
+    display: flex;
+    justify-content: flex-end;
+}

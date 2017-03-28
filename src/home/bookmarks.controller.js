@@ -5,12 +5,10 @@
     vm.getLinks = () => {
       bookmarkFactory.get()
         .then((response) => {
-          $log.log(response);
           vm.links = response.data;
         });
     };
 
-    vm.showInputBox = false;
     vm.logout = () => {
       $log.log('logout');
       $http.post('/api/logout')
@@ -19,7 +17,16 @@
           $location.url('/login');
         });
     };
+// delete
+    vm.deleteBookmark = function(bookmark_id) {
 
+      bookmarkFactory.delete(bookmark_id)
+      .then(() => {
+        vm.getLinks();
+      });
+    }
+
+    vm.showInputBox = false;
     vm.onAddClick = function () {
       vm.showInputBox = true;
     };

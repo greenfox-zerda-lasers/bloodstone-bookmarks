@@ -60,7 +60,7 @@ const server = function server(db) {
         if (!bcrypt.compareSync(password, user[0].password)) { // NOTE: First is pw, second is HASH
           return done(null, false);
         }
-        return done(null, { email: user[0].email });
+        return done(null, { id: user[0].user_id, email: user[0].email });
       });
     }
   ));
@@ -83,6 +83,7 @@ const server = function server(db) {
     failureFlash: true,
   }), (req, res) => {
     // Passport puts authenticated user in req.user.
+    // console.log(req.user); // NOTE: Debug
     res.status(200).json(req.user.email);
   });
 
@@ -126,6 +127,22 @@ const server = function server(db) {
   });
 
   // BOOKMARKS
+
+  // Delete bookmark
+  app.delete('/api/bookmarks/:id', (req, res) => {
+    console.log("Bookmark ID to delete: " + req.params.id);
+    const bookmarkToDelete = req.params.id;
+    myBookmarks.deleteBookmark(bookmarkToDelete, (err, result) => {
+      if (err) {
+        console.log('Error: ', err);
+        res.status(500).json({ error: err});
+      } else {
+        console.log(result);
+        res.sendStatus(200);
+      }
+    })
+  });
+
   // Save new bookmark
   app.post('/api/bookmarks', (req, res) => {
     let url = req.body.url;
@@ -174,7 +191,6 @@ const server = function server(db) {
           console.log('err: ', err);
           res.status(500).json({ error: err });
         } else {
-          console.log(userID);
           myBookmarks.getList(userID[0].user_id, (err, data) => {
             res.json(data);
           });
