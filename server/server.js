@@ -60,7 +60,7 @@ const server = function server(db) {
         if (!bcrypt.compareSync(password, user[0].password)) { // NOTE: First is pw, second is HASH
           return done(null, false);
         }
-        return done(null, { email: user[0].email });
+        return done(null, { id: user[0].user_id, email: user[0].email });
       });
     }
   ));
@@ -83,6 +83,7 @@ const server = function server(db) {
     failureFlash: true,
   }), (req, res) => {
     // Passport puts authenticated user in req.user.
+    // console.log(req.user); // NOTE: Debug
     res.status(200).json(req.user.email);
   });
 
@@ -127,7 +128,7 @@ const server = function server(db) {
 
   // BOOKMARKS
   // deleteBookmark bookmark
-  app.delete('/api/bookmarks/delete', (req, res) => {
+  app.delete('/api/bookmarks/' + bookmark_id, (req, res) => {
     console.log(req.body);
     const bookmarkToDelete = {
       url: req.body.url,

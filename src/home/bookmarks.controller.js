@@ -27,15 +27,9 @@
         });
     };
 // delete
-    vm.deleteBookmark = function(obj_url) {
-      console.log("delete");
-      console.log(obj_url);
-      // change to database
-      const stringJSON = {
-        url: obj_url,
-      };
-      console.log(stringJSON);
-      bookmarkFactory.delete(stringJSON)
+    vm.deleteBookmark = function(bookmark_id) {
+
+      bookmarkFactory.delete(bookmark_id)
       .then(() => {
         vm.getLinks();
       });
