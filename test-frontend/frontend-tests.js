@@ -29,10 +29,6 @@ describe('Registration controller', function() {
       expect(RegistrationController).toBeDefined();
     });
 
-    it('should have Hello World message', function() {
-      expect(RegistrationController.message).toEqual('Hello world');
-    });
-
     it('should have method to register new user', function() {
       expect(RegistrationController.userRegister).toBeDefined();
     });
@@ -75,7 +71,7 @@ describe('Bookmarks controller', function() {
   beforeEach(function () {
     angular.mock.module('app');
 
-    inject(function ($controller, $httpBackend) {
+    inject(function ( $controller, $httpBackend) {
       httpBackend = $httpBackend;
       BookmarksController = $controller('BookmarksController');
     });
@@ -86,12 +82,24 @@ describe('Bookmarks controller', function() {
       expect(BookmarksController).toBeDefined();
     });
 
-    xit('should have method to render bookmarks', function() {
-      expect(BookmarksController.getList).toBeDefined();
+    it('should be defined', function() {
+      expect(BookmarksController.getLinks).toBeDefined();
     });
 
-    xit('should have method to add new bookmark', function() {
+    it('should be defined', function() {
+      expect(BookmarksController.logout).toBeDefined();
+    });
+
+    it('should be defined', function() {
       expect(BookmarksController.saveBookmark).toBeDefined();
+    });
+
+    it('should be defined', function() {
+      expect(BookmarksController.onAddClick).toBeDefined();
+    });
+
+    it('should be defined', function() {
+      expect(BookmarksController.deleteBookmark).toBeDefined();
     });
   });
 });
