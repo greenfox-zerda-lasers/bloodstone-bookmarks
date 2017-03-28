@@ -5,7 +5,6 @@
     vm.getLinks = () => {
       bookmarkFactory.get()
         .then((response) => {
-          $log.log(response);
           vm.links = response.data;
         });
     };
@@ -25,8 +24,6 @@
       .then(() => {
         vm.getLinks();
       });
-
-      // document.getElementById(obj_title).parentNode.remove();
     }
 
     vm.showInputBox = false;

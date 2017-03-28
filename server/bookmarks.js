@@ -4,9 +4,9 @@ const bookmarks = function bookmarks(queryFunction) {
       queryFunction(`INSERT INTO bookmarks (user_id, url, title) VALUES ('${userID}', '${url}', '${title}') RETURNING (url)`, success);
   };
 
-  const deleteBookmark = (userID, success) => {
+  const deleteBookmark = (bookmarkID, success) => {
     console.log('Deleting bookmark.'); // NOTE: Debug.
-    queryFunction(`SELECT url, title FROM users RIGHT JOIN bookmarks ON users.user_id = bookmarks.user_id WHERE users.user_id = '${userID}'`, success)
+    queryFunction(`SELECT url, title, id FROM bookmarks WHERE id = '${bookmarkID}'`, success)
   };
 
   const getList = (userID, success) => {

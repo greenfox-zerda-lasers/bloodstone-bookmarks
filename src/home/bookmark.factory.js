@@ -17,8 +17,6 @@ angular.module('app').factory('bookmarkFactory', ['$location', '$http', '$rootSc
   };
 
   const deleteBookmark = function (bookmark_id) {
-    // console.log("aaa");
-    // console.log(bookmarkURL);
 
     return $http.delete('/api/bookmarks/' + bookmark_id)
     .catch(function (err) {

@@ -127,9 +127,20 @@ const server = function server(db) {
   });
 
   // BOOKMARKS
-  // deleteBookmark bookmark
+
+  // Delete bookmark
   app.delete('/api/bookmarks/:id', (req, res) => {
     console.log("Bookmark ID to delete: " + req.params.id);
+    const bookmarkToDelete = req.params.id;
+    myBookmarks.deleteBookmark(bookmarkToDelete, (err, result) => {
+      if (err) {
+        console.log('Error: ', err);
+        res.status(500).json({ error: err});
+      } else {
+        console.log(result);
+        res.sendStatus(200);
+      }
+    })
   });
 
   // Save new bookmark
