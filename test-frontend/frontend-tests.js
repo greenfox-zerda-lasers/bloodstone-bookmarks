@@ -122,5 +122,11 @@ describe('Bookmarks controller', function() {
       expect(BookmarksController.showInputBox).toBe(true);
     });
 
+    it('should be defined', function() {
+      BookmarksController.onAddClick();
+      BookmarksController.saveBookmark();
+      expect(BookmarksController.showInputBox).toBe(false);
+    });
+
   });
 });
