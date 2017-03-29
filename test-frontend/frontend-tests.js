@@ -101,7 +101,7 @@ describe('Bookmarks controller', function() {
       expect(BookmarksController.deleteBookmark).toBeDefined();
     });
 
-    it('should change location', function() {
+    it('should be defined', function() {
       expect(BookmarksController.logout).toBeDefined();
     });
 
@@ -113,16 +113,16 @@ describe('Bookmarks controller', function() {
       expect(BookmarksController.showInputBox).toBeDefined();
     });
 
-    it('should be defined', function() {
+    it('should be invisible', function() {
       expect(BookmarksController.showInputBox).toBe(false);
     });
 
-    it('should be defined', function() {
+    it('should be visible', function() {
       BookmarksController.onAddClick();
       expect(BookmarksController.showInputBox).toBe(true);
     });
 
-    it('should be defined', function() {
+    it('should be invisible', function() {
       BookmarksController.onAddClick();
       BookmarksController.saveBookmark();
       expect(BookmarksController.showInputBox).toBe(false);
