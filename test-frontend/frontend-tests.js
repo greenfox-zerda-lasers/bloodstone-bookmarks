@@ -59,6 +59,7 @@ describe('Login controller', function() {
     it('should have function to log in user', function() {
       expect(LoginController.userLogin).toBeDefined();
     });
+
   });
 });
 
@@ -67,6 +68,8 @@ describe('Bookmarks controller', function() {
 
   var httpBackend;
   var BookmarksController;
+  // // TODO //
+  // var location;
 
   beforeEach(function () {
     angular.mock.module('app');
@@ -95,11 +98,29 @@ describe('Bookmarks controller', function() {
     });
 
     it('should be defined', function() {
+      expect(BookmarksController.deleteBookmark).toBeDefined();
+    });
+
+    it('should change location', function() {
+      expect(BookmarksController.logout).toBeDefined();
+    });
+
+    it('should be defined', function() {
       expect(BookmarksController.onAddClick).toBeDefined();
     });
 
     it('should be defined', function() {
-      expect(BookmarksController.deleteBookmark).toBeDefined();
+      expect(BookmarksController.showInputBox).toBeDefined();
     });
+
+    it('should be defined', function() {
+      expect(BookmarksController.showInputBox).toBe(false);
+    });
+
+    it('should be defined', function() {
+      BookmarksController.onAddClick();
+      expect(BookmarksController.showInputBox).toBe(true);
+    });
+
   });
 });
