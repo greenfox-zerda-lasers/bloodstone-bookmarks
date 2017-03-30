@@ -29,10 +29,6 @@ describe('Registration controller', function() {
       expect(RegistrationController).toBeDefined();
     });
 
-    it('should have Hello World message', function() {
-      expect(RegistrationController.message).toEqual('Hello world');
-    });
-
     it('should have method to register new user', function() {
       expect(RegistrationController.userRegister).toBeDefined();
     });
@@ -63,6 +59,7 @@ describe('Login controller', function() {
     it('should have function to log in user', function() {
       expect(LoginController.userLogin).toBeDefined();
     });
+
   });
 });
 
@@ -71,11 +68,13 @@ describe('Bookmarks controller', function() {
 
   var httpBackend;
   var BookmarksController;
+  // // TODO //
+  // var location;
 
   beforeEach(function () {
     angular.mock.module('app');
 
-    inject(function ($controller, $httpBackend) {
+    inject(function ( $controller, $httpBackend) {
       httpBackend = $httpBackend;
       BookmarksController = $controller('BookmarksController');
     });
@@ -86,12 +85,48 @@ describe('Bookmarks controller', function() {
       expect(BookmarksController).toBeDefined();
     });
 
-    xit('should have method to render bookmarks', function() {
-      expect(BookmarksController.getList).toBeDefined();
+    it('should be defined', function() {
+      expect(BookmarksController.getLinks).toBeDefined();
     });
 
-    xit('should have method to add new bookmark', function() {
+    it('should be defined', function() {
+      expect(BookmarksController.logout).toBeDefined();
+    });
+
+    it('should be defined', function() {
       expect(BookmarksController.saveBookmark).toBeDefined();
     });
+
+    it('should be defined', function() {
+      expect(BookmarksController.deleteBookmark).toBeDefined();
+    });
+
+    it('should be defined', function() {
+      expect(BookmarksController.logout).toBeDefined();
+    });
+
+    it('should be defined', function() {
+      expect(BookmarksController.onAddClick).toBeDefined();
+    });
+
+    it('should be defined', function() {
+      expect(BookmarksController.showInputBox).toBeDefined();
+    });
+
+    it('should be invisible', function() {
+      expect(BookmarksController.showInputBox).toBe(false);
+    });
+
+    it('should be visible', function() {
+      BookmarksController.onAddClick();
+      expect(BookmarksController.showInputBox).toBe(true);
+    });
+
+    it('should be invisible', function() {
+      BookmarksController.onAddClick();
+      BookmarksController.saveBookmark();
+      expect(BookmarksController.showInputBox).toBe(false);
+    });
+
   });
 });
