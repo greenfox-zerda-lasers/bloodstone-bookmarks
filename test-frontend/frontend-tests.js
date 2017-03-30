@@ -113,20 +113,20 @@ describe('Bookmarks controller', function() {
       expect(BookmarksController.showInputBox).toBeDefined();
     });
 
-    it('should be invisible', function() {
-      expect(BookmarksController.showInputBox).toBe(false);
-    });
-
-    it('should be visible', function() {
-      BookmarksController.onAddClick();
-      expect(BookmarksController.showInputBox).toBe(true);
-    });
-
-    it('should be invisible', function() {
-      BookmarksController.onAddClick();
-      BookmarksController.saveBookmark();
-      expect(BookmarksController.showInputBox).toBe(false);
-    });
+    // it('should be invisible', function() {
+    //   expect(BookmarksController.showInputBox).toBe(false);
+    // });
+    //
+    // it('should be visible', function() {
+    //   BookmarksController.onAddClick();
+    //   expect(BookmarksController.showInputBox).toBe(true);
+    // });
+    //
+    // it('should be invisible', function() {
+    //   BookmarksController.onAddClick();
+    //   BookmarksController.saveBookmark();
+    //   expect(BookmarksController.showInputBox).toBe(false);
+    // });
 
   });
 });
