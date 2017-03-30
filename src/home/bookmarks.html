@@ -1,9 +1,10 @@
 
 <section class= "listSite">
   <header>
-    <div class="bigLogo">
-      <div class="small-Logo"></div>
+    <div class="logo-triangle-big">
+      <div class="logo-triangle-small"></div>
     </div>
+    <div class="logOut" ng-click='bookmark.logout()'> Logout</div>
   </header>
 
   <main class="mainList">
@@ -19,7 +20,6 @@
     </ul>
     <!-- Footer and link adding button -->
     <footer>
-      <div class="logOut" ng-click='bookmark.logout()'> Logout</div>
       <div class="circle" ng-click="bookmark.onAddClick()">
         <div class="plusURL">
           <span class="popupBtn">+</span>
