@@ -19,7 +19,10 @@ const server = function server(db) {
   const myUsers = users(db);
   const myBookmarks = bookmarks(db);
 
-  app.use(express.static('dist'));
+  app.use(express.static('dist/'));
+  app.use(express.static('assets/'));
+
+  //app.use('/dist', express.static(path.join(__dirname, 'dist')))
   app.use(flash());
   app.use(bodyParser.json());
 

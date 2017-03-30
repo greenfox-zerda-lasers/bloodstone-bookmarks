@@ -45,4 +45,18 @@ angular.module('app').run(['$rootScope', '$location', '$http', '$log', 'userSess
   });
 }]);
 
+angular.module('app').filter( 'domain', function () {
+  return function ( input ) {
+    var matches,
+        output = "",
+        urls = /\w+:\/\/([\w|\.]+)/;
+
+    matches = urls.exec( input );
+
+    if ( matches !== null ) output = matches[1];
+
+    return output;
+  };
+});
+
 module.exports = angular.module('app');
