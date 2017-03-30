@@ -17,6 +17,7 @@ body {
   justify-content: center;
   margin: 0%;
 }
+
 form {
   display: flex;
   flex-direction: column;
@@ -25,6 +26,7 @@ form {
   background-color: $background;
   box-shadow: $shadow $shadow #112638;
 }
+
 h1 {
   font-family: $ImportantFontFamily, $SecondaryImpFontFamily;
   font-size: 36px;
@@ -32,12 +34,38 @@ h1 {
   color: $importantTextColor;
   margin-bottom: -14px;
 }
+
+h2 {
+    font-size: 20px;
+    margin: 0px 10px 0px;
+}
+
 p {
  font-family: $basicFontFamily, $SecondaryBasicFontFamily;
  font-size: 18px;
  color: $textColor;
  margin-left: 43px;
 }
+
+.link-url {
+ font-size: 16px;
+ margin-left: 12px;
+}
+
+.link-domain {
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 12px;
+  text-transform: uppercase;
+}
+
+.url-icon {
+  width: 50px;
+  height: 50px;
+  margin: 0px;
+  padding: 0px;
+}
+
 input {
   border:none;
   background-color: $importantTextColor;
@@ -77,12 +105,14 @@ button[type="submit"] {
 .send:hover {
   background-color:#ffffff;
 }
+
 .register {
   font-size: $SmallFontSize;
   margin: auto;
   margin-bottom: 55px;
   margin-top: 15px;
 }
+
 a {
    color: #000000;
    text-decoration: none;
@@ -90,25 +120,33 @@ a {
    border-bottom-color: $importantTextColor;
 }
 a:hover {
-  border-bottom-color: blue;
+  border-bottom-color: #023220;
 }
+
 .welcome {
   margin-top: 33px;
 }
+
 .bloodStone {
   margin-left: 122px;
   margin-top: -9px;
 }
+
 .please {
   margin-bottom: 33px;
 }
-header{
-    background-image: $niceBackground;
-    width: $max;
-    height: 106px;
-    margin-bottom: -16px;
+
+header {
+  background-image: linear-gradient(127deg, #360033, #2d1b46 20%, #2c1d48 22%, #0b8793);
+  width: 100%;
+  height: 106px;
+  margin-bottom: -16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.links{
+
+.links {
   width: 32%;
   background-color: $importantTextColor;
   font-family: $basicFontFamily;
@@ -123,7 +161,8 @@ header{
   list-style-type: none;
   word-wrap: break-word;
 }
-.plusURL{
+
+.plusURL {
   width: 94.8px;
   height: 92px;
   background-color: #50e3c2;
@@ -136,7 +175,8 @@ header{
   font-size: 100px;
   font-weight: bold;
 }
-.linksContainer{
+
+.linksContainer {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -144,44 +184,48 @@ header{
   padding-right:0px;
   margin-left: 17px;
 }
-.mainList{
+
+.mainList {
   background-color: #ffffff;
   width: $max;
 }
 
-.popupBtn{
+.popupBtn {
   position: relative;
   top: -10px;
   left: 18px;
 }
-footer{
+
+footer {
   display: flex;
   flex-direction: column;
 }
-.circle{
+
+.circle {
   display: flex;
   flex-direction: row-reverse;
   margin-right: 25px;
 }
-.team{
+
+.team {
   font-family: $basicFontFamily;
   font-size: 12px;
   color: #360033;
-  position: fixed;
-  left: 20px;
-  bottom: 15px;
 }
-.listSite{
+
+.listSite {
   height: 100vh;
   width:100vw;
 }
-.listSitelogin{
+
+.listSitelogin {
   display: flex;
   height: 100vh;
   width:100vw;
   background-image: $niceBackground;
 }
-.addURL{
+
+.addURL {
   position: relative;
   top: -205px;
   left: -220px;
@@ -190,7 +234,8 @@ footer{
   background-color: $background;
   box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.5);
 }
-.addURLInput{
+
+.addURLInput {
   width: 280px;
   height: 20px;
   padding: 8px;
@@ -201,12 +246,14 @@ footer{
   color: #360033;
   font-size: 18px;
 }
+
 input.addURLInput::-webkit-input-placeholder {
   font-family: $basicFontFamily;
   font-size: 18px;
   color: rgba(54, 0, 51, 0.5);
 }
-.triangle{
+
+.triangle {
   width: 0;
   height: 0;
   border-left: 12px solid transparent;
@@ -214,29 +261,31 @@ input.addURLInput::-webkit-input-placeholder {
   border-top: 18px solid $background;
   display: flex;
 }
-.trianglePosition{
+
+.trianglePosition {
   position: relative;
   top: -205px;
   left: 33px;
 }
-.triangle-shadow{
+
+.triangle-shadow {
   position: relative;
   top: -218px;
   left: 38px;
   border-top: 18px solid rgba(0, 0, 0, 0.5);
   z-index: -1;
 }
-.bigLogo{
+
+.logo-triangle-big {
   width: 0;
-	height: 0;
-	border-left: 33px solid transparent;
-	border-right: 33px solid transparent;
-	border-bottom: 66px solid $background;
-  position: relative;
-  top: 20px;
-  left: 20px;
+  height: 0;
+  border-left: 33px solid transparent;
+  border-right: 33px solid transparent;
+  border-bottom: 66px solid #023220;
+  margin-left: 27px;
 }
-.small-Logo{
+
+.logo-triangle-small {
   width: 0;
 	height: 0;
 	border-left: 16.5px solid transparent;
@@ -247,20 +296,23 @@ input.addURLInput::-webkit-input-placeholder {
   left: -16.5px;
 }
 
-.logOut{
-  position: fixed;
-  top: 36px;
-  right: 3%;
+.logout-button {
+  top: -26px;
+  left: 90%;
   color: white;
   font-size: 24px;
-  font-family: $basicFontFamily;
+  font-family: $ImportantFontFamily;
+  margin-right: 27px;
+  cursor: pointer;
 }
-
-.logOut:hover {
+.lobout-button:hover {
   border-bottom: 1px solid white;
 }
 
 .deleteLink {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  margin: 0 4px 0;
+  justify-content: flex-end;
+  font-size: 1.2em;
+  cursor: pointer;
 }

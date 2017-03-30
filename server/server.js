@@ -19,7 +19,10 @@ const server = function server(db) {
   const myUsers = users(db);
   const myBookmarks = bookmarks(db);
 
-  app.use(express.static('dist'));
+  app.use(express.static('dist/'));
+  app.use(express.static('assets/'));
+
+  //app.use('/dist', express.static(path.join(__dirname, 'dist')))
   app.use(flash());
   app.use(bodyParser.json());
 
@@ -159,6 +162,7 @@ const server = function server(db) {
         };
         }
       // Async call to get user ID based on current email
+      if(bookmarkToSave.url !== undefined){
         myUsers.getUserID(req.user.email, (err, userID) => {
           if (err) {
             console.log('err: ', err);
@@ -175,6 +179,9 @@ const server = function server(db) {
               });
           }
         });
+      }else{
+          console.log("url not exist");
+        }
       });
     } else {
       const err = new Error('not a valid url')

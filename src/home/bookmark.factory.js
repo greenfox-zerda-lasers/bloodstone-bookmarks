@@ -24,6 +24,7 @@ angular.module('app').factory('bookmarkFactory', ['$location', '$http', '$rootSc
     });
   };
 
+
   // Reveal public methods:
   return {
     add: addBookmark,
