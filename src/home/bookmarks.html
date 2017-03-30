@@ -4,33 +4,39 @@
     <div class="logo-triangle-big">
       <div class="logo-triangle-small"></div>
     </div>
-    <div class="logOut" ng-click='bookmark.logout()'> Logout</div>
+    <div class="logout-button" ng-click='bookmark.logout()'> Logout</div>
   </header>
 
   <main class="mainList">
     <ul class ="linksContainer">
+
+      <!-- Link card -->
       <li class="links" ng-repeat="link in bookmark.links">
         <div class="deleteLink" id = {{link.id}}
         ng-click='bookmark.deleteBookmark(link.id)'>×</div>
-        <p>Title: {{link.url}}</p>
-        <p> Url:  <a target="_blank" href="{{link.url}}">{{link.url}}</a></p>
-
+        <h2>{{link.title}}</h2>
+        <p class="link-url">Url: <a target="_blank" href="{{link.url}}">{{link.url}}</a></p>
+        <p class="link-domain">*domain*</p>
       </li>
 
     </ul>
-    <!-- Footer and link adding button -->
-    <footer>
-      <div class="circle" ng-click="bookmark.onAddClick()">
-        <div class="plusURL">
-          <span class="popupBtn">+</span>
-          <div class="addURL" ng-show="bookmark.showInputBox">
-            <input class="addURLInput" type="text" placeholder="Add url:" ng-model="bookmark.newURL" ng-keypress="($event.charCode==13)? bookmark.saveBookmark() : return">
-          </div>
-          <div class="triangle trianglePosition" ng-show="bookmark.showInputBox"></div>
-          <div class="triangle triangle-shadow" ng-show="bookmark.showInputBox"></div>
+
+    <!-- Link adding circle button -->
+    <div class="circle" ng-click="bookmark.onAddClick()">
+      <div class="plusURL">
+        <span class="popupBtn">+</span>
+        <div class="addURL" ng-show="bookmark.showInputBox">
+          <input class="addURLInput" type="text" placeholder="Add url:" ng-model="bookmark.newURL" ng-keypress="($event.charCode==13)? bookmark.saveBookmark() : return">
         </div>
+        <div class="triangle trianglePosition" ng-show="bookmark.showInputBox"></div>
+        <div class="triangle triangle-shadow" ng-show="bookmark.showInputBox"></div>
       </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
       <p class="team">Team Zerda Lasers BloodStone, Green Fox Academy, 2017 | <a href="http://bloodstonedevelopment.tk">bloodstonedevelopment.tk</a></p>
     </footer>
+
   </main>
 </section>
