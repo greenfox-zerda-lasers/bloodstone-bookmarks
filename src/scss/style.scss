@@ -36,7 +36,7 @@ h1 {
 }
 
 h2 {
-    font-size: 22px;
+    font-size: 20px;
     margin: 0px 10px 0px;
 }
 
@@ -53,9 +53,10 @@ p {
 }
 
 .link-domain {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   margin-left: 12px;
+  text-transform: uppercase;
 }
 
 .url-icon {
@@ -119,7 +120,7 @@ a {
    border-bottom-color: $importantTextColor;
 }
 a:hover {
-  border-bottom-color: blue;
+  border-bottom-color: #023220;
 }
 
 .welcome {
@@ -280,7 +281,7 @@ input.addURLInput::-webkit-input-placeholder {
   height: 0;
   border-left: 33px solid transparent;
   border-right: 33px solid transparent;
-  border-bottom: 66px solid #50e3c2;
+  border-bottom: 66px solid #023220;
   margin-left: 27px;
 }
 
@@ -300,14 +301,18 @@ input.addURLInput::-webkit-input-placeholder {
   left: 90%;
   color: white;
   font-size: 24px;
-  font-family: "Work Sans";
+  font-family: $ImportantFontFamily;
   margin-right: 27px;
+  cursor: pointer;
 }
 .lobout-button:hover {
   border-bottom: 1px solid white;
 }
 
 .deleteLink {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  margin: 0 4px 0;
+  justify-content: flex-end;
+  font-size: 1.2em;
+  cursor: pointer;
 }
