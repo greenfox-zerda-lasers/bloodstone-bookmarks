@@ -10,7 +10,6 @@ const flash = require('connect-flash');
 const title = require('url-to-title');
 const validUrl = require('valid-url');
 const bcrypt = require('bcrypt-nodejs');
-const path = require('path');
 
 const server = function server(db) {
   // ************ Configure app *************

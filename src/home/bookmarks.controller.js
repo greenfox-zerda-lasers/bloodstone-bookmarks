@@ -2,7 +2,7 @@
   angular.module('app').controller('BookmarksController', ['$http', '$location', '$log', 'bookmarkFactory', 'userSession', function (
     $http, $location, $log, bookmarkFactory, userSession) {
     const vm = this;
-    
+
     vm.getLinks = () => {
       bookmarkFactory.get()
         .then((response) => {
